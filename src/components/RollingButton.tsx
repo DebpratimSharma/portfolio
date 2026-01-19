@@ -28,7 +28,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
 
   return (
     <button
-      className={`group relative overflow-hidden rounded-full border border-white/20 bg-white px-8 py-3 font-medium transition-all hover:border-white ${className}`}
+      className={`group relative overflow-hidden rounded-full border border-white/20  px-8 py-5 font-medium transition-all hover:border-white ${className}`}
       aria-label={rollingText || 'Button'}
       {...props}
     >
