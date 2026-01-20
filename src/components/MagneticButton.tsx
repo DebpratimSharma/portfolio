@@ -19,10 +19,12 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
 
   const mouseX = useSpring(x, { stiffness: 170, damping: 32, mass: 0.5 });
   const mouseY = useSpring(y, { stiffness: 170, damping: 32, mass: 0.5 });
+  const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
+
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e;
-    if (!ref.current) return;
+    if (!canHover ||!ref.current) return;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const factor = 2;
     x.set((e.clientX - (left + width / 2)) * factor);
@@ -41,7 +43,7 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
         onMouseLeave={handleMouseLeave}
         ref={ref}
         style={{ x: mouseX, y: mouseY }}
-        className={`relative flex items-center justify-center cursor-none ${className}`}
+        className={`relative flex items-center justify-center cursor-pointer ${className}`}
       >
         {children}
       </motion.div>

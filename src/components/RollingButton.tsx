@@ -5,6 +5,7 @@ import React from 'react';
 interface RollingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
   containerHeight?: string;
+  textColor?: string;
 }
 
 const RollingButton: React.FC<RollingButtonProps> = ({ 
@@ -12,6 +13,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
   children,
   className = "", 
   containerHeight = "h-5", 
+  textColor = "text-black",
   ...props 
 }) => {
   // Logic: 
@@ -46,7 +48,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
 
         {/* Static Content (Icons) - Swaps color only, no rolling */}
         {staticContent && (
-            <span className="relative z-10 flex items-center text-black transition-colors duration-500 group-hover:text-white">
+            <span className={`relative z-10 flex items-center ${textColor} transition-colors duration-500 group-hover:text-white`}>
                 {staticContent}
             </span>
         )}
@@ -67,7 +69,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
                     className="transform transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2"
                     style={{ transitionDelay: `${index * 0.025}s` }}
                 >
-                    <span className={`${containerHeight} flex items-center justify-center text-black`}>
+                    <span className={`${containerHeight} flex items-center justify-center ${textColor}`}>
                     {char === ' ' ? '\u00A0' : char}
                     </span>
                     <span className={`${containerHeight} flex items-center justify-center text-white`}>

@@ -22,7 +22,11 @@ const HeroTechStack = () => {
     
 
     return (
-        <div className="relative w-full h-full min-h-125 flex items-center justify-center pointer-events-none select-none">
+        <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{  duration: 0.5, delay: 0.5}}
+        className="relative w-full h-full min-h-125 flex items-center justify-center pointer-events-none select-none">
             {/* Central Core System */}
             {isMobile &&(
                 <motion.div 
@@ -46,9 +50,9 @@ const HeroTechStack = () => {
             <motion.div 
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute w-70 h-70 border border-white/5 rounded-full z-50"
+                className="absolute w-70 h-70 border border-white/15 rounded-full z-50"
             >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-70">
                     <motion.div 
                         animate={{ rotate: -360 }} 
                         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -57,7 +61,7 @@ const HeroTechStack = () => {
                         <Globe size={20} className="text-blue-400" />
                     </motion.div>
                 </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-70 translate-y-1/2">
                     <motion.div 
                         animate={{ rotate: -360 }} 
                         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -72,9 +76,9 @@ const HeroTechStack = () => {
             <motion.div 
                 animate={{ rotate: -360 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="absolute w-105 h-105 border border-white/5 rounded-full border-dashed z-40"
+                className="absolute w-105 h-105 border border-white/20 rounded-full  z-40"
             >
-                <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute left-0 top-1/2 -translate-x-1/2 opacity-70 -translate-y-1/2">
                     <motion.div 
                         animate={{ rotate: 360 }} 
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -83,7 +87,7 @@ const HeroTechStack = () => {
                         <Cpu size={20} className="text-green-400" />
                     </motion.div>
                 </div>
-                <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2">
+                <div className="absolute right-0 top-1/2 translate-x-1/2 opacity-70 -translate-y-1/2">
                     <motion.div 
                         animate={{ rotate: 360 }} 
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -92,7 +96,7 @@ const HeroTechStack = () => {
                         <Database size={20} className="text-purple-400" />
                     </motion.div>
                 </div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 opacity-70 -translate-y-1/2">
                     <motion.div 
                         animate={{ rotate: 360 }} 
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -101,7 +105,7 @@ const HeroTechStack = () => {
                         <Terminal size={18} className="text-yellow-400" />
                     </motion.div>
                 </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-70 translate-y-1/2">
                     <motion.div 
                         animate={{ rotate: 360 }} 
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
@@ -111,7 +115,7 @@ const HeroTechStack = () => {
                     </motion.div>
                 </div>
             </motion.div>
-        </div>
+        </motion.div>
     );
 };
 

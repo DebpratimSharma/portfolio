@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-center px-4 overflow-hidden pb-24"
+      className="relative items-center w-full h-screen flex flex-col justify-center px-4 overflow-hidden pb-17 "
     >
       <motion.div
         style={{ y }}
@@ -30,34 +30,56 @@ export default function Hero() {
             Available for work
           </motion.span>
 
-          <h2
-            className="font-serif text-5xl md:text-7xl text-white/80"
+          <motion.h2
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 420, damping: 18 }}
+            className="font-serif text-5xl md:text-7xl text-white/40"
             style={{ fontStyle: "italic" }}
           >
             Hello, It's
-          </h2>
+          </motion.h2>
 
-          <h1 className="relative bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-7xl md:font-extrabold  md:text-8xl tracking-tight mt-2">
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 420, damping: 18, delay: 0.2}}
+            className="relative bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-7xl md:font-extrabold  md:text-8xl tracking-tight mt-2"
+          >
             {PORTFOLIO_DATA.name.toUpperCase()} <br />
             <span className="text-sm font-syne font-bold tracking-wider text-cyan-500 absolute -bottom-2 right-0 z-9999">
               {"Debpratim Sharma".toUpperCase()}
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="mt-6 max-w-md text-white/70 text-xl font-syne">
+          <motion.p
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 420, damping: 18, delay:0.4 }}
+            className="mt-6 max-w-md text-white/70 text-xl font-syne"
+          >
             Full-Stack Web Developer building intelligent, scalable digital
             products.
-          </p>
+          </motion.p>
 
-          <div className="w-full flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", stiffness: 420, damping: 18, delay: 0.6}}
+            className="w-full flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10"
+          >
             <RollingButton text="See works" className="bg-white">
               <ArrowUpRight size={18} />
             </RollingButton>
 
-            <RollingButton text="Download Resume" className="bg-cyan-600/30">
+            <RollingButton
+              text="Download Resume"
+              className="bg-cyan-500/5"
+              textColor="text-white"
+            >
               <MoveDown size={16} />
             </RollingButton>
-          </div>
+          </motion.div>
         </div>
 
         {/* Right Visual */}
@@ -66,17 +88,33 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-10 right-10 flex flex-col gap-6">
+      <motion.div
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 0.7 }}
+        transition={{
+          type: "spring",
+          stiffness: 420, // higher = faster snap
+          damping: 18, // lower = more overshoot
+          mass: 0.7, // lower = quicker response
+        }}
+        className="w-full  absolute top-10 right-0 md:justify-end px-10 flex items-center justify-center gap-10 "
+      >
         <MagneticButton href="https://www.linkedin.com/in/debpratim-sharma-916203267/">
-          <Linkedin />
+          <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl">
+            <Linkedin />
+          </div>
         </MagneticButton>
         <MagneticButton href="https://github.com/DebpratimSharma">
-          <Github />
+          <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl">
+            <Github />
+          </div>
         </MagneticButton>
         <MagneticButton href="">
-          <Mail />
+          <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl">
+            <Mail />
+          </div>
         </MagneticButton>
-      </div>
+      </motion.div>
     </section>
   );
 }
