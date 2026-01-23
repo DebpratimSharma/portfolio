@@ -31,7 +31,7 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   const spotY = useMotionValue(0);
 
   //trigger physics for a premium feel
-  const springConfig = { stiffness: 400, damping: 25, mass: 0.5 };
+  const springConfig = { stiffness: 370, damping: 20, mass: 0.8 };
   const mouseX = useSpring(x, springConfig);
   const mouseY = useSpring(y, springConfig);
 
@@ -61,8 +61,8 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
 
   const background = useMotionTemplate`radial-gradient(
         650px circle at ${spotX}px ${spotY}px, 
-        rgba(255, 255, 255, 0.015),
-        transparent 60%
+        rgba(255, 255, 255, 0.2),
+        transparent 40%
     )`;
 
   const border = useMotionTemplate`
@@ -84,11 +84,11 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
     >
      {/*spotlight */} 
      <motion.div 
-       className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-500"
+       className="pointer-events-none absolute z-10 inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-500"
        style={{background}}
      />
 
-        {/*border highlight */}
+        {/*border highlight curretly disabled for performance reasons 
         <motion.div
           className="pointer-events-none absolute inset-0 rounded-2xl z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
@@ -100,7 +100,7 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
               WebkitMaskComposite: "xor",
               padding: "1px",
           }}
-        />
+        />*/}
 
         <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 

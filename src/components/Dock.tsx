@@ -93,14 +93,6 @@ interface DockProps {
 
 const Dock: React.FC<DockProps> = ({ currentSection }) => {
   const mouseX = useMotionValue(Infinity);
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    window.scrollTo({
-      top: el.offsetTop,
-      behavior: "smooth",
-    });
-  };
   return (
     <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
       <motion.div
@@ -114,19 +106,19 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
         <DockItem
           
           mouseX={mouseX}
-          href="#"
+          href="#hero"
           icon={Sparkles}
           label="Hero"
           active={currentSection === "hero"}
-          onClick={() => scrollTo("hero")}
+          
         />
         <DockItem
           mouseX={mouseX}
-          href="#"
+          href="#projects"
           icon={Code2}
           label="Work"
           active={currentSection === "projects"}
-          onClick={() => scrollTo("projects")}
+          
         />
         <DockItem
           mouseX={mouseX}
@@ -134,7 +126,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={User}
           label="Skills"
           active={currentSection === "skills"}
-          onClick={() => scrollTo("skills")}
+          
         />
         <DockItem
           mouseX={mouseX}
@@ -142,7 +134,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={Layers}
           label="History"
           active={currentSection === "experience"}
-          onClick={() => scrollTo("experience")}
+          
         />
 
         <div className="w-px h-8 bg-white/10 mx-1 mb-2" />
@@ -153,7 +145,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={Mail}
           label="Contact"
           active={currentSection === "contact"}
-          onClick={() => scrollTo("contact")}
+          
         />
       </motion.div>
     </div>

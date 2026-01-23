@@ -12,8 +12,9 @@
 }
 
 html {
-  scroll-behavior: auto; /* required for custom smooth scroll */
+  scroll-behavior: smooth; /* required for custom smooth scroll */
   background-color: #000000; 
+
 }
 
 body {
