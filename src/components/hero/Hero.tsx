@@ -68,13 +68,13 @@ export default function Hero() {
             transition={{ type: "spring", stiffness: 420, damping: 18, delay: 0.6}}
             className="w-full flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10"
           >
-            <RollingButton text="See works" className="bg-white">
+            <RollingButton text="See works" className="bg-white px-8 py-5">
               <ArrowUpRight size={18} />
             </RollingButton>
 
             <RollingButton
               text="Download Resume"
-              className="bg-cyan-500/5"
+              className="bg-cyan-500/5 px-8 py-5"
               textColor="text-white"
             >
               <MoveDown size={16} />

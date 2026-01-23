@@ -4,6 +4,7 @@ import Image from "next/image";
 import BackgroundGlow from "@/components/BackgroundGlow";
 import { useState, useEffect } from "react";
 import Dock from "@/components/Dock";
+import Works from "@/components/works/Works";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -25,10 +26,11 @@ export default function Home() {
   },[]);
 
   return (
-    <div className="min-h-screen bg-transparent relative overflow-x-hidden">
+    <div className="min-h-screen bg-transparent relative overflow-x-hidden pb-40">
       <BackgroundGlow />
       <main className="relative">
         <Hero />
+        <Works />
       </main>
       <Dock currentSection={activeSection} />
     </div>

@@ -11,7 +11,7 @@ interface RollingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const RollingButton: React.FC<RollingButtonProps> = ({ 
   text, 
   children,
-  className = "", 
+  className="px-8 py-5", 
   containerHeight = "h-5", 
   textColor = "text-black",
   ...props 
@@ -30,12 +30,12 @@ const RollingButton: React.FC<RollingButtonProps> = ({
 
   return (
     <button
-      className={`group relative overflow-hidden rounded-full border border-white/20  px-8 py-5 font-medium transition-all hover:border-white ${className}`}
+      className={`group/button relative overflow-hidden rounded-full border border-white/20 font-medium transition-all hover:border-white ${className}`}
       aria-label={rollingText || 'Button'}
       {...props}
     >
       {/* Background Fill Animation */}
-      <div className="absolute inset-0 translate-y-full bg-black transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0" />
+      <div className="absolute inset-0 translate-y-full bg-black transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover/button:translate-y-0" />
 
       {/* Content Wrapper */}
       <div className="relative flex items-center justify-center gap-2">
@@ -48,7 +48,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
 
         {/* Static Content (Icons) - Swaps color only, no rolling */}
         {staticContent && (
-            <span className={`relative z-10 flex items-center ${textColor} transition-colors duration-500 group-hover:text-white`}>
+            <span className={`relative z-10 flex items-center ${textColor} transition-colors duration-500 group-hover/button:text-white`}>
                 {staticContent}
             </span>
         )}
@@ -66,7 +66,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
                 className={`relative overflow-hidden ${containerHeight} flex flex-col justify-start w-auto min-w-[0.6em]`}
                 >
                 <div 
-                    className="transform transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2"
+                    className="transform transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover/button:-translate-y-1/2"
                     style={{ transitionDelay: `${index * 0.025}s` }}
                 >
                     <span className={`${containerHeight} flex items-center justify-center ${textColor}`}>
