@@ -45,8 +45,8 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
     //magnetic pull
     const xPos = clientX - (left + width / 2);
     const yPos = clientY - (top + height / 2);
-    x.set(xPos / 20);
-    y.set(yPos / 20);
+    x.set(xPos / 50);
+    y.set(yPos / 50);
 
     //spotlight position
     spotX.set(clientX - left);
@@ -80,7 +80,7 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
     onMouseLeave = {handleMouseLeave}
     style={{ x: mouseX, y: mouseY }}
     whileHover={{scale: 1.01}} transition={{type: "spring", ...springConfig }}
-    className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-nutral-500/50 backdrop-blur-3xl shadow-2xl ${className}`}
+    className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 backdrop-blur-3xl shadow-2xl ${className}`}
     >
      {/*spotlight */} 
      <motion.div 

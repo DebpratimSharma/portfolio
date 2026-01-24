@@ -28,6 +28,10 @@ export function CustomCursor() {
       y.set(e.clientY);
 
       const target = e.target as Element;
+      if(!(target instanceof Element)){
+        setHovering(false);
+        return;
+      }
       setHovering(
         !!target.closest("a, button, [role='button'], [data-cursor='hover']")
       );

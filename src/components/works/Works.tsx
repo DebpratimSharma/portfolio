@@ -9,10 +9,10 @@ const ProjectCard = dynamic(() => import("./ProjectCard"));
 
 const Works = () => {
   return (
-    <div className="w-full px-72" id='projects'>
+    <div className="max-w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-36 xl:px-72" id='projects'>
       <SectionHeader
-        title="Works"
-        subtitle="A selection of my recent projects."
+        title="Selected Works"
+        subtitle="Curated projects demonstrating my capabilities."
       />
       {/* Work items will go here */}
 
