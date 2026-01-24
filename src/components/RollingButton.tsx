@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface RollingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
@@ -16,6 +16,12 @@ const RollingButton: React.FC<RollingButtonProps> = ({
   textColor = "text-black",
   ...props 
 }) => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+    setIsTouchDevice(mq.matches);
+  }, []);
+
   // Logic: 
   // 1. If 'text' is explicitly provided, use it for the rolling animation. 'children' is treated as the icon.
   // 2. If 'text' is MISSING, and 'children' is a plain string, treat 'children' as the rolling text.
@@ -26,7 +32,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
   const staticContent = isChildrenString && !text ? null : children;
   
   const characters = rollingText.split('');
-  const hasAnimatedContent = characters.length > 0;
+  const hasAnimatedContent = characters.length > 0 && !isTouchDevice;
 
   return (
     <button
@@ -53,7 +59,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
             </span>
         )}
 
-        {/* Rolling Text Animation */}
+        {/* Rolling Text Animation - disabled on touch devices */}
         {hasAnimatedContent && (
             <div 
               className="flex items-center justify-center gap-px notranslate" 
@@ -79,6 +85,13 @@ const RollingButton: React.FC<RollingButtonProps> = ({
                 </div>
             ))}
             </div>
+        )}
+
+        {/* Static Text for Touch Devices */}
+        {!hasAnimatedContent && rollingText && (
+          <span className={`relative z-10 ${textColor} transition-colors duration-500 group-hover/button:text-white`}>
+            {rollingText}
+          </span>
         )}
       </div>
     </button>

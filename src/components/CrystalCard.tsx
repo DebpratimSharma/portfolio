@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   motion,
   motionValue,
@@ -20,6 +20,13 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   className = "",
   onClick,
 }) => {
+
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() =>{
+    const mq = window.matchMedia("(hover: none)and (pointer: coarse)");
+    setIsTouchDevice(mq.matches);
+  },[]);
+
   const ref = useRef<HTMLDivElement>(null);
 
   //magnetic motion
@@ -36,7 +43,8 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   const mouseY = useSpring(y, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+
+    if (!ref.current || isTouchDevice) return;
 
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
@@ -76,17 +84,17 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   return (
     <motion.div
     ref={ref} onClick={onClick}
-    onMouseMove = {handleMouseMove}
-    onMouseLeave = {handleMouseLeave}
-    style={{ x: mouseX, y: mouseY }}
-    whileHover={{scale: 1.01}} transition={{type: "spring", ...springConfig }}
+    onMouseMove = {isTouchDevice? undefined: handleMouseMove}
+    onMouseLeave = {isTouchDevice? undefined: handleMouseLeave}
+    style= {isTouchDevice? undefined: { x: mouseX, y: mouseY }}
+    whileHover= {isTouchDevice? undefined: {scale: 1.01}} transition= {isTouchDevice? undefined: {type: "spring", ...springConfig }}
     className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 backdrop-blur-3xl shadow-2xl ${className}`}
     >
      {/*spotlight */} 
-     <motion.div 
+     {!isTouchDevice &&(<motion.div 
        className="pointer-events-none absolute z-10 inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-500"
        style={{background}}
-     />
+     />)}
 
         {/*border highlight curretly disabled for performance reasons 
         <motion.div

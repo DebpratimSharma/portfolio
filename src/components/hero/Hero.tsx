@@ -11,6 +11,14 @@ import MagneticButton from "../MagneticButton";
 export default function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const onClickWorks = () => {
+    const element = document.getElementById("projects");
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+    const onClickResume =()=>{
+    window.open("#", "_blank");
+    }
+
   return (
     <section
       id="hero"
@@ -43,7 +51,12 @@ export default function Hero() {
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ type: "spring", stiffness: 420, damping: 18, delay: 0.2}}
+            transition={{
+              type: "spring",
+              stiffness: 420,
+              damping: 18,
+              delay: 0.2,
+            }}
             className="relative bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-7xl md:font-extrabold  md:text-8xl tracking-tight mt-2"
           >
             {PORTFOLIO_DATA.name.toUpperCase()} <br />
@@ -55,7 +68,12 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ type: "spring", stiffness: 420, damping: 18, delay:0.4 }}
+            transition={{
+              type: "spring",
+              stiffness: 420,
+              damping: 18,
+              delay: 0.4,
+            }}
             className="mt-6 max-w-md text-white/70 text-xl font-syne"
           >
             Full-Stack Web Developer building intelligent, scalable digital
@@ -65,10 +83,15 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ type: "spring", stiffness: 420, damping: 18, delay: 0.6}}
+            transition={{
+              type: "spring",
+              stiffness: 420,
+              damping: 18,
+              delay: 0.6,
+            }}
             className="w-full flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10"
           >
-            <RollingButton text="See works" className="bg-white px-8 py-5">
+            <RollingButton text="See works" className="bg-white px-8 py-5" onClick={onClickWorks}>
               <ArrowUpRight size={18} />
             </RollingButton>
 
@@ -76,6 +99,7 @@ export default function Hero() {
               text="Download Resume"
               className="bg-cyan-500/5 px-8 py-5"
               textColor="text-white"
+              onClick={onClickResume}
             >
               <MoveDown size={16} />
             </RollingButton>
