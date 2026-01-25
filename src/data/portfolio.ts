@@ -9,9 +9,9 @@ export const PORTFOLIO_DATA = {
     description: "I'm a Full-Stack Developer with a focus on React ecosystem. Beyond the code, I'm an avid hiker and analog photography enthusiast—hobbies that teach me patience and a different perspective on composition.",
   },
   socials: [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
+    { icon: Github, href: "https://github.com/DebpratimSharma", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" }
+    { icon: Mail, href: "mailto:debpratimsharma33@gmail.com", label: "Email" }
   ],
   stack: [
     { name: "Next.js", icon: Globe },
@@ -24,33 +24,33 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       id: 1,
-      title: "Lumina OS",
-      category: "Web Operating System",
-      description: "A complete OS simulation in the browser with a window manager, file system, and multitasking capabilities.",
-      tech: ["React", "Redux", "Styled Components"],
+      title: "Academic OS",
+      category: "Routine and Attendance System",
+      description: "A comprehensive platform to manage academic routines and attendance tracking for institutions.",
+      tech: ["Next.js", "Supabase", "Shadcn UI", "TypeScript", "Tailwind"],
       imageGradient: "from-indigo-500 via-purple-500 to-pink-500",
-      link: "#",
-      github: "#"
+      link: "https://academicos.vercel.app",
+      github: "https://github.com/DebpratimSharma/AcademicOs"
     },
     {
       id: 2,
-      title: "Nebula AI",
-      category: "Generative Interface",
-      description: "Spatial chat interface for LLMs featuring voice synthesis and real-time canvas generation.",
+      title: "SCEEAOT",
+      category: "Student Chapter Platform",
+      description: "A platform for showcasing student chapter of Electrical Engineering Department at Academy of Technology and managing events and activities.",
       tech: ["Next.js 14", "OpenAI", "WebSockets"],
       imageGradient: "from-cyan-500 via-blue-500 to-indigo-500",
-      link: "#",
-      github: "#"
+      link: "https://sceeaot.in",
+      github: "https://github.com/DebpratimSharma/sceeaot-web"
     },
     {
       id: 3,
-      title: "Zenith",
-      category: "E-Commerce Engine",
-      description: "Headless commerce storefront capable of handling 10k+ concurrent users with sub-second loads.",
-      tech: ["Shopify Hydrogen", "Remix", "Redis"],
+      title: "AI Voice Translator",
+      category: "Voice Translation Web App",
+      description: "Translate and synthesize speech in real-time using AI technologies.",
+      tech: ["Next.js", "OpenAI", "ElevenLabs API", "WebMedia", "TypeScript", "Tailwind"],
       imageGradient: "from-emerald-400 via-teal-500 to-cyan-500",
-      link: "#",
-      github: "#"
+      link: "https://ai-voice-translator.vercel.app",
+      github: "https://github.com/DebpratimSharma/voice-to-voice-ai-translator"
     }
   ],
   experience: [
