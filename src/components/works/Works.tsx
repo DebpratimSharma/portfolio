@@ -5,11 +5,11 @@ import { PORTFOLIO_DATA } from "@/data/portfolio";
 // import Projectcard from "./Projectcard";
 import dynamic from "next/dynamic";
 
-const ProjectCard = dynamic(() => import("./ProjectCard"));
+const ProjectCard = dynamic(() => import("@/components/works/ProjectCard"));
 
 const Works = () => {
   return (
-    <div className="max-w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-36 xl:px-72" id='projects'>
+    <div className="max-w-340 mx-auto px-8 " id='projects'>
       <SectionHeader
         title="Selected Works"
         subtitle="Curated projects demonstrating my capabilities."
