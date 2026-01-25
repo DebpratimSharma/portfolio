@@ -10,7 +10,7 @@ import {
   AnimatePresence,
   spring,
 } from "framer-motion";
-import { Sparkles, Code2, User, Layers, Mail } from "lucide-react";
+import { House, Code2, User, Layers, Mail, Briefcase, FolderOpenDot } from "lucide-react";
 
 interface DockItemProps {
   icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
@@ -54,6 +54,9 @@ const DockItem: React.FC<DockItemProps> = ({
   const width = useTransform(distance, [-150, 0, 150], [50, 80, 50]); //?
   const widthSpring = useSpring(width, { damping: 25, stiffness: 200 });
 
+  // Scale the icon based on the springed width for smooth animation
+  const iconScale = useTransform(widthSpring, [50, 80], [1, 1.6]);
+
   return (
     <motion.a
       ref={ref}
@@ -64,7 +67,10 @@ const DockItem: React.FC<DockItemProps> = ({
       style={{ width: widthSpring, height: widthSpring }}
       className="relative flex items-center justify-center rounded-2xl cursor-pointer bg-[#03333b] backdrop-blur-md border border-white/20 text-white"
     >
-      <Icon size={20} strokeWidth={2} />
+      <motion.div style={{ scale: iconScale }}>
+        <Icon size={20} strokeWidth={2} />
+      </motion.div>
+      
       {/*Hover Tooltip*/}
       <AnimatePresence>
         {isHovered && !active && (
@@ -107,7 +113,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           
           mouseX={mouseX}
           href="#hero"
-          icon={Sparkles}
+          icon={House}
           label="Hero"
           active={currentSection === "hero"}
           
@@ -115,23 +121,23 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
         <DockItem
           mouseX={mouseX}
           href="#projects"
-          icon={Code2}
+          icon={FolderOpenDot}
           label="Work"
           active={currentSection === "projects"}
           
         />
         <DockItem
           mouseX={mouseX}
-          href="#"
+          href="#about"
           icon={User}
-          label="Skills"
-          active={currentSection === "skills"}
+          label="About"
+          active={currentSection === "about"}
           
         />
         <DockItem
           mouseX={mouseX}
-          href="#"
-          icon={Layers}
+          href="#experience"
+          icon={Briefcase}
           label="History"
           active={currentSection === "experience"}
           

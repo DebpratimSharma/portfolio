@@ -5,12 +5,13 @@ import BackgroundGlow from "@/components/BackgroundGlow";
 import { useState, useEffect } from "react";
 import Dock from "@/components/Dock";
 import Works from "@/components/works/Works";
+import About from "@/components/about/About";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
   useEffect(()=>{
     const handleScroll =() =>{
-      const sections =['hero', 'projects', 'skills', 'experience', 'contact'];
+      const sections =['hero', 'projects', 'about', 'experience', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight /2;
 
       for(const section of sections){
@@ -28,9 +29,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-transparent relative overflow-x-hidden pb-40">
       <BackgroundGlow />
-      <main className="relative">
+      <main className="relative space-y-20">
         <Hero />
         <Works />
+        <About />
       </main>
       <Dock currentSection={activeSection} />
     </div>

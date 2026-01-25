@@ -37,7 +37,7 @@ export const PORTFOLIO_DATA = {
       title: "SCEEAOT",
       category: "Student Chapter Platform",
       description: "A platform for showcasing student chapter of Electrical Engineering Department at Academy of Technology and managing events and activities.",
-      tech: ["Next.js 14", "OpenAI", "WebSockets"],
+      tech: ["Next.js", "TypeScript", "Tailwind"],
       imageGradient: "from-cyan-500 via-blue-500 to-indigo-500",
       link: "https://sceeaot.in",
       github: "https://github.com/DebpratimSharma/sceeaot-web"

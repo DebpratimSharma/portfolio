@@ -13,12 +13,14 @@ interface CrystalCardProps {
   children?: React.ReactNode;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  disableSpring?: boolean;
 }
 
 const CrystalCard: React.FC<CrystalCardProps> = ({
   children,
   className = "",
   onClick,
+  disableSpring = false,
 }) => {
 
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -39,8 +41,8 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
 
   //trigger physics for a premium feel
   const springConfig = { stiffness: 370, damping: 20, mass: 0.8 };
-  const mouseX = useSpring(x, springConfig);
-  const mouseY = useSpring(y, springConfig);
+  const mouseX = disableSpring ? x : useSpring(x, springConfig);
+  const mouseY = disableSpring ? y : useSpring(y, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
 
@@ -50,13 +52,15 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     ref.current.getBoundingClientRect();
 
-    //magnetic pull
-    const xPos = clientX - (left + width / 2);
-    const yPos = clientY - (top + height / 2);
-    x.set(xPos / 50);
-    y.set(yPos / 50);
+    //magnetic pull only if not disabled
+    if (!disableSpring) {
+      const xPos = clientX - (left + width / 2);
+      const yPos = clientY - (top + height / 2);
+      x.set(xPos / 50);
+      y.set(yPos / 50);
+    }
 
-    //spotlight position
+    //spotlight position always
     spotX.set(clientX - left);
     spotY.set(clientY - top);
   };
@@ -85,9 +89,9 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
     <motion.div
     ref={ref} onClick={onClick}
     onMouseMove = {isTouchDevice? undefined: handleMouseMove}
-    onMouseLeave = {isTouchDevice? undefined: handleMouseLeave}
-    style= {isTouchDevice? undefined: { x: mouseX, y: mouseY }}
-    whileHover= {isTouchDevice? undefined: {scale: 1.01}} transition= {isTouchDevice? undefined: {type: "spring", ...springConfig }}
+    onMouseLeave = {(isTouchDevice || disableSpring)? undefined: handleMouseLeave}
+    style= {(isTouchDevice || disableSpring)? undefined: { x: mouseX, y: mouseY }}
+    whileHover= {(isTouchDevice || disableSpring)? undefined: {scale: 1.01}} transition= {isTouchDevice || disableSpring ? undefined : {type: "spring", ...springConfig }}
     className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 backdrop-blur-3xl shadow-2xl ${className}`}
     >
      {/*spotlight */} 
