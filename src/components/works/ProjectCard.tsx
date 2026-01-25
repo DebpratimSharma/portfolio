@@ -21,7 +21,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({id, category, title, descripti
     window.open(github, "_blank", "noreferrer");
   }
   return (
-    <CrystalCard className="font-sans md:p-10 p-8 ">
+    <CrystalCard className="font-sans px-4 py-6 md:p-8">
       <div className="flex flex-col h-full w-full">
         <div className="flex">
           
