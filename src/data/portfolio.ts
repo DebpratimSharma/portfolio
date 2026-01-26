@@ -4,14 +4,19 @@ export const PORTFOLIO_DATA = {
   name: "Debprix",
   role: "Full-Stack Developer",
   tagline: "I build pixel-perfect, accessible web experiences.",
-  resumeUrl: "#", 
+  resumeUrl: "#",
   about: {
-    description: "I'm a Full-Stack Developer with a focus on React ecosystem. Beyond the code, I'm an avid hiker and analog photography enthusiast—hobbies that teach me patience and a different perspective on composition.",
+    description:
+      "I'm a Full-Stack Developer with a focus on React ecosystem. Beyond the code, I'm an avid hiker and analog photography enthusiast—hobbies that teach me patience and a different perspective on composition.",
   },
   socials: [
-    { icon: Github, href: "https://github.com/DebpratimSharma", label: "GitHub" },
+    {
+      icon: Github,
+      href: "https://github.com/DebpratimSharma",
+      label: "GitHub",
+    },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:debpratimsharma33@gmail.com", label: "Email" }
+    { icon: Mail, href: "mailto:debpratimsharma33@gmail.com", label: "Email" },
   ],
   stack: [
     { name: "Next.js", icon: Globe },
@@ -26,54 +31,80 @@ export const PORTFOLIO_DATA = {
       id: 1,
       title: "Academic OS",
       category: "Routine and Attendance System",
-      description: "A comprehensive platform to manage academic routines and attendance tracking for institutions.",
+      description:
+        "A comprehensive platform to manage academic routines and attendance tracking for institutions.",
       tech: ["Next.js", "Supabase", "Shadcn UI", "TypeScript", "Tailwind"],
       imageGradient: "from-indigo-500 via-purple-500 to-pink-500",
       link: "https://academicos.vercel.app",
-      github: "https://github.com/DebpratimSharma/AcademicOs"
+      github: "https://github.com/DebpratimSharma/AcademicOs",
     },
     {
       id: 2,
       title: "SCEEAOT",
       category: "Student Chapter Platform",
-      description: "A platform for showcasing student chapter of Electrical Engineering Department at Academy of Technology and managing events and activities.",
+      description:
+        "A platform for showcasing student chapter of Electrical Engineering Department at Academy of Technology and managing events and activities.",
       tech: ["Next.js", "TypeScript", "Tailwind"],
       imageGradient: "from-cyan-500 via-blue-500 to-indigo-500",
       link: "https://sceeaot.in",
-      github: "https://github.com/DebpratimSharma/sceeaot-web"
+      github: "https://github.com/DebpratimSharma/sceeaot-web",
     },
     {
       id: 3,
       title: "AI Voice Translator",
       category: "Voice Translation Web App",
-      description: "Translate and synthesize speech in real-time using AI technologies.",
-      tech: ["Next.js", "OpenAI", "ElevenLabs API", "WebMedia", "TypeScript", "Tailwind"],
+      description:
+        "Translate and synthesize speech in real-time using AI technologies.",
+      tech: [
+        "Next.js",
+        "OpenAI",
+        "ElevenLabs API",
+        "WebMedia",
+        "TypeScript",
+        "Tailwind",
+      ],
       imageGradient: "from-emerald-400 via-teal-500 to-cyan-500",
       link: "https://ai-voice-translator.vercel.app",
-      github: "https://github.com/DebpratimSharma/voice-to-voice-ai-translator"
-    }
+      github: "https://github.com/DebpratimSharma/voice-to-voice-ai-translator",
+    },
   ],
   experience: [
     {
       id: 1,
-      role: "Senior Engineer",
-      company: "TechVision",
-      period: "2023—Present",
-      description: "Architecting the next generation of cloud-native creative tools."
+      role: "Tech Team Member",
+      organisation: "SCEE Academy of Technology",
+      location: "India",
+      period: "2024 — Present",
+      summary:
+        "Contributing to the institute’s technical initiatives with a focus on frontend development and infrastructure coordination.",
+      contributions: [
+        "Built and maintained frontend interfaces for internal and public-facing platforms",
+        "Managed domain configuration and deployment workflows",
+        "Collaborated with the tech team to ensure system stability and scalability",
+        "Continuing as an active member for the current academic year",
+      ],
+      focus: [
+        "Frontend Engineering",
+        "Domain & Deployment",
+        "Team Collaboration",
+      ],
+      techStack: ["React", "Next.js", "Tailwind CSS", "Git", "Vercel"],
     },
     {
       id: 2,
-      role: "Product Developer",
-      company: "Creative Pulse",
-      period: "2021—2023",
-      description: "Built award-winning immersive web campaigns for global brands."
+      role: "Tech Team Member",
+      organisation: "GDG On Campus – Academy of Technology",
+      location: "India",
+      period: "2025",
+      summary:
+        "Part of the organising tech team for a large-scale hackathon under the Google Developer Groups programme.",
+      contributions: [
+        "Contributed to planning and execution of TechSprint Hackathon",
+        "Supported technical coordination and participant onboarding",
+        "Worked closely with organisers to ensure smooth event operations",
+      ],
+      focus: ["Event Engineering", "Community Tech", "Hackathon Operations"],
+      techStack: ["Web Platforms", "Collaboration Tools"],
     },
-    {
-      id: 3,
-      role: "Frontend Dev",
-      company: "StartUp Flow",
-      period: "2019—2021",
-      description: "Established the core component library and design system."
-    }
-  ]
+  ],
 };

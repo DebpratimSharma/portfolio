@@ -2,10 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "../SectionHeader";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
-// import Projectcard from "./Projectcard";
+import ProjectCard from "./ProjectCard";
 import dynamic from "next/dynamic";
 
-const ProjectCard = dynamic(() => import("@/components/works/ProjectCard"));
+
 
 const Works = () => {
   return (

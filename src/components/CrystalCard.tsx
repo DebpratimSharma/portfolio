@@ -92,7 +92,7 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
     onMouseLeave = {(isTouchDevice || disableSpring)? undefined: handleMouseLeave}
     style= {(isTouchDevice || disableSpring)? undefined: { x: mouseX, y: mouseY }}
     whileHover= {(isTouchDevice || disableSpring)? undefined: {scale: 1.01}} transition= {isTouchDevice || disableSpring ? undefined : {type: "spring", ...springConfig }}
-    className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 backdrop-blur-3xl shadow-2xl ${className}`}
+    className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 ${isTouchDevice ? "" : "backdrop-blur-3xl"} shadow-2xl ${className}`}
     >
      {/*spotlight */} 
      {!isTouchDevice &&(<motion.div 
