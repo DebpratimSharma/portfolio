@@ -36,7 +36,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
 
   return (
     <button
-      className={`group/button relative overflow-hidden rounded-full border border-white/20 font-medium transition-all hover:border-white ${className}`}
+      className={`group/button cursor-pointer relative overflow-hidden rounded-full border border-white/20 font-medium transition-all hover:border-white ${className}`}
       aria-label={rollingText || 'Button'}
       {...props}
     >

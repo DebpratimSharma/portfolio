@@ -74,7 +74,7 @@ export const PORTFOLIO_DATA = {
       role: "Tech Team Member",
       organisation: "SCEE Academy of Technology",
       location: "India",
-      period: "2024 — Present",
+      period: "2024 - Present",
       summary:
         "Contributing to the institute’s technical initiatives with a focus on frontend development and infrastructure coordination.",
       contributions: [
@@ -89,13 +89,14 @@ export const PORTFOLIO_DATA = {
         "Team Collaboration",
       ],
       techStack: ["React", "Next.js", "Tailwind CSS", "Git", "Vercel"],
+      brandColors: ["#FFFF00", "#8A2BE2"], // institute palette Yellow violet
     },
     {
       id: 2,
       role: "Tech Team Member",
       organisation: "GDG On Campus – Academy of Technology",
       location: "India",
-      period: "2025",
+      period: "2025 - Present",
       summary:
         "Part of the organising tech team for a large-scale hackathon under the Google Developer Groups programme.",
       contributions: [
@@ -104,7 +105,13 @@ export const PORTFOLIO_DATA = {
         "Worked closely with organisers to ensure smooth event operations",
       ],
       focus: ["Event Engineering", "Community Tech", "Hackathon Operations"],
-      techStack: ["Web Platforms", "Collaboration Tools"],
+      techStack: ["Web Platforms", "Google Workspace", "Google Cloud Console"],
+      brandColors: [
+        "rgba(66,133,244,0.9)", // Blue
+        "rgba(52,168,83,0.9)", // Green
+        "rgba(251,188,5,0.9)", // Yellow
+        "rgba(234,67,53,0.9)", // Red
+      ],
     },
   ],
 };
