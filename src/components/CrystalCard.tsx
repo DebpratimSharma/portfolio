@@ -67,11 +67,6 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
-    if (ref.current) {
-    const { width, height } = ref.current.getBoundingClientRect();
-    spotX.set(width / 2);
-    spotY.set(height / 2);
-  }
   };
   //gradient
 
