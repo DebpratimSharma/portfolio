@@ -22,12 +22,11 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   onClick,
   disableSpring = false,
 }) => {
-
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  useEffect(() =>{
+  useEffect(() => {
     const mq = window.matchMedia("(hover: none)and (pointer: coarse)");
     setIsTouchDevice(mq.matches);
-  },[]);
+  }, []);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -43,9 +42,9 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   const springConfig = { stiffness: 370, damping: 20, mass: 0.8 };
   const mouseX = disableSpring ? x : useSpring(x, springConfig);
   const mouseY = disableSpring ? y : useSpring(y, springConfig);
+  const [hovered, setHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-
     if (!ref.current || isTouchDevice) return;
 
     const { clientX, clientY } = e;
@@ -66,9 +65,14 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
   };
 
   const handleMouseLeave = () => {
-      x.set(0);
-      y.set(0);
-    };
+    x.set(0);
+    y.set(0);
+    if (ref.current) {
+    const { width, height } = ref.current.getBoundingClientRect();
+    spotX.set(width / 2);
+    spotY.set(height / 2);
+  }
+  };
   //gradient
 
   const background = useMotionTemplate`radial-gradient(
@@ -87,20 +91,44 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
 
   return (
     <motion.div
-    ref={ref} onClick={onClick}
-    onMouseMove = {isTouchDevice? undefined: handleMouseMove}
-    onMouseLeave = {(isTouchDevice || disableSpring)? undefined: handleMouseLeave}
-    style= {(isTouchDevice || disableSpring)? undefined: { x: mouseX, y: mouseY }}
-    whileHover= {(isTouchDevice || disableSpring)? undefined: {scale: 1.01}} transition= {isTouchDevice || disableSpring ? undefined : {type: "spring", ...springConfig }}
-    className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 ${isTouchDevice ? "" : "backdrop-blur-3xl"} shadow-2xl ${className}`}
+      ref={ref}
+      onClick={onClick}
+      onMouseMove={
+        isTouchDevice
+          ? undefined
+          : (e) => {
+              setHovered(true);
+              handleMouseMove(e);
+            }
+      }
+      onMouseLeave={() => {
+        setHovered(false);
+        handleMouseLeave();
+      }}
+      style={
+        isTouchDevice || disableSpring ? undefined : { x: mouseX, y: mouseY }
+      }
+      whileHover={isTouchDevice || disableSpring ? undefined : { scale: 1.01 }}
+      transition={
+        isTouchDevice || disableSpring
+          ? undefined
+          : { type: "spring", ...springConfig }
+      }
+      className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl ${className}`}
     >
-     {/*spotlight */} 
-     {!isTouchDevice &&(<motion.div 
-       className="pointer-events-none absolute z-10 inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-500"
-       style={{background}}
-     />)}
+      {/*spotlight */}
+      {!isTouchDevice && hovered && (
+        <motion.div
+          className="pointer-events-none absolute inset-0"
+          style={{ background }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        />
+      )}
 
-        {/*border highlight curretly disabled for performance reasons 
+      {/*border highlight curretly disabled for performance reasons 
         <motion.div
           className="pointer-events-none absolute inset-0 rounded-2xl z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
@@ -114,10 +142,9 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
           }}
         />*/}
 
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-       <div className="relative z-10 h-full">{children}</div>
-
+      <div className="relative z-10 h-full">{children}</div>
     </motion.div>
   );
 };
