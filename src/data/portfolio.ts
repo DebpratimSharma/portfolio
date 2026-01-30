@@ -1,117 +1,176 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { Code2, Cpu, Database, Globe, Layers, Terminal } from "lucide-react";
+
 export const PORTFOLIO_DATA = {
-  name: "Debprix",
-  role: "Full-Stack Developer",
-  tagline: "I build pixel-perfect, accessible web experiences.",
+  name: "Debpratim Sharma",
+  role: "Full-Stack Engineer (Backend-leaning)",
+  tagline:
+    "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
   resumeUrl: "#",
+
   about: {
     description:
-      "I'm a Full-Stack Developer with a focus on React ecosystem. Beyond the code, I'm an avid hiker and analog photography enthusiast—hobbies that teach me patience and a different perspective on composition.",
+      "I'm a Full-Stack Engineer with strong experience in building and shipping real-world products using the React and Next.js ecosystem. I enjoy working close to production—thinking about system boundaries, trade-offs, and long-term maintainability. My background in electrical engineering and IoT gives me a systems-first mindset that goes beyond UI development.",
   },
+
   socials: [
     {
       icon: Github,
       href: "https://github.com/DebpratimSharma",
       label: "GitHub",
     },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:debpratimsharma33@gmail.com", label: "Email" },
+    {
+      icon: Linkedin,
+      href: "https://linkedin.com",
+      label: "LinkedIn",
+    },
+    {
+      icon: Mail,
+      href: "mailto:debpratimsharma33@gmail.com",
+      label: "Email",
+    },
   ],
+
   stack: [
     { name: "Next.js", icon: Globe },
     { name: "React", icon: Code2 },
     { name: "TypeScript", icon: Terminal },
     { name: "Node.js", icon: Cpu },
-    { name: "PostgreSQL", icon: Database },
-    { name: "Design", icon: Layers },
+    { name: "PostgreSQL / SQL", icon: Database },
+    { name: "System & Product Design", icon: Layers },
   ],
+
   projects: [
     {
       id: 1,
       title: "Academic OS",
-      category: "Routine and Attendance System",
+      category: "Routine & Attendance Management System",
       description:
-        "A comprehensive platform to manage academic routines and attendance tracking for institutions.",
-      tech: ["Next.js", "Supabase", "Shadcn UI", "TypeScript", "Tailwind"],
-      imageGradient: "from-indigo-500 via-purple-500 to-pink-500",
+        "A production-ready academic management system handling routines, attendance, and role-based access.",
+      tech: ["Next.js", "Supabase", "TypeScript", "Tailwind", "Shadcn UI"],
       link: "https://academicos.vercel.app",
       github: "https://github.com/DebpratimSharma/AcademicOs",
+
+      details: {
+        problem:
+          "Manual handling of routines and attendance caused inconsistency, errors, and lack of visibility for students and organisers.",
+        role:
+          "Designed and built the system end-to-end, including frontend, backend logic, database schema, and deployment.",
+        architecture: [
+          "Next.js frontend communicating with Supabase-backed APIs",
+          "Role-based access enforced at the database layer",
+          "Schema designed to support scalable attendance tracking",
+        ],
+        challenges: [
+          "Balancing rapid development with long-term schema clarity",
+          "Designing permissions that scale across roles",
+          "Ensuring usability for non-technical users",
+        ],
+        impact:
+          "Actively used by students and organisers for managing real academic workflows.",
+      },
     },
+
     {
       id: 2,
-      title: "SCEEAOT",
-      category: "Student Chapter Platform",
+      title: "SCEEAOT Platform",
+      category: "Student Chapter Website & Admin System",
       description:
-        "A platform for showcasing student chapter of Electrical Engineering Department at Academy of Technology and managing events and activities.",
+        "Public-facing and internal platform for managing events, announcements, and chapter identity.",
       tech: ["Next.js", "TypeScript", "Tailwind"],
-      imageGradient: "from-cyan-500 via-blue-500 to-indigo-500",
       link: "https://sceeaot.in",
       github: "https://github.com/DebpratimSharma/sceeaot-web",
+
+      details: {
+        problem:
+          "The student chapter lacked a central, maintainable digital presence for events and communication.",
+        role:
+          "Led frontend development and deployment, collaborating closely with organisers on requirements.",
+        architecture: [
+          "Static-first Next.js architecture for performance and reliability",
+          "Simple, maintainable structure for future student teams",
+        ],
+        challenges: [
+          "Designing for long-term maintainability across batches",
+          "Balancing flexibility with simplicity",
+        ],
+        impact:
+          "Official platform representing the Electrical Engineering student chapter.",
+      },
     },
+
     {
       id: 3,
       title: "AI Voice Translator",
-      category: "Voice Translation Web App",
+      category: "AI-Powered Voice Translation System",
       description:
-        "Translate and synthesize speech in real-time using AI technologies.",
+        "An AI-assisted system that captures, translates, and synthesises speech in real time.",
       tech: [
         "Next.js",
-        "OpenAI",
+        "OpenAI API",
         "ElevenLabs API",
-        "WebMedia",
+        "Web Media APIs",
         "TypeScript",
-        "Tailwind",
       ],
-      imageGradient: "from-emerald-400 via-teal-500 to-cyan-500",
       link: "https://ai-voice-translator.vercel.app",
       github: "https://github.com/DebpratimSharma/voice-to-voice-ai-translator",
+
+      details: {
+        problem:
+          "Real-time voice translation requires orchestrating multiple AI services with low latency and failure handling.",
+        role:
+          "Built the orchestration logic and frontend, integrating speech capture, LLM processing, and synthesis.",
+        architecture: [
+          "Frontend-driven orchestration across multiple AI APIs",
+          "Sequential processing with explicit error handling",
+        ],
+        challenges: [
+          "Managing latency across chained AI services",
+          "Keeping AI as a subsystem, not core logic",
+        ],
+        impact:
+          "Prototype system exploring architectural feasibility and AI trade-offs.",
+      },
     },
   ],
+
   experience: [
     {
       id: 1,
       role: "Tech Team Member",
-      organisation: "SCEE Academy of Technology",
+      organisation: "Student Chapter of Electrical Engineering, AOT",
       location: "India",
-      period: "2024 - Present",
+      period: "2024 – Present",
       summary:
-        "Contributing to the institute’s technical initiatives with a focus on frontend development and infrastructure coordination.",
+        "Worked on real-world technical platforms supporting student and departmental activities.",
       contributions: [
-        "Built and maintained frontend interfaces for internal and public-facing platforms",
-        "Managed domain configuration and deployment workflows",
-        "Collaborated with the tech team to ensure system stability and scalability",
-        "Continuing as an active member for the current academic year",
+        "Built and maintained production-facing web platforms",
+        "Handled deployment, domain configuration, and updates",
+        "Collaborated across teams to ensure system reliability",
       ],
       focus: [
         "Frontend Engineering",
-        "Domain & Deployment",
-        "Team Collaboration",
+        "Deployment & Operations",
+        "System Ownership",
       ],
-      techStack: ["React", "Next.js", "Tailwind CSS", "Git", "Vercel"],
-      brandColors: ["#FFFF00", "#8A2BE2"], // institute palette Yellow violet
+      techStack: ["Next.js", "React", "Tailwind CSS", "Git", "Vercel"],
     },
+
     {
       id: 2,
       role: "Tech Team Member",
       organisation: "GDG On Campus – Academy of Technology",
       location: "India",
-      period: "2025 - Present",
+      period: "2025 – Present",
       summary:
-        "Part of the organising tech team for a large-scale hackathon under the Google Developer Groups programme.",
+        "Part of the core technical organising team for a large-scale hackathon.",
       contributions: [
-        "Contributed to planning and execution of TechSprint Hackathon",
-        "Supported technical coordination and participant onboarding",
-        "Worked closely with organisers to ensure smooth event operations",
+        "Supported technical planning and execution",
+        "Assisted in participant onboarding and tooling",
+        "Coordinated with organisers for smooth operations",
       ],
-      focus: ["Event Engineering", "Community Tech", "Hackathon Operations"],
-      techStack: ["Web Platforms", "Google Workspace", "Google Cloud Console"],
-      brandColors: [
-        "rgba(66,133,244,0.9)", // Blue
-        "rgba(52,168,83,0.9)", // Green
-        "rgba(251,188,5,0.9)", // Yellow
-        "rgba(234,67,53,0.9)", // Red
-      ],
+      focus: ["Event Systems", "Community Tech", "Coordination"],
+      techStack: ["Web Platforms", "Google Cloud Console", "Collaboration Tools"],
     },
   ],
 };
