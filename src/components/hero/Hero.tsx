@@ -42,10 +42,10 @@ export default function Hero() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ type: "spring", stiffness: 420, damping: 18 }}
-            className="font-serif text-5xl md:text-7xl text-white/40"
+            className="font-serif text-4xl sm:text-5xl text-white/40"
             style={{ fontStyle: "italic" }}
           >
-            Hello, It's
+            Welcome to
           </motion.h2>
 
           <motion.h1
@@ -57,11 +57,11 @@ export default function Hero() {
               damping: 18,
               delay: 0.2,
             }}
-            className="relative bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-7xl md:font-extrabold  md:text-8xl tracking-tight mt-2"
+            className="relative bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-[4rem]  sm:font-extrabold  md:text-8xl tracking-tight mt-2"
           >
-            {PORTFOLIO_DATA.name.toUpperCase()} <br />
-            <span className="text-sm font-syne font-bold tracking-wider text-cyan-500 absolute -bottom-2 right-0 z-9999">
-              {"Debpratim Sharma".toUpperCase()}
+            {PORTFOLIO_DATA.title.toUpperCase()} <br />
+            <span className="text-xl font-syne font-bold tracking-wider text-cyan-500 absolute -bottom-2 left-1 md:left-111 z-9999">
+              {PORTFOLIO_DATA.name.toUpperCase()}
             </span>
           </motion.h1>
 
@@ -74,7 +74,7 @@ export default function Hero() {
               damping: 18,
               delay: 0.4,
             }}
-            className="mt-6 max-w-md text-white/70 text-xl font-syne"
+            className="mt-6 max-w-sm text-white/70 text-xl font-syne"
           >
             Full-Stack Web Developer building intelligent, scalable digital
             products.
@@ -89,7 +89,7 @@ export default function Hero() {
               damping: 18,
               delay: 0.6,
             }}
-            className="w-full flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10"
+            className="w-full flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-start sm:items-center justify-start sm:justify-evenly sm:justify-start gap-4 mt-10"
           >
             <RollingButton text="See works" className="bg-white px-8 py-5" onClick={onClickWorks}>
               <ArrowUpRight size={18} />
@@ -121,7 +121,7 @@ export default function Hero() {
           damping: 18, // lower = more overshoot
           mass: 0.7, // lower = quicker response
         }}
-        className="w-full  absolute top-10 right-0 md:justify-end px-10 flex items-center justify-center gap-10 "
+        className="w-full  absolute top-10 right-0 sm:justify-end px-10 flex items-center justify-center gap-10 "
       >
         <MagneticButton href="https://www.linkedin.com/in/debpratim-sharma-916203267/">
           <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl">
