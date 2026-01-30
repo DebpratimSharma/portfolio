@@ -7,6 +7,7 @@ import Dock from "@/components/Dock";
 import Works from "@/components/works/Works";
 import About from "@/components/about/About";
 import Experiece from "@/components/experience/Experiece";
+import Contact from "@/components/contact/Contact";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -38,6 +39,7 @@ export default function Home() {
         <Works />
         <About />
         <Experiece />
+        <Contact />
       </main>
       <Dock currentSection={activeSection} />
     </div>
