@@ -76,13 +76,13 @@ const HeroTechStack = () => {
             <motion.div 
                 animate={{ rotate: -360 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="absolute w-105 h-105 border border-white/20 rounded-full  z-40"
+                className="absolute w-105 h-105 border border-white/20 rounded-full "
             >
                 <div className="absolute left-0 top-1/2 -translate-x-1/2 opacity-70 -translate-y-1/2">
                     <motion.div 
                         animate={{ rotate: 360 }} 
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                        className="w-12 h-12 rounded-2xl bg-black/15 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg"
+                        className="w-12 h-12 rounded-2xl bg-black/15 backdrop-blur-md border z-50 border-white/10 flex items-center justify-center shadow-lg"
                     >
                         <Cpu size={20} className="text-green-400" />
                     </motion.div>

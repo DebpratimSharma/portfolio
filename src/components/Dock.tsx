@@ -65,9 +65,12 @@ const DockItem: React.FC<DockItemProps> = ({
       onHoverEnd={() => setHovered(false)}
       whileTap={{ scale: 0.85, translateY: 5 }}
       style={{ width: widthSpring, height: widthSpring }}
-      className="relative flex items-center justify-center rounded-2xl cursor-pointer bg-[#03333b] backdrop-blur-md border border-white/20 text-white"
+      className="relative flex items-center justify-center rounded-2xl cursor-pointer bg-[#002d36] backdrop-blur-xl border border-white/20 text-white z-999"
     >
-      <motion.div style={{ scale: iconScale }}>
+
+      
+      <motion.div style={{ scale: iconScale }} className="pointer-events-none   ">
+        
         <Icon size={20} strokeWidth={2} />
       </motion.div>
       
@@ -107,7 +110,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        className="z-40 flex  gap-3 px-5 pb-4 h-20.75 items-end rounded-3xl bg-[#02333c]/30 border border-white/20 backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.3)] ring-1 ring-white/5"
+        className="z-0 flex  gap-3 px-5 pb-4 h-20.75 items-end rounded-3xl bg-[#002d36]/35 border border-white/20 backdrop-blur-md shadow-[0_0_30px_rgba(0,0,0,0.3)] ring-1 ring-white/5"
       >
         <DockItem
           

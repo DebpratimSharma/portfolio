@@ -22,7 +22,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative items-center w-full h-screen flex flex-col justify-center px-4 overflow-hidden pb-17 "
+      className="relative items-center w-full h-screen flex flex-col justify-center px-4 overflow-hidden pb-26 "
     >
       <motion.div
         style={{ y }}
@@ -45,7 +45,7 @@ export default function Hero() {
             className="font-serif text-5xl md:text-7xl text-white/40"
             style={{ fontStyle: "italic" }}
           >
-            Hello, It's
+            Welcome to
           </motion.h2>
 
           <motion.h1
@@ -57,9 +57,9 @@ export default function Hero() {
               damping: 18,
               delay: 0.2,
             }}
-            className="relative bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-7xl md:font-extrabold  md:text-8xl tracking-tight mt-2"
+            className="relative z-10 bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-7xl md:font-extrabold  md:text-8xl tracking-tight mt-2"
           >
-            {PORTFOLIO_DATA.name.toUpperCase()} <br />
+            {PORTFOLIO_DATA.title.toUpperCase()} <br />
             <span className="text-sm font-syne font-bold tracking-wider text-cyan-500 absolute -bottom-2 right-0 z-9999">
               {"Debpratim Sharma".toUpperCase()}
             </span>
@@ -89,15 +89,15 @@ export default function Hero() {
               damping: 18,
               delay: 0.6,
             }}
-            className="w-full flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10"
+            className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10"
           >
-            <RollingButton text="See works" className="bg-white px-8 py-5" onClick={onClickWorks}>
+            <RollingButton text="See works" className="bg-white py-2 px-4 sm:px-8 sm:py-5" onClick={onClickWorks}>
               <ArrowUpRight size={18} />
             </RollingButton>
 
             <RollingButton
               text="Download Resume"
-              className="bg-cyan-500/5 px-8 py-5"
+              className="bg-cyan-500/5 py-2 px-4 sm:px-8 sm:py-5"
               textColor="text-white"
               onClick={onClickResume}
             >
@@ -107,7 +107,7 @@ export default function Hero() {
         </div>
 
         {/* Right Visual */}
-        <div className="hidden lg:flex justify-center items-center min-h-125">
+        <div className="hidden lg:flex justify-center items-center min-h-125 z-40">
           <HeroTechStack />
         </div>
       </motion.div>

@@ -2,6 +2,7 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import { Code2, Cpu, Database, Globe, Layers, Terminal } from "lucide-react";
 
 export const PORTFOLIO_DATA = {
+  title: "Debprix",
   name: "Debpratim Sharma",
   role: "Full-Stack Engineer (Backend-leaning)",
   tagline:
