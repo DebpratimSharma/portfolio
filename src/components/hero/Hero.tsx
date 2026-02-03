@@ -42,9 +42,10 @@ export default function Hero() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ type: "spring", stiffness: 420, damping: 18 }}
-            className="font-serif text-5xl md:text-7xl text-white/40"
+            className="font-serif text-4xl sm:text-5xl text-white/40"
             style={{ fontStyle: "italic" }}
           >
+            Welcome to
             Welcome to
           </motion.h2>
 
@@ -74,7 +75,7 @@ export default function Hero() {
               damping: 18,
               delay: 0.4,
             }}
-            className="mt-6 max-w-md text-white/70 text-xl font-syne"
+            className="mt-6 max-w-sm text-white/70 text-xl font-syne"
           >
             Full-Stack Web Developer building intelligent, scalable digital
             products.
@@ -121,7 +122,7 @@ export default function Hero() {
           damping: 18, // lower = more overshoot
           mass: 0.7, // lower = quicker response
         }}
-        className="w-full  absolute top-10 right-0 md:justify-end px-10 flex items-center justify-center gap-10 "
+        className="w-full  absolute top-10 right-0 sm:justify-end px-10 flex items-center justify-center gap-10 "
       >
         <MagneticButton href="https://www.linkedin.com/in/debpratim-sharma-916203267/">
           <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl">
