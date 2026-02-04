@@ -69,7 +69,7 @@ const DockItem: React.FC<DockItemProps> = ({
     >
 
       
-      <motion.div style={{ scale: iconScale }} className="pointer-events-none   ">
+      <motion.div style={{ scale: iconScale }} className="text-white/60">
         
         <Icon size={20} strokeWidth={2} />
       </motion.div>
@@ -88,9 +88,13 @@ const DockItem: React.FC<DockItemProps> = ({
         )}
       </AnimatePresence>
 
-      {/*Active Label*/}
+      {/*Active Dot*/}
       {active && (
-        <div className="absolute -bottom-3.75 h-px w-px p-0.75 bg-white/50 rounded-full" />
+        <motion.div
+          layoutId="active-dock-dot"
+          className="absolute -bottom-3.75 h-px w-px p-0.75 bg-white/50 rounded-full"
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        />
       )}
     </motion.a>
   );
