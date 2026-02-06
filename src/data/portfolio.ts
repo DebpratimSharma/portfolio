@@ -8,11 +8,13 @@ export const PORTFOLIO_DATA = {
   tagline:
     "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
   resumeUrl: "#",
-
+  status: "Available for work",
+  statusDescription: ["Open to full-time roles", "Remote or hybrid preferred", "Looking for a long-term opportunity"],
   about: {
     description:
       "I'm a Full-Stack Engineer with strong experience in building and shipping real-world products using the React and Next.js ecosystem. I enjoy working close to production—thinking about system boundaries, trade-offs, and long-term maintainability. My background in electrical engineering and IoT gives me a systems-first mindset that goes beyond UI development.",
   },
+  roles: ["Full-Stack Engineer", "Backend Engineer", "Frontend Engineer"],
 
   socials: [
     {
