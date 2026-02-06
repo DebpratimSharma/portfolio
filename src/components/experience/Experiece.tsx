@@ -5,7 +5,7 @@ import ExperienceCard from "./ExperienceCard";
 
 function Experiece() {
   return (
-    <section className="max-w-340 mx-auto px-4" id="experience">
+    <section id="experience">
       <SectionHeader
         title="Experience"
         subtitle="Hands-on work across communities, teams, and real-world systems."

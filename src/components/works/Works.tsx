@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 
 const Works = () => {
   return (
-    <div className="max-w-340 mx-auto px-4 " id='projects'>
+    <div id='projects'>
       <SectionHeader
         title="Selected Works"
         subtitle="Curated projects demonstrating my capabilities."

@@ -34,12 +34,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-transparent relative overflow-x-hidden pb-40">
       <BackgroundGlow />
-      <main className="relative space-y-20">
+      <main>
         <Hero />
-        <Works />
-        <About />
-        <Experiece />
-        <Contact />
+        <div className="max-w-6xl flex flex-col gap-y-12 mx-auto px-4">
+          <Works />
+          <About />
+          <Experiece />
+          <Contact />
+        </div>
       </main>
       <Dock currentSection={activeSection} />
     </div>

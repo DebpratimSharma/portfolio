@@ -154,7 +154,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
 
         <DockItem
           mouseX={mouseX}
-          href="#"
+          href="#contact"
           icon={Mail}
           label="Contact"
           active={currentSection === "contact"}

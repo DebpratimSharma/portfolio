@@ -17,7 +17,7 @@ function About() {
   const toolingSkills = ["Git", "GCP", "Vercel", "Figma"];
 
   return (
-    <section id="about" className="max-w-340 mx-auto px-4 ">
+    <section id="about">
       <SectionHeader
         title="About"
         subtitle="Designing and engineering thoughtful digital systems."
