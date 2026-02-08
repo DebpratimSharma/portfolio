@@ -4,15 +4,15 @@ import { PORTFOLIO_DATA } from "@/data/portfolio";
 import SectionHeader from "../SectionHeader";
 import RollingText from "../RollingText";
 import MagneticButton from "../MagneticButton";
-import { Linkedin, Github, Mail } from "lucide-react";
+import { Linkedin, Github, Mail, Search, Clock } from "lucide-react";
 import RollingButton from "../RollingButton";
-import { div } from "framer-motion/client";
+import { div, span } from "framer-motion/client";
 const Contact = () => {
   return (
     <section id="contact">
       <SectionHeader title="Contact" subtitle="Get in touch" />
-      <CrystalCard className="w-full flex flex-col p-4 sm:p-6 md:p-8">
-        <div className="header w-full flex flex-col sm:flex-row sm:items-end sm:justify-between border-b border-white/20 pb-4 mb-4 md:mb-6 gap-4 sm:gap-0">
+      <CrystalCard className="w-full flex flex-col p-8 sm:p-6 md:p-8">
+        <div className="header w-full flex flex-col items-start sm:flex-row sm:items-end sm:justify-between border-b border-white/20 pb-4 mb-4 md:mb-6 gap-4 sm:gap-0">
           <div className="">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-syne font-bold">
               {PORTFOLIO_DATA.name}
@@ -21,79 +21,76 @@ const Contact = () => {
               {PORTFOLIO_DATA.role}
             </h2>
           </div>
-          <div className="w-full sm:w-auto">
-            <RollingText
-              text={PORTFOLIO_DATA.status}
-              className="px-4 py-2 rounded-full"
-            />
-          </div>
+
+          <RollingText
+            text={PORTFOLIO_DATA.status}
+            className="py-2 rounded-full "
+          />
         </div>
-        <div className="body w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          <div className="flex flex-col items-start">
-            <span className="font-bold text-base sm:text-lg md:text-xl">Contact</span>
+        <div className="body flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <div className="left flex flex-col gap-2 items-start justify-start">
+            <h1 className="flex gap-2 items-center">
+              <div className=" bg-green-400 h-2 w-2 rounded-full animate-pulse shadow-2xl shadow-green-300"></div>
+              {"Current status".toUpperCase()}
+            </h1>
+            <span className="text-green-300 bg-green-400/30 px-3.5 py-1.5 border rounded-full">
+              {PORTFOLIO_DATA.status}
+            </span>
+            <h2 className="flex gap-2 items-center">
+              <Search height={17} />
+              {"Looking for".toUpperCase()}
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              {PORTFOLIO_DATA.roles &&
+                PORTFOLIO_DATA.roles.map((role, index) => (
+                  <span
+                    key={index}
+                    className="px-3.5 py-1.5 bg-white/5 border border-white/15 rounded-full"
+                  >
+                    {role}
+                  </span>
+                ))}
+            </div>
+          </div>
+          <div className="flex flex-col justify-center gap-6">
             <MagneticButton>
               <RollingButton
-                className="bg-white px-4 sm:px-6 py-3 sm:py-4 mt-4 text-sm sm:text-base"
-                text="Say Hello"
-                onClick={() =>
-                  window.open(`mailto:debpratimsharma33@gmail.com`, "_blank")
-                }
+                text="Initialize Comms"
+                className="w-full inline-flex px-7 py-5  items-center justify-center rounded-full bg-white text-black font-bold text-lg hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)] cursor-none gap-3"
               >
-                <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Mail className="mr-1 h-5 w-5" />
+                
               </RollingButton>
             </MagneticButton>
-            <MagneticButton>
-              <RollingButton
-                className="bg-transparent px-4 sm:px-6 py-3 sm:py-4 mt-4 text-sm sm:text-base"
-                text="LinkedIn"
-                textColor="text-white"
-                onClick={() =>
-                  window.open(`mailto:debpratimsharma33@gmail.com`, "_blank")
-                }
-              >
-                <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
-              </RollingButton>
-            </MagneticButton>
-            <div className="my-4 px-3 sm:px-4 rounded-xs border-l-3 border-white/30">
-              <span className="font-bold text-base sm:text-lg md:text-xl">Direct Contact</span>
-              <p className="text-sm sm:text-lg opacity-80 mt-3 sm:mt-4">Email: debpratimsharma33@gmail.com</p>
-              <p className="text-sm sm:text-lg opacity-80 mt-2">Response Time: Usually within 24 hours</p>
+
+            <div className="flex justify-center gap-4">
+              {PORTFOLIO_DATA.socials.map((social, idx) => (
+                <div
+                  key={idx}
+                  
+                  className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-all cursor-none group flex-1 flex justify-center"
+                  aria-label={social.label}
+                >
+                  <social.icon
+                    size={20}
+                    key={idx}
+                    className="text-white/60 group-hover:text-white transition-colors"
+                  />
+                </div>
+              ))}
             </div>
           </div>
-          <div className="flex justify-center flex-col gap-2">
-            <span className="text-base sm:text-lg md:text-xl font-bold">Current Status</span>
-            {PORTFOLIO_DATA.statusDescription &&
-              PORTFOLIO_DATA.statusDescription.map((line, index) => (
-                <p key={index} className="text-sm sm:text-lg opacity-80">
-                  * {line}
-                </p>
-              ))}
-            <span className="text-base sm:text-lg md:text-xl font-bold mt-4 sm:mt-6">Current Status</span>
-            {PORTFOLIO_DATA.roles &&
-              PORTFOLIO_DATA.roles.map((line, index) => (
-                <p key={index} className="text-sm sm:text-lg opacity-80">
-                  * {line}
-                </p>
-              ))}
-          </div>
         </div>
-        <div className="footer flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 my-4 sm:my-5">
-          <MagneticButton href="https://www.linkedin.com/in/debpratim-sharma-916203267/">
-            <div className="p-2 sm:p-3 bg-cyan-500/20 border border-white/20 rounded-2xl hover:scale-110 transition-transform">
-              <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
-            </div>
-          </MagneticButton>
-          <MagneticButton href="https://github.com/DebpratimSharma">
-            <div className="p-2 sm:p-3 bg-cyan-500/20 border border-white/20 rounded-2xl hover:scale-110 transition-transform">
-              <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-            </div>
-          </MagneticButton>
-          <MagneticButton href="">
-            <div className="p-2 sm:p-3 bg-cyan-500/20 border border-white/20 rounded-2xl hover:scale-110 transition-transform">
-              <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-            </div>
-          </MagneticButton>
-        </div>
+        <div className="pb-0 p-6 mt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+                    <div className="flex items-center gap-2 text-slate-400 text-sm">
+                        <span className="text-white/20 uppercase text-xs tracking-wider">Direct</span>
+                        <span className="text-white">hello@alexdev.com</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-500 text-xs">
+                        <Clock size={12} />
+                        <span>Response time: &lt; 24 hours</span>
+                    </div>
+                </div>
       </CrystalCard>
     </section>
   );
