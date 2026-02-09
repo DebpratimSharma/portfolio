@@ -62,7 +62,7 @@ function About() {
         </CrystalCard>
 
         {/* Right Card: Technical Tooling */}
-        <CrystalCard className="w-full md:w-1/3 p-8" disableSpring={true}>
+        <CrystalCard className="w-full md:w-1/3 px-4 py-6 md:p-8" disableSpring={true}>
           <h2 className="text-2xl font-bold mb-6 opacity-60">Technical Focus</h2>
           <div className="space-y-6">
             <div>

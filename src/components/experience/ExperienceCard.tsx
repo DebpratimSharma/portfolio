@@ -38,7 +38,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
       disableSpring={true}
       className="w-full relative flex flex-col gap-y-4 overflow-hidden"
     >  
-      <div className="relative z-50 p-4 py-6 md:px-8">
+      <div className="relative z-50 px-4 py-6 md:p-8">
         <div className="space-y-2 ">
           <h1 className="text-3xl font-bold">{role}</h1>
           <h2 className="text-xl font-semibold opacity-65">{organisation}</h2>

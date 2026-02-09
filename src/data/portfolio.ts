@@ -24,7 +24,7 @@ export const PORTFOLIO_DATA = {
     },
     {
       icon: Linkedin,
-      href: "https://linkedin.com",
+      href: "https://www.linkedin.com/in/debpratim-sharma-916203267/",
       label: "LinkedIn",
     },
     {

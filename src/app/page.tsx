@@ -8,12 +8,13 @@ import Works from "@/components/works/Works";
 import About from "@/components/about/About";
 import Experiece from "@/components/experience/Experiece";
 import Contact from "@/components/contact/Contact";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "projects", "about", "experience", "contact"];
+      const sections = ["hero", "projects", "about", "experience", "contact", "footer"];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const section of sections) {
@@ -32,7 +33,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-transparent relative overflow-x-hidden pb-40">
+    <div className="min-h-screen bg-transparent relative overflow-x-hidden">
       <BackgroundGlow />
       <main>
         <Hero />
@@ -43,6 +44,7 @@ export default function Home() {
           <Contact />
         </div>
       </main>
+      <Footer />
       <Dock currentSection={activeSection} />
     </div>
   );

@@ -16,9 +16,11 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
   const ref = useRef<HTMLDivElement | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
-  const mouseX = useSpring(x, { stiffness: 170, damping: 32, mass: 0.5 });
-  const mouseY = useSpring(y, { stiffness: 170, damping: 32, mass: 0.5 });
+  const stiffness = 100;
+  const damping = 30;
+  const mass = 1;
+  const mouseX = useSpring(x, { stiffness: stiffness, damping: damping, mass: mass});
+  const mouseY = useSpring(y, { stiffness: stiffness, damping: damping, mass: mass});
   const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
 
 
