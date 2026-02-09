@@ -39,7 +39,8 @@ const Footer = () => {
                   href={link.href}
                   className="text-white/60 hover:text-white/100 transition-colors text-sm"
                 >
-                  {link.label}
+                    <RollingText>{link.label}</RollingText>
+                  
                 </a>
               ))}
             </nav>
@@ -81,10 +82,10 @@ const Footer = () => {
 
             {/* Center - Status */}
             <div className="text-center">
-              <p className="text-white/50 text-sm flex items-center justify-center gap-2">
+              <div className="text-white/50 text-sm flex items-center justify-center gap-2">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                 <RollingText>{PORTFOLIO_DATA.status}</RollingText>
-              </p>
+              </div>
             </div>
 
             {/* Right - Back to Top */}
@@ -93,7 +94,7 @@ const Footer = () => {
               className="text-white/60 hover:text-white/100 transition-colors text-sm flex items-center gap-1 md:justify-end"
               aria-label="Back to top"
             >
-              Back to Top
+              <RollingText>Back to Top</RollingText>
               <ArrowUpRight size={14} />
             </button>
           </div>

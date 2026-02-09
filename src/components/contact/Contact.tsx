@@ -53,14 +53,15 @@ const Contact = () => {
             </div>
           </div>
           <div className="flex flex-col justify-center gap-6">
-            <div>
+            <a href="mailto:debpratimsharma33@gmail.com">
               <RollingButton
                 text="Initialize Comms"
                 className="w-full inline-flex px-7 py-5  items-center justify-center rounded-full bg-white text-black font-bold text-lg hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)] cursor-none gap-3"
+                
               >
                 <Mail className="mr-1 h-5 w-5" />
               </RollingButton>
-            </div>
+            </a>
 
             <div className="flex w-full justify-center gap-4">
               {PORTFOLIO_DATA.socials.map((social, idx) => (

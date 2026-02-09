@@ -2,7 +2,8 @@ import React from "react";
 import SectionHeader from "../SectionHeader";
 import CrystalCard from "../CrystalCard";
 import RollingButton from "../RollingButton";
-import { Download } from "lucide-react";
+import MagneticButton from "../MagneticButton";
+import { Download, Github } from "lucide-react";
 
 function About() {
   const focusAreas = [
@@ -64,7 +65,7 @@ function About() {
         {/* Right Card: Technical Tooling */}
         <CrystalCard className="w-full md:w-1/3 px-4 py-6 md:p-8" disableSpring={true}>
           <h2 className="text-2xl font-bold mb-6 opacity-60">Technical Focus</h2>
-          <div className="space-y-6">
+          <div className="flex flex-col gap-6 relative">
             <div>
               <h3 className="text-xl font-semibold mb-3 opacity-70">Frontend</h3>
               <p className="text-lg opacity-60 leading-relaxed">
@@ -84,6 +85,21 @@ function About() {
               <p className="text-lg opacity-60 leading-relaxed">
                 {toolingSkills.join(" · ")}
               </p>
+            </div>
+
+            <div className="pt-6 md:pt-4 flex items-baseline-last justify-end h-full">
+              <a href="https://github.com/DebpratimSharma"
+              className="w-full"
+                target="_blank"
+                rel="noopener noreferrer">
+              <RollingButton
+                textColor="text-white"
+                className="w-full inline-flex px-6 py-4 items-center justify-center rounded-full border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors text-white font-semibold text-lg gap-3"
+              >
+                <Github className="w-5 h-5 mr-2" />
+                View All Works
+              </RollingButton>
+              </a>
             </div>
           </div>
         </CrystalCard>

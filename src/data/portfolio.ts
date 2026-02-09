@@ -9,7 +9,11 @@ export const PORTFOLIO_DATA = {
     "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
   resumeUrl: "#",
   status: "Available for work",
-  statusDescription: ["Open to full-time roles", "Remote or hybrid preferred", "Looking for a long-term opportunity"],
+  statusDescription: [
+    "Open to full-time roles",
+    "Remote or hybrid preferred",
+    "Looking for a long-term opportunity",
+  ],
   about: {
     description:
       "I'm a Full-Stack Engineer with strong experience in building and shipping real-world products using the React and Next.js ecosystem. I enjoy working close to production—thinking about system boundaries, trade-offs, and long-term maintainability. My background in electrical engineering and IoT gives me a systems-first mindset that goes beyond UI development.",
@@ -49,35 +53,34 @@ export const PORTFOLIO_DATA = {
       title: "Academic OS",
       category: "Routine & Attendance Management System",
       description:
-        "A production-ready academic management system handling routines, attendance, and role-based access.",
+        "A production-ready academic attendance app handling routines, holidays, and many more.",
       tech: ["Next.js", "Supabase", "TypeScript", "Tailwind", "Shadcn UI"],
       link: "https://academicos.vercel.app",
       github: "https://github.com/DebpratimSharma/AcademicOs",
 
       details: {
         problem:
-          "Manual handling of routines and attendance caused inconsistency, errors, and lack of visibility for students and organisers.",
-        role:
-          "Designed and built the system end-to-end, including frontend, backend logic, database schema, and deployment.",
+          "Manual handling of routines and attendance caused inconsistency, errors, and lack of visibility for students.",
+        role: "Designed and built the system end-to-end, including frontend, backend logic, database schema, and deployment.",
         architecture: [
           "Next.js frontend communicating with Supabase-backed APIs",
-          "Role-based access enforced at the database layer",
-          "Schema designed to support scalable attendance tracking",
+          "Google O-Auth for authentication and authorization",
+          "Cloud storage for academic resources and user-generated content",
         ],
         challenges: [
           "Balancing rapid development with long-term schema clarity",
-          "Designing permissions that scale across roles",
-          "Ensuring usability for non-technical users",
+          "Managing local time to match with the global timezones",
+          "Ensuring usability for non-technical users (UX)",
         ],
         impact:
-          "Actively used by students and organisers for managing real academic workflows.",
+          "Actively used by students for managing real academic routines and attendance.",
       },
     },
 
     {
       id: 2,
       title: "SCEEAOT Platform",
-      category: "Student Chapter Website & Admin System",
+      category: "Student Chapter of Electrical Engineering, AOT Website",
       description:
         "Public-facing and internal platform for managing events, announcements, and chapter identity.",
       tech: ["Next.js", "TypeScript", "Tailwind"],
@@ -87,8 +90,7 @@ export const PORTFOLIO_DATA = {
       details: {
         problem:
           "The student chapter lacked a central, maintainable digital presence for events and communication.",
-        role:
-          "Led frontend development and deployment, collaborating closely with organisers on requirements.",
+        role: "Led frontend development and deployment, collaborating closely with organisers on requirements.",
         architecture: [
           "Static-first Next.js architecture for performance and reliability",
           "Simple, maintainable structure for future student teams",
@@ -121,8 +123,7 @@ export const PORTFOLIO_DATA = {
       details: {
         problem:
           "Real-time voice translation requires orchestrating multiple AI services with low latency and failure handling.",
-        role:
-          "Built the orchestration logic and frontend, integrating speech capture, LLM processing, and synthesis.",
+        role: "Built the orchestration logic and frontend, integrating speech capture, LLM processing, and synthesis.",
         architecture: [
           "Frontend-driven orchestration across multiple AI APIs",
           "Sequential processing with explicit error handling",
@@ -143,7 +144,7 @@ export const PORTFOLIO_DATA = {
       role: "Tech Team Member",
       organisation: "Student Chapter of Electrical Engineering, AOT",
       location: "India",
-      period: "2024 – Present",
+      period: "2024 – 2026",
       summary:
         "Worked on real-world technical platforms supporting student and departmental activities.",
       contributions: [
@@ -173,7 +174,39 @@ export const PORTFOLIO_DATA = {
         "Coordinated with organisers for smooth operations",
       ],
       focus: ["Event Systems", "Community Tech", "Coordination"],
-      techStack: ["Web Platforms", "Google Cloud Console", "Collaboration Tools"],
+      techStack: [
+        "Web Platforms",
+        "Google Cloud Console",
+        "Collaboration Tools",
+      ],
     },
+    {
+  id: 3,
+  role: "Convenor",
+  organisation: "Student Chapter of Electrical Engineering, AOT (SCEEAOT)",
+  location: "India",
+  period: "2026 – Present",
+  summary:
+    "Leading the Electrical Engineering student chapter, focusing on technical growth, peer learning, and bridging core EE with modern technologies.",
+  contributions: [
+    "Led technical workshops and peer-learning initiatives",
+    "Collaborated with faculty for academic and technical activities",
+    "Mentored juniors in EE fundamentals and basic programming"
+  ],
+  focus: [
+    "Student leadership",
+    "Core Electrical Engineering",
+    "Tech-enabled learning"
+  ],
+  techStack: [
+    "Electrical Engineering",
+    "Git & GitHub",
+    "JavaScript",
+    "React",
+    "Next.js",
+    "ESP32 / IoT"
+  ],
+}
+,
   ],
 };
