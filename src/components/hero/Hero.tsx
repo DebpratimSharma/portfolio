@@ -16,7 +16,7 @@ export default function Hero() {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
     const onClickResume =()=>{
-    window.open("#", "_blank");
+    window.open(PORTFOLIO_DATA.resumeUrl, "_blank");
     }
 
   return (
@@ -91,7 +91,7 @@ export default function Hero() {
             }}
             className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-evenly md:justify-start gap-4 mt-10"
           >
-            <RollingButton text="See works" className="bg-white py-2 px-4 sm:px-8 sm:py-5" onClick={onClickWorks}>
+            <RollingButton text="See works" className="bg-white py-2 px-4 sm:px-8 sm:py-5 shadow-[0_0_30px_rgba(255,255,255,0.2)]" onClick={onClickWorks}>
               <ArrowUpRight size={18} />
             </RollingButton>
 
@@ -133,7 +133,7 @@ export default function Hero() {
             <Github />
           </div>
         </MagneticButton>
-        <MagneticButton href="">
+        <MagneticButton href="mailto:debpratimsharma33@gmail.com">
           <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl">
             <Mail />
           </div>

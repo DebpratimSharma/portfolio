@@ -109,7 +109,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({id, category, title, descripti
             </div>
             <div className="links flex gap-4 justify-center md:justify-end w-full">
                 <div onClick={(e) => e.stopPropagation()}>
-                  <RollingButton onClick={handleOnclickonView}  text="Live Site" className="bg-white px-6  py-2.5" textColor="text-black"><Globe className="w-5 h-5" /></RollingButton>
+                  <RollingButton onClick={handleOnclickonView}  text="Live Site" className="bg-white px-6  py-2.5 shadow-[0_0_30px_rgba(255,255,255,0.2)]" textColor="text-black"><Globe className="w-5 h-5" /></RollingButton>
                 </div>
                 <div onClick={(e) => e.stopPropagation()}>
                   <RollingButton onClick={handleOnclickonCode} text="Repository" className="bg-transparent px-5  py-2.5" textColor="text-white"><Github className="w-5 h-5" /></RollingButton>

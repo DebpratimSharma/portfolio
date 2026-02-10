@@ -4,6 +4,7 @@ import CrystalCard from "../CrystalCard";
 import RollingButton from "../RollingButton";
 import MagneticButton from "../MagneticButton";
 import { Download, Github } from "lucide-react";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
 
 function About() {
   const focusAreas = [
@@ -54,7 +55,7 @@ function About() {
             </div>
 
             <div className="pt-6 md:pt-4">
-              <RollingButton className="bg-white px-6 py-4" text="Download Resume">
+              <RollingButton className="bg-white px-6 py-4 shadow-[0_0_30px_rgba(255,255,255,0.2)]" text="Download Resume" onClick={()=>window.open(PORTFOLIO_DATA.resumeUrl)}>
                 <Download className="w-5 h-5" />
               </RollingButton>
               <p className="text-xs opacity-50 mt-3 ml-4">PDF · Updated 2025</p>

@@ -7,7 +7,7 @@ export const PORTFOLIO_DATA = {
   role: "Full-Stack Engineer (Backend-leaning)",
   tagline:
     "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
-  resumeUrl: "#",
+  resumeUrl: "https://docs.google.com/document/d/1WXOgpowX7oe__Q_SAY8FImyXG62uJkWQDFlxInrUHyk/edit?usp=sharing",
   status: "Available for work",
   statusDescription: [
     "Open to full-time roles",
