@@ -88,7 +88,7 @@ function About() {
             </div>
 
             <div className="pt-6 md:pt-4 flex items-baseline-last justify-end h-full">
-              <a href="https://github.com/DebpratimSharma"
+              <a href="https://github.com/DebpratimSharma?tab=repositories"
               className="w-full"
                 target="_blank"
                 rel="noopener noreferrer">
