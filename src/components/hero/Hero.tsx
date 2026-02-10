@@ -46,7 +46,6 @@ export default function Hero() {
             style={{ fontStyle: "italic" }}
           >
             Welcome to
-            Welcome to
           </motion.h2>
 
           <motion.h1
