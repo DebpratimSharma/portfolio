@@ -7,7 +7,7 @@ import RollingButton from "../RollingButton";
 import HeroTechStack from "./HeroTechStack";
 import RollingText from "../RollingText";
 import MagneticButton from "../MagneticButton";
-import LightRays from "../LightRays";
+
 
 export default function Hero() {
   const { scrollY } = useScroll();
@@ -47,25 +47,10 @@ export default function Hero() {
         {/* Animated Grid Background */}
         <motion.div
           style={{ opacity }}
-          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:4rem_4rem]"
+          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-size-[4rem_4rem]"
         />
 
-        {/* Light Rays Background */}
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={1}
-          lightSpread={0.5}
-          rayLength={3}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0}
-          distortion={0}
-          className="custom-rays"
-          pulsating={false}
-          fadeDistance={1}
-          saturation={1}
-        />
+        
       </div>
 
       {/* Main Content - Centre Aligned */}
