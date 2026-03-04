@@ -16,11 +16,9 @@ const RollingButton: React.FC<RollingButtonProps> = ({
   textColor = "text-black",
   ...props 
 }) => {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
-    setIsTouchDevice(mq.matches);
-  }, []);
+  const isTouchDevice =
+  typeof window !== "undefined" &&
+  window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
   // determine if the provided className hints at a see-through background
   const hasTransparentBg = /bg-(transparent|[^\s]+\/\d{1,3})/.test(className);

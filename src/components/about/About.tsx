@@ -54,12 +54,25 @@ function About() {
               ))}
             </div>
 
-            <div className="pt-6 md:pt-4">
+            <div className="pt-6 md:pt-4 flex items-center gap-6">
               <RollingButton className="bg-white px-6 py-4 shadow-[0_0_30px_rgba(255,255,255,0.2)]" text="Download Resume" onClick={()=>window.open(PORTFOLIO_DATA.resumeUrl)}>
                 <Download className="w-5 h-5" />
               </RollingButton>
-              <p className="text-xs opacity-50 mt-3 ml-4">PDF · Updated 2025</p>
+              <RollingButton className="bg-transparent px-6 py-4" textColor="text-white" text="View All Works" onClick={()=>window.open(PORTFOLIO_DATA.resumeUrl)}
+              >
+
+              </RollingButton>
+              {/* <RollingButton
+                textColor="text-white"
+                onClick={()=>window.open("https://github.com/DebpratimSharma?tab=repositories", "_blank")}
+                className=" inline-flex px-6 py-4 items-center justify-center rounded-full border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors text-white font-semibold text-lg gap-3"
+              >
+                <Github className="w-5 h-5 mr-2" />
+                View All Works
+              </RollingButton> */}
+              
             </div>
+            <p className="text-xs opacity-50 mt-3 ml-4">PDF · Updated 2025</p>
           </div>
         </CrystalCard>
 
@@ -88,20 +101,7 @@ function About() {
               </p>
             </div>
 
-            <div className="pt-6 md:pt-4 flex items-baseline-last justify-end h-full">
-              <a href="https://github.com/DebpratimSharma?tab=repositories"
-              className="w-full"
-                target="_blank"
-                rel="noopener noreferrer">
-              <RollingButton
-                textColor="text-white"
-                className="w-full inline-flex px-6 py-4 items-center justify-center rounded-full border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors text-white font-semibold text-lg gap-3"
-              >
-                <Github className="w-5 h-5 mr-2" />
-                View All Works
-              </RollingButton>
-              </a>
-            </div>
+            
           </div>
         </CrystalCard>
       </div>
