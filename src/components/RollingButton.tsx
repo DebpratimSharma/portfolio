@@ -22,6 +22,9 @@ const RollingButton: React.FC<RollingButtonProps> = ({
     setIsTouchDevice(mq.matches);
   }, []);
 
+  // determine if the provided className hints at a see-through background
+  const hasTransparentBg = /bg-(transparent|[^\s]+\/\d{1,3})/.test(className);
+
   // Logic: 
   // 1. If 'text' is explicitly provided, use it for the rolling animation. 'children' is treated as the icon.
   // 2. If 'text' is MISSING, and 'children' is a plain string, treat 'children' as the rolling text.
@@ -36,7 +39,7 @@ const RollingButton: React.FC<RollingButtonProps> = ({
 
   return (
     <button
-      className={`group/button cursor-pointer relative overflow-hidden rounded-full border border-white/20 font-medium transition-all hover:border-white ${className}`}
+      className={`group/button cursor-pointer relative overflow-hidden rounded-full border border-white/20 font-medium transition-all hover:border-white ${hasTransparentBg ? 'backdrop-blur-sm' : ''} ${className}`}
       aria-label={rollingText || 'Button'}
       {...props}
     >
