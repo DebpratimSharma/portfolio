@@ -7,36 +7,29 @@ import { useEffect, useState } from "react";
 // 5. Tech Stack Hologram (Replaces Geometric Art)
 const HeroTechStack = () => {
     const [isMobile, setIsMobile] = useState(false);
-    useEffect(() =>{
-        const checkDevice =()=>{
+    useEffect(() => {
+        const checkDevice = () => {
             const isTouch = window.matchMedia("(pointer: coarse)").matches;
             const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
             setIsMobile(isTouch || !hasFinePointer);
-        
+
         };
         checkDevice();
         window.addEventListener("resize", checkDevice);
         return () => window.removeEventListener("resize", checkDevice);
     }, [isMobile]);
 
-    
+    if (isMobile) return null;
 
     return (
-        <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{  duration: 0.5, delay: 0.5}}
-        className="relative w-full h-full min-h-125 flex items-center justify-center pointer-events-none select-none">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="relative w-full h-full min-h-125 flex items-center justify-center pointer-events-none select-none">
             {/* Central Core System */}
-            {isMobile &&(
-                <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute w-175 h-175 bg-cyan-500/20 rounded-full blur-[120px] z-0"
-                />
-            )}
             <div className="relative z-10 w-32 h-32 rounded-full bg-neutral-900/20 backdrop-blur-2xl border border-white/10 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                <motion.div 
+                <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                     className="absolute inset-0 rounded-full border-t border-cyan-500/50"
@@ -47,14 +40,14 @@ const HeroTechStack = () => {
             </div>
 
             {/* Orbit 1: Frontend (React, Next) */}
-            <motion.div 
+            <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                 className="absolute w-70 h-70 border border-white/15 rounded-full z-50"
             >
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-70">
-                    <motion.div 
-                        animate={{ rotate: -360 }} 
+                    <motion.div
+                        animate={{ rotate: -360 }}
                         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                         className="w-12 h-12 rounded-2xl bg-black/15 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg"
                     >
@@ -62,8 +55,8 @@ const HeroTechStack = () => {
                     </motion.div>
                 </div>
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-70 translate-y-1/2">
-                    <motion.div 
-                        animate={{ rotate: -360 }} 
+                    <motion.div
+                        animate={{ rotate: -360 }}
                         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
                         className="w-12 h-12 rounded-2xl bg-black/15 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg"
                     >
@@ -73,14 +66,14 @@ const HeroTechStack = () => {
             </motion.div>
 
             {/* Orbit 2: Backend (Node, DB) - Reverse Rotation */}
-            <motion.div 
+            <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                 className="absolute w-105 h-105 border border-white/20 rounded-full "
             >
                 <div className="absolute left-0 top-1/2 -translate-x-1/2 opacity-70 -translate-y-1/2">
-                    <motion.div 
-                        animate={{ rotate: 360 }} 
+                    <motion.div
+                        animate={{ rotate: 360 }}
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                         className="w-12 h-12 rounded-2xl bg-black/15 backdrop-blur-md border z-50 border-white/10 flex items-center justify-center shadow-lg"
                     >
@@ -88,8 +81,8 @@ const HeroTechStack = () => {
                     </motion.div>
                 </div>
                 <div className="absolute right-0 top-1/2 translate-x-1/2 opacity-70 -translate-y-1/2">
-                    <motion.div 
-                        animate={{ rotate: 360 }} 
+                    <motion.div
+                        animate={{ rotate: 360 }}
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                         className="w-12 h-12 rounded-2xl bg-black/15 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg"
                     >
@@ -97,8 +90,8 @@ const HeroTechStack = () => {
                     </motion.div>
                 </div>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 opacity-70 -translate-y-1/2">
-                    <motion.div 
-                        animate={{ rotate: 360 }} 
+                    <motion.div
+                        animate={{ rotate: 360 }}
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                         className="w-10 h-10 rounded-xl bg-black/15 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg"
                     >
@@ -106,8 +99,8 @@ const HeroTechStack = () => {
                     </motion.div>
                 </div>
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-70 translate-y-1/2">
-                    <motion.div 
-                        animate={{ rotate: 360 }} 
+                    <motion.div
+                        animate={{ rotate: 360 }}
                         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                         className="w-10 h-10 rounded-xl bg-black/15 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg"
                     >
