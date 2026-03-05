@@ -377,3 +377,28 @@ a {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+/* Target the correct updated class name */
+.react-activity-calendar__scroll-container {
+  scrollbar-width: thin !important;
+  scrollbar-color: #06b5d447 rgba(255, 255, 255, 0) !important;
+}
+
+/* Chrome, Edge, and Safari */
+.react-activity-calendar__scroll-container::-webkit-scrollbar {
+  height: 6px !important;
+}
+
+.react-activity-calendar__scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0) !important;
+  border-radius: 10px !important;
+}
+
+.react-activity-calendar__scroll-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, #06b5d46b, #22d3ee73) !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0) !important;
+}
+
+.react-activity-calendar__scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #22d3ee00 !important;
+}
