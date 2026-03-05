@@ -51,15 +51,19 @@ export function CustomCursor() {
     <>
       {/* Core dot */}
       <motion.div
-        className="fixed top-0 left-0 z-9999 pointer-events-none mix-blend-difference"
+        className="fixed top-0 left-0 z-9999 pointer-events-none mix-blend-difference  bg-white rounded-full"
         style={{
           x,
           y,
           translateX: "-50%",
           translateY: "-50%",
         }}
+        animate={{
+          width: hovering ? 40 : 10,
+          height: hovering ? 40 : 10,
+        }}
       >
-        <div className="w-2.5 h-2.5 bg-white rounded-full" />
+        
       </motion.div>
 
       {/* Outer ring */}

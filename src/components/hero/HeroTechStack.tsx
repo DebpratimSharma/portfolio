@@ -28,22 +28,20 @@ const HeroTechStack = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="relative w-full h-full min-h-125 flex items-center justify-center pointer-events-none select-none">
             {/* Central Core System */}
-            <div className="relative z-10 w-32 h-32 rounded-full bg-neutral-900/20 backdrop-blur-2xl border border-white/10 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                <motion.div
+            {isMobile &&(
+                <motion.div 
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 rounded-full border-t border-cyan-500/50"
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute w-175 h-175 bg-cyan-500/20 rounded-full blur-[120px] z-0"
                 />
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mb-2 shadow-[0_0_10px_#22c55e]" />
-                <span className="text-[10px] font-mono text-white/50 tracking-widest">SYSTEM</span>
-                <span className="text-xs font-bold text-white tracking-widest">ONLINE</span>
-            </div>
+            )}
+            
 
             {/* Orbit 1: Frontend (React, Next) */}
             <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute w-70 h-70 border border-white/15 rounded-full z-50"
+                className="absolute w-105 h-105 border border-white/15 rounded-full z-50"
             >
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-70">
                     <motion.div
@@ -69,7 +67,7 @@ const HeroTechStack = () => {
             <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="absolute w-105 h-105 border border-white/20 rounded-full "
+                className="absolute w-157 h-157 border border-white/20 rounded-full "
             >
                 <div className="absolute left-0 top-1/2 -translate-x-1/2 opacity-70 -translate-y-1/2">
                     <motion.div
