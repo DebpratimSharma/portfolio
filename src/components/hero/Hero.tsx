@@ -203,7 +203,7 @@ export default function Hero() {
         }}
         className="absolute bottom-40 left-1/2 -translate-x-1/2"
       >
-        <div className="flex flex-col items-center gap-2">
+        <div className="hidden md:flex flex-col items-center gap-2">
           <span className="text-xs text-white/50 uppercase tracking-widest">
             Scroll to explore
           </span>

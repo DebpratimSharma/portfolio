@@ -51,7 +51,7 @@ const DockItem: React.FC<DockItemProps> = ({
     distance.set(d);
   });
   //Map distance to width : closer => larger
-  const width = useTransform(distance, [-150, 0, 150], [50, 80, 50]); //?
+  const width = useTransform(distance, [-150, 0, 150], [50, 64, 50]); //?
   const widthSpring = useSpring(width, { damping: 25, stiffness: 200 });
 
   // Scale the icon based on the springed width for smooth animation
@@ -65,7 +65,7 @@ const DockItem: React.FC<DockItemProps> = ({
       onHoverEnd={() => setHovered(false)}
       whileTap={{ scale: 0.85, translateY: 5 }}
       style={{ width: widthSpring, height: widthSpring }}
-      className="relative flex items-center justify-center rounded-2xl cursor-pointer bg-[#002d36] backdrop-blur-xl border border-white/20 text-white z-999"
+      className="relative flex items-center justify-center rounded-2xl cursor-pointer bg-white/5 backdrop-blur-xl border border-white/20 text-white z-999"
     >
 
       
@@ -92,7 +92,7 @@ const DockItem: React.FC<DockItemProps> = ({
       {active && (
         <motion.div
           layoutId="active-dock-dot"
-          className="absolute -bottom-3.75 h-px w-px p-0.75 bg-white/50 rounded-full"
+          className="absolute -bottom-2 h-px w-px p-0.75 bg-white/50 rounded-full"
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         />
       )}
@@ -114,7 +114,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        className="z-0 flex  gap-3 px-5 pb-4 h-20.75 items-end rounded-3xl bg-[#002d36]/35 border border-white/20 backdrop-blur-md shadow-[0_0_30px_rgba(0,0,0,0.3)] ring-1 ring-white/5"
+        className="z-0 flex  gap-3 px-5 pb-3 h-19 items-end rounded-3xl bg-white/5 border border-white/20 backdrop-blur-md shadow-[0_0_30px_rgba(0,0,0,0.3)] ring-1 ring-white/5"
       >
         <DockItem
           

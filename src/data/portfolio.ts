@@ -144,7 +144,7 @@ export const PORTFOLIO_DATA = {
       role: "Tech Team Member",
       organisation: "Student Chapter of Electrical Engineering, AOT",
       location: "India",
-      period: "2024 – 2026",
+      period: "2024 – 2025",
       summary:
         "Worked on real-world technical platforms supporting student and departmental activities.",
       contributions: [
@@ -165,7 +165,7 @@ export const PORTFOLIO_DATA = {
       role: "Tech Team Member",
       organisation: "GDG On Campus – Academy of Technology",
       location: "India",
-      period: "2025 – Present",
+      period: "2025 – 2026",
       summary:
         "Part of the core technical organising team for a large-scale hackathon.",
       contributions: [
@@ -185,7 +185,7 @@ export const PORTFOLIO_DATA = {
   role: "Convenor",
   organisation: "Student Chapter of Electrical Engineering, AOT (SCEEAOT)",
   location: "India",
-  period: "2026 – Present",
+  period: "2026 – 2027",
   summary:
     "Leading the Electrical Engineering student chapter, focusing on technical growth, peer learning, and bridging core EE with modern technologies.",
   contributions: [
@@ -204,7 +204,7 @@ export const PORTFOLIO_DATA = {
     "JavaScript",
     "React",
     "Next.js",
-    "ESP32 / IoT"
+    "ESP32"
   ],
 }
 ,

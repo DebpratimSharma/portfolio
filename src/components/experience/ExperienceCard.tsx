@@ -41,10 +41,8 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
       <div className="relative z-50 px-4 py-6 md:p-8">
         <div className="space-y-2 ">
           <h1 className="text-3xl font-bold">{role}</h1>
-          <h2 className="text-xl font-semibold opacity-65">{organisation}</h2>
-          <h3 className="text-lg opacity-60">
-            <span className="text-cyan-200">{period}</span> . {location}
-          </h3>
+          <h2 className="text-xl font-semibold opacity-65">{organisation} . <span className="text-sm text-cyan-300">{location}</span></h2>
+          
         </div>
         <div className="pt-4 text-shadow-lg">
           <p className="leading-relaxed text-lg opacity-80 border-b border-white/20 pb-4">
