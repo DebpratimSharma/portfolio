@@ -106,7 +106,7 @@ function About() {
                   className="bg-transparent px-6 py-3"
                   textColor="text-white"
                   text="All Works"
-                  onClick={() => window.open(PORTFOLIO_DATA.resumeUrl)}
+                  onClick={() => window.open(PORTFOLIO_DATA.socials[0].href)}
                 ></RollingButton>
               </div>
               <p className="text-xs opacity-50 mt-3 ml-4">PDF · Updated 2025</p>
