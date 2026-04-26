@@ -4,9 +4,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
         {
             url: 'https://debprix.vercel.app',
-            lastModified: new Date(),
+            lastModified: new Date('2026-04-26'),
             changeFrequency: 'monthly',
             priority: 1,
-        }
+        },
     ]
-}
+}
