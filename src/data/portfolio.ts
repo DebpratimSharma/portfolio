@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Code } from "lucide-react";
 import { Code2, Cpu, Database, Globe, Layers, Terminal } from "lucide-react";
 
 export const PORTFOLIO_DATA = {
@@ -36,6 +36,11 @@ export const PORTFOLIO_DATA = {
       href: "mailto:debpratimsharma33@gmail.com",
       label: "Email",
     },
+    {
+      icon: Code ,
+      href: "https://leetcode.com/u/debpratimsharma/",
+      label: "LeetCode",
+    }
   ],
 
   stack: [

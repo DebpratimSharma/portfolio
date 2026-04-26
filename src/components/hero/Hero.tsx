@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, MoveDown, Linkedin, Github, Mail } from "lucide-react";
+import { ArrowUpRight, MoveDown } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import RollingButton from "../RollingButton";
 import ColorBends from "../ColorBends";
@@ -9,6 +9,7 @@ import RollingText from "../RollingText";
 import MagneticButton from "../MagneticButton";
 import DotField from "../DotField";
 import ScrollVelocity from "../ScrollVelocity";
+import Navbar from "../Navbar";
 
 
 export default function Hero() {
@@ -42,7 +43,7 @@ export default function Hero() {
             rotation={70}
             iterations={0}
             intensity={1.0}
-            className="absolute inset-0"
+            className="absolute inset-0 hidden md:block"
           />
         </motion.div>
 
@@ -63,7 +64,7 @@ export default function Hero() {
 
       {/* Main Content - Centre Aligned */}
       <motion.div
-        
+
         className="relative w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center z-10"
       >
         <motion.span
@@ -139,7 +140,7 @@ export default function Hero() {
           }}
           className="my-12 w-full flex justify-center absolute -z-90"
         >
-          
+
         </motion.div>
 
         {/* CTA Buttons - Centered */}
@@ -174,40 +175,8 @@ export default function Hero() {
       </motion.div>
 
       {/* Top Navbar */}
-      <motion.header
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 420,
-          damping: 18,
-          mass: 0.7,
-        }}
-        className="absolute top-6 left-0 w-full px-6 md:px-12 flex items-center justify-between z-20"
-      >
-        <div className="font-syne font-bold text-xl md:text-2xl tracking-wider text-white drop-shadow-md cursor-default">
-          {PORTFOLIO_DATA.title.toUpperCase()}
-        </div>
-        
-        <div className="flex items-center gap-2 p-1.5 glass-panel rounded-full">
-          <MagneticButton href="https://www.linkedin.com/in/debpratim-sharma-916203267/">
-            <div className="p-2.5 rounded-full hover:bg-white/10 text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">
-              <Linkedin size={18} />
-            </div>
-          </MagneticButton>
-          <MagneticButton href="https://github.com/DebpratimSharma">
-            <div className="p-2.5 rounded-full hover:bg-white/10 text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">
-              <Github size={18} />
-            </div>
-          </MagneticButton>
-          <MagneticButton href="mailto:debpratimsharma33@gmail.com">
-            <div className="p-2.5 rounded-full hover:bg-white/10 text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">
-              <Mail size={18} />
-            </div>
-          </MagneticButton>
-        </div>
-      </motion.header>
       
+
       {/* Scroll Velocity - Skills */}
       <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none pb-6 overflow-hidden">
         <ScrollVelocity

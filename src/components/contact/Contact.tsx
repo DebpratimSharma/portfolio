@@ -34,7 +34,7 @@ const Contact = () => {
             />
           </div>
           <div className="body flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div className="left flex flex-col gap-3 items-start justify-start">
+            <div className="left md:w-1/2 flex flex-col gap-3 items-start justify-start">
               <h1 className="flex gap-2 items-center">
                 <div className=" bg-green-400 h-2 w-2 rounded-full animate-pulse shadow-2xl shadow-green-300"></div>
                 {"Current status".toUpperCase()}
@@ -58,7 +58,7 @@ const Contact = () => {
                   ))}
               </div>
             </div>
-            <div className="flex flex-col justify-center gap-6">
+            <div className="right md:w-1/3 flex flex-col justify-center gap-6">
               <a href="mailto:debpratimsharma33@gmail.com">
                 <RollingButton
                   text="Initialize Comms"
@@ -69,21 +69,23 @@ const Contact = () => {
                 </RollingButton>
               </a>
 
-              <div className="flex w-full justify-center gap-4">
-                {PORTFOLIO_DATA.socials.map((social, idx) => (
-                  <MagneticButton
-                    key={idx}
-                    className="p-4 px-10 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-colors cursor-none group flex-1 flex justify-center"
-                    aria-label={social.label}
-                    href={social.href}
-                  >
-                    <social.icon
-                      size={20}
+              <div className="flex w-full justify-center gap-4 [&>a]:flex-1">
+                {PORTFOLIO_DATA.socials
+                  .filter((social) => social.label !== "Email")
+                  .map((social, idx) => (
+                    <MagneticButton
                       key={idx}
-                      className="text-white/60 group-hover:text-white transition-colors"
-                    />
-                  </MagneticButton>
-                ))}
+                      className="p-4 w-full h-full rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-colors cursor-none group flex justify-center items-center"
+                      aria-label={social.label}
+                      href={social.href}
+                    >
+                      <social.icon
+                        size={20}
+                        key={idx}
+                        className="text-white/60 group-hover:text-white transition-colors"
+                      />
+                    </MagneticButton>
+                  ))}
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@ interface CrystalCardProps {
 
 const CrystalCard: React.FC<CrystalCardProps> = ({
   children,
-  className = "",
+  className = "glass-panel",
   onClick,
   disableSpring = false,
 }) => {
@@ -109,7 +109,7 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
           ? undefined
           : { type: "spring", ...springConfig }
       }
-      className={`group relative rounded-4xl overflow-hidden glass-panel ${className}`}
+      className={`group relative rounded-4xl overflow-hidden glass-panel backdrop-blur-none ${className}`}
     >
       {/*spotlight */}
       {!isTouchDevice && hovered && (
