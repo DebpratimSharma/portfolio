@@ -144,12 +144,12 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: 0,
-      title: "Donor Fi",
+      title: "DonorFi",
       category: "Permissionless Philanthropy Layer on Solana",
       description:
         "The Permissionless Philanthropy Layer on Solana Where Compassion Meets the Blockchain.",
       tech: ["Next.js", "Solana", "TypeScript", "Tailwind CSS", "Shadcn UI"],
-      link: "",
+      link: "https://donorfi.vercel.app",
       github: "https://github.com/HACKTROPICA-CODE-PHOENIX/hacktropica",
 
       details: {

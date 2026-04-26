@@ -19,7 +19,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({id, category, title, descripti
   const [expanded, setExpanded] = useState(false);
 
   const projectDetails = useMemo(() => {
-    if (!id) return undefined;
+    if (id === undefined) return undefined;
     const pid = typeof id === "number" ? id : Number(id);
     return PORTFOLIO_DATA.projects.find(p => p.id === pid)?.details;
   }, [id]);
