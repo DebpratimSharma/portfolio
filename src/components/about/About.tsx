@@ -94,18 +94,18 @@ function About() {
                 ))}
               </div>
 
-              <div className="pt-6 md:pt-4 flex items-center gap-6">
+              <div className="pt-6 md:pt-4 flex items-center justify-center md:justify-end gap-6">
                 <RollingButton
-                  className="bg-white px-6 py-4 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                  text="Download Resume"
+                  className="bg-white px-6 py-3 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                  text="Resume"
                   onClick={() => window.open(PORTFOLIO_DATA.resumeUrl)}
                 >
                   <Download className="w-5 h-5" />
                 </RollingButton>
                 <RollingButton
-                  className="bg-transparent px-6 py-4"
+                  className="bg-transparent px-6 py-3"
                   textColor="text-white"
-                  text="View All Works"
+                  text="All Works"
                   onClick={() => window.open(PORTFOLIO_DATA.resumeUrl)}
                 ></RollingButton>
               </div>

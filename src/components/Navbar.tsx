@@ -21,7 +21,7 @@ export default function Navbar() {
         {PORTFOLIO_DATA.title.toUpperCase()}
       </div>
 
-      <div className="flex items-center gap-2 p-1.5 glass-panel rounded-full pointer-events-auto backdrop-blur-md">
+      <div className="flex items-center gap-2 p-1.5 glass-panel rounded-full pointer-events-auto">
         {PORTFOLIO_DATA.socials.map((link, index) => {
           const Icon = link.icon;
           return (

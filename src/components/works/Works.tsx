@@ -17,7 +17,7 @@ const Works = () => {
       {/* Work items will go here */}
 
       <div className="w-full flex flex-col gap-y-8">
-        {PORTFOLIO_DATA.projects.map((project, index) => (
+        {PORTFOLIO_DATA.projects.sort((a, b) => a.id - b.id).map((project, index) => (
           <motion.div
             key={project.id}
             initial={{ opacity: 0, y: 40 }}

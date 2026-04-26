@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Code } from "lucide-react";
 import { Code2, Cpu, Database, Globe, Layers, Terminal } from "lucide-react";
+import { title } from "node:process";
 
 export const PORTFOLIO_DATA = {
   title: "Debprix",
@@ -139,6 +140,32 @@ export const PORTFOLIO_DATA = {
         ],
         impact:
           "Prototype system exploring architectural feasibility and AI trade-offs.",
+      },
+    },
+    {
+      id: 0,
+      title: "Donor Fi",
+      category: "Permissionless Philanthropy Layer on Solana",
+      description:
+        "The Permissionless Philanthropy Layer on Solana Where Compassion Meets the Blockchain.",
+      tech: ["Next.js", "Solana", "TypeScript", "Tailwind CSS", "Shadcn UI"],
+      link: "",
+      github: "https://github.com/HACKTROPICA-CODE-PHOENIX/hacktropica",
+
+      details: {
+        problem:
+          "Traditional philanthropy lacks transparency and direct peer-to-peer donation flows on the blockchain.",
+        role: "Built the frontend and Solana wallet integration, enabling direct donations via Phantom wallet.",
+        architecture: [
+          "Next.js frontend with Tailwind CSS and Shadcn UI",
+          "Solana wallet integration using Phantom adapter",
+        ],
+        challenges: [
+          "Integrating Solana wallet with React hooks",
+          "Ensuring seamless user experience during transaction flows",
+        ],
+        impact:
+          "Created a functional frontend prototype for a Web3 philanthropy platform.",
       },
     },
   ],
