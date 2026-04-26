@@ -9,6 +9,17 @@ import About from "@/components/about/About";
 import Experiece from "@/components/experience/Experiece";
 import Contact from "@/components/contact/Contact";
 import Footer from "@/components/Footer";
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Debpratim Sharma',
+  jobTitle: 'Full Stack Developer',
+  url: 'https://debprix.vercel.app',
+  sameAs: [
+    'https://github.com/DebpratimSharma',
+    'https://www.linkedin.com/in/debpratim-sharma-916203267/'
+  ]
+}
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");

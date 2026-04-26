@@ -23,8 +23,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Debpratim Sharma",
-  description: "Full Stack Web Developer building intelligent, scalable digital products",
+  metadataBase: new URL('https://debprix.vercel.app'),
+  keywords: ['Next.js', 'React', 'TypeScript', 'Node.js', 'Full Stack Developer', 'Software Engineer'],
+  title: {
+    default: 'Debpratim Sharma | Full Stack Developer',
+    template: '%s | Debpratim Sharma'
+  },
+  description: 'Portfolio of Debpratim Sharma, a Full Stack Web Developer.',
 };
 
 export default function RootLayout({
