@@ -34,7 +34,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-transparent relative overflow-x-hidden">
-      <BackgroundGlow />
+      {/* <div
+        className={`pointer-events-none transition-opacity duration-500 ${
+          activeSection === "hero" ? "opacity-0" : "opacity-100"
+        }`}
+      > */}
+        <BackgroundGlow />
+      {/* </div> */}
       <main>
         <Hero />
         <div className="max-w-6xl flex flex-col gap-y-12 mx-auto px-4">

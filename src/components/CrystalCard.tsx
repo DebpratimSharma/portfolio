@@ -109,7 +109,7 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
           ? undefined
           : { type: "spring", ...springConfig }
       }
-      className={`group relative rounded-4xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl ${className}`}
+      className={`group relative rounded-4xl overflow-hidden glass-panel ${className}`}
     >
       {/*spotlight */}
       {!isTouchDevice && hovered && (

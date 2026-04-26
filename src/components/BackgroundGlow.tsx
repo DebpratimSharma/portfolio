@@ -12,7 +12,7 @@ const BackgroundGlow = () => {
 
   //bg-gradient
 
-  const background = useMotionTemplate`radial-gradient(900px circle at ${mouseX}px ${mouseY}px, rgba(34, 211, 238, 0.15), transparent 65%)`;
+  const background = useMotionTemplate`radial-gradient(900px circle at ${mouseX}px ${mouseY}px, #22d3ee26, transparent 65%)`;
 
   useEffect(() => {
     // disable for mobile devices

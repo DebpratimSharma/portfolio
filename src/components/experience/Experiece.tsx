@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import SectionHeader from "../SectionHeader";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import ExperienceCard from "./ExperienceCard";
@@ -25,11 +26,17 @@ function Experiece() {
           <ExperienceCard key={experience.id} {...experience} />
         ))}
       </div> */}
-      <div className="mt-16">
+      <motion.div 
+        className="mt-16"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
+      >
         <Timeline
           data={timelineData}
         />
-      </div>
+      </motion.div>
     </section>
   );
 }

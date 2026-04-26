@@ -16,17 +16,19 @@ const Works = () => {
       />
       {/* Work items will go here */}
 
-      <motion.div
-        // initial={{ opacity: 0, x: 80 }}
-        // whileInView={{ opacity: 1, x: 0 }}
-        // viewport={{ once: true, margin: "-100px" }}
-        // transition={{ duration: 0.6, ease: "easeInOut" }}
-        className="w-full flex flex-col gap-y-8"
-      >
-        {PORTFOLIO_DATA.projects.map((project) => (
-          <ProjectCard key={project.id} {...project} />
+      <div className="w-full flex flex-col gap-y-8">
+        {PORTFOLIO_DATA.projects.map((project, index) => (
+          <motion.div
+            key={project.id}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, delay: index * 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+          >
+            <ProjectCard {...project} />
+          </motion.div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };

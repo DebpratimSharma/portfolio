@@ -4,9 +4,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, MoveDown, Linkedin, Github, Mail } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import RollingButton from "../RollingButton";
-import HeroTechStack from "./HeroTechStack";
+import ColorBends from "../ColorBends";
 import RollingText from "../RollingText";
 import MagneticButton from "../MagneticButton";
+import DotField from "../DotField";
+import ScrollVelocity from "../ScrollVelocity";
 
 
 export default function Hero() {
@@ -25,37 +27,43 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full h-screen flex flex-col justify-center items-center px-4 overflow-hidden"
+      className="relative w-full h-screen flex flex-col justify-center items-center px-4 overflow-hidden outline-2 outline-white/10 mb-10"
     >
       {/* Animated Background Elements */}
 
       <div className="absolute inset-0 overflow-hidden">
-        {/* Center Animated Glow */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"
-        />
+        <motion.div className="absolute inset-0 pointer-events-none ">
+          <ColorBends
+            colors={['#08414aff', '#0e4f5fff', '#083d4cff']}
+            speed={0.5}
+            frequency={0.8}
+            noise={0.15}
 
-        {/* Animated Grid Background */}
-        <motion.div
-          style={{ opacity }}
-          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-size-[4rem_4rem]"
-        />
+            rotation={70}
+            iterations={0}
+            intensity={1.0}
+            className="absolute inset-0"
+          />
+        </motion.div>
 
-        
+        <div className="absolute inset-0">
+          <DotField
+            dotRadius={1.5}
+            dotSpacing={14}
+            bulgeStrength={67}
+            glowRadius={160}
+            sparkle={false}
+            waveAmplitude={0}
+            cursorRadius={500}
+            cursorForce={0.1}
+            bulgeOnly
+          />
+        </div>
       </div>
 
       {/* Main Content - Centre Aligned */}
       <motion.div
-        style={{ y }}
+        
         className="relative w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center z-10"
       >
         <motion.span
@@ -131,7 +139,7 @@ export default function Hero() {
           }}
           className="my-12 w-full flex justify-center absolute -z-90"
         >
-          <HeroTechStack />
+          
         </motion.div>
 
         {/* CTA Buttons - Centered */}
@@ -148,7 +156,7 @@ export default function Hero() {
         >
           <RollingButton
             text="See works"
-            className="bg-white py-3 px-8 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+            className="bg-white py-4 px-8 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
             onClick={onClickWorks}
           >
             <ArrowUpRight size={18} />
@@ -156,7 +164,7 @@ export default function Hero() {
 
           <RollingButton
             text="Download Resume"
-            className="bg-cyan-500/5 py-3 px-8 border border-cyan-500/30"
+            className="bg-cyan-500/5 py-4 px-8 border border-cyan-500/30"
             textColor="text-white"
             onClick={onClickResume}
           >
@@ -165,51 +173,53 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Social Links - Top Center */}
-      <motion.div
+      {/* Top Navbar */}
+      <motion.header
         initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 0.7 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{
           type: "spring",
           stiffness: 420,
           damping: 18,
           mass: 0.7,
         }}
-        className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-6 z-20"
+        className="absolute top-6 left-0 w-full px-6 md:px-12 flex items-center justify-between z-20"
       >
-        <MagneticButton href="https://www.linkedin.com/in/debpratim-sharma-916203267/">
-          <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl hover:bg-cyan-500/30 transition-colors">
-            <Linkedin size={20} />
-          </div>
-        </MagneticButton>
-        <MagneticButton href="https://github.com/DebpratimSharma">
-          <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl hover:bg-cyan-500/30 transition-colors">
-            <Github size={20} />
-          </div>
-        </MagneticButton>
-        <MagneticButton href="mailto:debpratimsharma33@gmail.com">
-          <div className="p-3 bg-cyan-500/20 border border-white/20 rounded-2xl hover:bg-cyan-500/30 transition-colors">
-            <Mail size={20} />
-          </div>
-        </MagneticButton>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-        }}
-        className="absolute bottom-40 left-1/2 -translate-x-1/2"
-      >
-        <div className="hidden md:flex flex-col items-center gap-2">
-          <span className="text-xs text-white/50 uppercase tracking-widest">
-            Scroll to explore
-          </span>
-          <MoveDown size={20} className="text-white/50" />
+        <div className="font-syne font-bold text-xl md:text-2xl tracking-wider text-white drop-shadow-md cursor-default">
+          {PORTFOLIO_DATA.title.toUpperCase()}
         </div>
-      </motion.div>
+        
+        <div className="flex items-center gap-2 p-1.5 glass-panel rounded-full">
+          <MagneticButton href="https://www.linkedin.com/in/debpratim-sharma-916203267/">
+            <div className="p-2.5 rounded-full hover:bg-white/10 text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">
+              <Linkedin size={18} />
+            </div>
+          </MagneticButton>
+          <MagneticButton href="https://github.com/DebpratimSharma">
+            <div className="p-2.5 rounded-full hover:bg-white/10 text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">
+              <Github size={18} />
+            </div>
+          </MagneticButton>
+          <MagneticButton href="mailto:debpratimsharma33@gmail.com">
+            <div className="p-2.5 rounded-full hover:bg-white/10 text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">
+              <Mail size={18} />
+            </div>
+          </MagneticButton>
+        </div>
+      </motion.header>
+      
+      {/* Scroll Velocity - Skills */}
+      <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none pb-6 overflow-hidden">
+        <ScrollVelocity
+          texts={[
+            PORTFOLIO_DATA.stack.map((s) => s.name).join("  .  ") + "  .  ",
+            PORTFOLIO_DATA.stack.map((s) => s.name).reverse().join("  .  ") + "  .  "
+          ]}
+          velocity={50}
+          className="text-white/20 font-syne text-xl md:text-3xl"
+          scrollerClassName="!leading-none"
+        />
+      </div>
     </section>
   );
 }
