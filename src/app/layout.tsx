@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     template: '%s | Debpratim Sharma'
   },
   description: 'Portfolio of Debpratim Sharma, a Full Stack Web Developer.',
+  verification: {
+    google: 'VFI3v9-IPJNxn_vZemZcFSAmgD-kkQmabUDjayI3TnM',
+  },
 };
 
 export default function RootLayout({
