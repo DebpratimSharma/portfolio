@@ -61,7 +61,7 @@ function About() {
           >
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-xl md:text-2xl font-bold">
                   Full-stack developer focused on{" "}
                   <span className="text-cyan-500">
                     intelligent, scalable systems
@@ -70,14 +70,14 @@ function About() {
                 </h2>
               </div>
 
-              <p className="text-lg leading-loose  opacity-80">
+              <p className="text-base md:text-lg leading-loose  opacity-80">
                 I believe in engineering that prioritizes clarity, performance,
                 and long-term maintainability. I focus on building systems that
                 scale cleanly, remain understandable over time, and feel
                 deliberate in use.
               </p>
 
-              <p className="text-lg leading-loose opacity-80">
+              <p className="text-base md:text-lg leading-loose opacity-80">
                 I enjoy architecting clean frontends, reliable backends, and
                 interaction-driven interfaces. I'm particularly drawn to problems
                 at the intersection of engineering rigor and user experience.
@@ -126,29 +126,29 @@ function About() {
             className="h-full px-4 py-6 md:p-8"
             disableSpring={true}
           >
-            <h2 className="text-2xl font-bold mb-6 opacity-60">
+            <h2 className="text-xl md:text-2xl font-bold mb-6 opacity-60">
               Technical Focus
             </h2>
             <div className="flex flex-col gap-6 relative">
               <div>
-                <h3 className="text-xl font-semibold mb-3 opacity-70">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 opacity-70">
                   Frontend
                 </h3>
-                <p className="text-lg opacity-60 leading-relaxed">
+                <p className="text-base md:text-lg opacity-60 leading-relaxed">
                   {frontendSkills.join(" · ")}
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-3 opacity-70">Backend</h3>
-                <p className="text-lg opacity-60 leading-relaxed">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 opacity-70">Backend</h3>
+                <p className="text-base md:text-lg opacity-60 leading-relaxed">
                   {backendSkills.join(" · ")}
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-3 opacity-70">Tooling</h3>
-                <p className="text-lg opacity-60 leading-relaxed">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 opacity-70">Tooling</h3>
+                <p className="text-base md:text-lg opacity-60 leading-relaxed">
                   {toolingSkills.join(" · ")}
                 </p>
               </div>

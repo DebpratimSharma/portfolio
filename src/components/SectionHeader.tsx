@@ -12,7 +12,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({title, subtitle}) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="text-4xl md:text-5xl font-black text-white tracking-tight"
+            className="text-3xl md:text-5xl font-black text-white tracking-tight"
         >
             {title}
         </motion.h2>
@@ -21,7 +21,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({title, subtitle}) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            className="mt-2 text-lg text-white/50"
+            className="mt-2 text-base md:text-lg text-white/50"
         >
             {subtitle}
         </motion.p>

@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://debprix.vercel.app'),
-  keywords: ['Next.js', 'React', 'TypeScript', 'Node.js', 'Full Stack Developer', 'Software Engineer'],
+  keywords: ['Debprix vercel app', 'Debpratim Sharma', 'Deb', 'Debprix','Next.js', 'React', 'TypeScript', 'Node.js', 'Full Stack Developer', 'Software Engineer'],
   title: {
     default: 'Debpratim Sharma | Full Stack Developer',
     template: '%s | Debpratim Sharma'

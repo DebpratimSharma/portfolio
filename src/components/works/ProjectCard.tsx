@@ -48,8 +48,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({id, category, title, descripti
           </button>
         </div>
         <div className="main py-5 space-y-8">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">{title}</h1>
-            <p className="text-lg max-w-full md:max-w-4xl lg:max-w-5xl">{description}</p>
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold">{title}</h1>
+            <p className="text-base md:text-lg max-w-full md:max-w-4xl lg:max-w-5xl">{description}</p>
         </div>
 
         {/* Expanded details inserted here between main and footer */}

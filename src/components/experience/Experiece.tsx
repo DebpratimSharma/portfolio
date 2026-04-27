@@ -25,7 +25,7 @@ function Experiece() {
       <div className="md:hidden mt-8 flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {PORTFOLIO_DATA.experience.map((experience) => (
           <div key={experience.id} className="min-w-[85vw] snap-center flex flex-col">
-            <h3 className="text-xl mb-4 font-syne font-bold text-neutral-500">
+            <h3 className="text-lg mb-4 font-syne font-bold text-neutral-500">
               {experience.period}
             </h3>
             <ExperienceCard {...experience} isCompact={true} />

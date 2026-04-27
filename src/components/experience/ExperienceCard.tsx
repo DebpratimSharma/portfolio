@@ -41,12 +41,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const renderContent = () => (
     <div className="relative z-50 px-4 py-6 md:p-8">
       <div className="space-y-2 ">
-        <h1 className="text-3xl font-bold">{role}</h1>
-        <h2 className="text-xl font-semibold opacity-65">{organisation} . <span className="text-sm text-cyan-300">{location}</span></h2>
+        <h1 className="text-2xl md:text-3xl font-bold">{role}</h1>
+        <h2 className="text-lg md:text-xl font-semibold opacity-65">{organisation} . <span className="text-sm text-cyan-300">{location}</span></h2>
         
       </div>
       <div className="pt-4 text-shadow-lg">
-        <p className="leading-relaxed text-lg opacity-80 border-b border-white/20 pb-4">
+        <p className="leading-relaxed text-base md:text-lg opacity-80 border-b border-white/20 pb-4">
           {summary}
         </p>
         <ul className="opacity-80 pt-3 leading-loose">
@@ -71,7 +71,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
             </span>
           ))}
       </div>
-      <div className="text-lg opacity-60 leading-relaxed pt-4 pl-3">
+      <div className="text-base md:text-lg opacity-60 leading-relaxed pt-4 pl-3">
         {techStack?.join("  .  ")}
       </div>
     </div>
@@ -86,8 +86,8 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
         {isCompact ? (
           <div className="relative z-50 px-4 py-6 h-full flex flex-col">
             <div className="space-y-2 flex-grow">
-              <h1 className="text-2xl font-bold line-clamp-2">{role}</h1>
-              <h2 className="text-lg font-semibold opacity-65 line-clamp-1">{organisation}</h2>
+              <h1 className="text-xl md:text-2xl font-bold line-clamp-2">{role}</h1>
+              <h2 className="text-base md:text-lg font-semibold opacity-65 line-clamp-1">{organisation}</h2>
               <span className="text-sm text-cyan-300 block mt-1">{location}</span>
             </div>
             <button 

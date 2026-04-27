@@ -1,4 +1,5 @@
 import { useEffect, useRef, memo, useId } from 'react';
+import { useDevicePerformance } from '@/lib/useDevicePerformance';
 
 const TWO_PI = Math.PI * 2;
 
@@ -44,6 +45,7 @@ const DotField = memo(({
   glowColor = '#120F17',
   ...rest
 }: DotFieldProps) => {
+  const { shouldSkipGPUEffects, isMobile, isLowEnd, shouldReduceAnimations } = useDevicePerformance();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const glowRef = useRef<SVGCircleElement>(null);
@@ -59,12 +61,21 @@ const DotField = memo(({
   const glowId = useId();
 
   useEffect(() => {
+    // Skip the entire canvas animation on low-end mobile
+    if (shouldSkipGPUEffects) return;
+
     const canvas = canvasRef.current;
     const glowEl = glowRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Clamp DPR: 1 on low-end, max 2 otherwise
+    const dpr = isLowEnd ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+
+    // On mobile (but not shouldSkipGPUEffects), increase spacing to reduce dot count
+    const spacingMultiplier = isMobile ? 2 : 1;
+
     let resizeTimer: ReturnType<typeof setTimeout>;
 
     function resize() {
@@ -95,7 +106,7 @@ const DotField = memo(({
 
     function buildDots(w: number, h: number) {
       const p = propsRef.current;
-      const step = (p.dotRadius as number) + (p.dotSpacing as number);
+      const step = ((p.dotRadius as number) + (p.dotSpacing as number)) * spacingMultiplier;
       const cols = Math.floor(w / step);
       const rows = Math.floor(h / step);
       const padX = (w % step) / 2;
@@ -133,9 +144,18 @@ const DotField = memo(({
     const speedInterval = setInterval(updateMouseSpeed, 20);
 
     let frameCount = 0;
+    // Throttle to every other frame on low-end devices
+    const frameSkip = isLowEnd ? 2 : 1;
 
     function tick() {
       frameCount++;
+
+      // Skip frames on low-end for performance
+      if (frameCount % frameSkip !== 0) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
       const dots = dotsRef.current;
       const m = mouseRef.current;
       const { w, h } = sizeRef.current;
@@ -233,7 +253,10 @@ const DotField = memo(({
 
     doResize();
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    // Only track mouse if not mobile (no hover interaction on touch)
+    if (!isMobile) {
+      window.addEventListener('mousemove', onMouseMove, { passive: true });
+    }
     rafRef.current = requestAnimationFrame(tick);
 
     rebuildRef.current = () => {
@@ -249,11 +272,25 @@ const DotField = memo(({
       window.removeEventListener('mousemove', onMouseMove);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [shouldSkipGPUEffects, isMobile, isLowEnd]);
 
   useEffect(() => {
     rebuildRef.current?.();
   }, [dotRadius, dotSpacing]);
+
+  // On low-end mobile, render a static dot pattern via CSS
+  if (shouldSkipGPUEffects) {
+    return (
+      <div
+        className="w-full h-full relative"
+        {...rest}
+        style={{
+          backgroundImage: `radial-gradient(circle, rgba(168,85,247,0.15) 1px, transparent 1px)`,
+          backgroundSize: '28px 28px',
+        }}
+      />
+    );
+  }
 
   return (
     <div className="w-full h-full relative" {...rest}>

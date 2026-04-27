@@ -8,7 +8,6 @@ import {
   useTransform,
   useAnimationFrame,
   AnimatePresence,
-  spring,
 } from "framer-motion";
 import { House, Code2, User, Layers, Mail, Briefcase, FolderOpenDot } from "lucide-react";
 
@@ -19,6 +18,7 @@ interface DockItemProps {
   href: string;
   onClick?: () => void;
   mouseX: ReturnType<typeof useMotionValue<number>>;
+  canHover: boolean;
 }
 
 const DockItem: React.FC<DockItemProps> = ({
@@ -27,49 +27,51 @@ const DockItem: React.FC<DockItemProps> = ({
   active,
   href,
   mouseX,
+  canHover,
 }) => {
   const ref = useRef<HTMLAnchorElement | null>(null);
   const distance = useMotionValue(Infinity);
   const [isHovered, setHovered] = useState(false);
 
-  //detect the deice
-  const canHover =
-    typeof window !== "undefined" &&
-    window.matchMedia("(hover: hover)").matches;
-
-  //calculate distance
+  //calculate distance — only on hover-capable devices
   useAnimationFrame(() => {
     if (!canHover || !ref.current) {
       distance.set(Infinity);
       return;
     }
 
-    const rect = ref.current.getBoundingClientRect(); //?
+    const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     //absolute distance
     const d = Math.abs(mouseX.get() - centerX);
     distance.set(d);
   });
+
   //Map distance to width : closer => larger
-  const width = useTransform(distance, [-150, 0, 150], [50, 64, 50]); //?
+  const width = useTransform(distance, [-150, 0, 150], [50, canHover ? 64 : 50, 50]);
   const widthSpring = useSpring(width, { damping: 25, stiffness: 200 });
 
   // Scale the icon based on the springed width for smooth animation
   const iconScale = useTransform(widthSpring, [50, 80], [1, 1.6]);
 
+  // On touch devices, use a fixed size for better performance
+  const itemStyle = canHover
+    ? { width: widthSpring, height: widthSpring }
+    : { width: 50, height: 50 };
+
   return (
     <motion.a
       ref={ref}
       href={href}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+      onHoverStart={canHover ? () => setHovered(true) : undefined}
+      onHoverEnd={canHover ? () => setHovered(false) : undefined}
       whileTap={{ scale: 0.85, translateY: 5 }}
-      style={{ width: widthSpring, height: widthSpring }}
+      style={itemStyle}
       className="relative flex items-center justify-center rounded-2xl cursor-pointer glass-panel text-white z-999"
     >
 
       
-      <motion.div style={{ scale: iconScale }} className="text-white/60">
+      <motion.div style={canHover ? { scale: iconScale } : undefined} className="text-white/60">
         
         <Icon size={20} strokeWidth={2} />
       </motion.div>
@@ -106,13 +108,20 @@ interface DockProps {
 
 const Dock: React.FC<DockProps> = ({ currentSection }) => {
   const mouseX = useMotionValue(Infinity);
+
+  // Move hover detection to useEffect to avoid SSR mismatch
+  const [canHover, setCanHover] = useState(false);
+  useEffect(() => {
+    setCanHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
+
   return (
     <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
       <motion.div
         initial={{ y: 100 }}
         animate={{ y: 0 }}
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
+        onMouseMove={canHover ? (e) => mouseX.set(e.pageX) : undefined}
+        onMouseLeave={canHover ? () => mouseX.set(Infinity) : undefined}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
         className="z-0 flex gap-3 px-5 pb-3 h-19 items-end rounded-3xl glass-panel ring-1 ring-white/5"
       >
@@ -123,7 +132,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={House}
           label="Hero"
           active={currentSection === "hero"}
-          
+          canHover={canHover}
         />
         <DockItem
           mouseX={mouseX}
@@ -131,7 +140,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={FolderOpenDot}
           label="Work"
           active={currentSection === "projects"}
-          
+          canHover={canHover}
         />
         <DockItem
           mouseX={mouseX}
@@ -139,7 +148,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={User}
           label="About"
           active={currentSection === "about"}
-          
+          canHover={canHover}
         />
         <DockItem
           mouseX={mouseX}
@@ -147,7 +156,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={Briefcase}
           label="History"
           active={currentSection === "experience"}
-          
+          canHover={canHover}
         />
 
         <div className="w-px h-8 bg-white/10 mx-1 mb-2" />
@@ -158,7 +167,7 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
           icon={Mail}
           label="Contact"
           active={currentSection === "contact"}
-          
+          canHover={canHover}
         />
       </motion.div>
     </div>

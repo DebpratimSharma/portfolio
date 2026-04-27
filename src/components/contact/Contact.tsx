@@ -20,7 +20,7 @@ const Contact = () => {
         <CrystalCard className="w-full flex flex-col px-4 py-6 md:p-8">
           <div className="header w-full flex flex-col items-start sm:flex-row sm:items-end sm:justify-between border-b border-white/20 pb-4 mb-4 md:mb-6 gap-4 sm:gap-0">
             <div className="">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-syne font-bold">
+              <h1 className="text-xl sm:text-3xl md:text-4xl font-syne font-bold">
                 {PORTFOLIO_DATA.name}
               </h1>
               <h2 className="text-base sm:text-lg md:text-xl font-bold text-cyan-500/70 pt-2">
@@ -62,7 +62,7 @@ const Contact = () => {
               <a href="mailto:debpratimsharma33@gmail.com">
                 <RollingButton
                   text="Initialize Comms"
-                  className="w-full inline-flex px-7 py-5  items-center justify-center rounded-full bg-white text-black font-bold text-lg transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)] cursor-none gap-3"
+                  className="w-full inline-flex px-7 py-5  items-center justify-center rounded-full bg-white text-black font-bold text-base md:text-lg transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)] cursor-none gap-3"
                   
                 >
                   <Mail className="mr-1 h-5 w-5" />

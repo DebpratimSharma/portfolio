@@ -10,12 +10,14 @@ import MagneticButton from "../MagneticButton";
 import DotField from "../DotField";
 import ScrollVelocity from "../ScrollVelocity";
 import Navbar from "../Navbar";
+import { useDevicePerformance } from "@/lib/useDevicePerformance";
 
 
 export default function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const { shouldReduceAnimations, shouldSkipGPUEffects, isMobile } = useDevicePerformance();
 
   const onClickWorks = () => {
     const element = document.getElementById("projects");
@@ -25,6 +27,11 @@ export default function Hero() {
     window.open(PORTFOLIO_DATA.resumeUrl, "_blank");
   };
 
+  // Simplified entrance animation for low-end/mobile
+  const entranceTransition = shouldReduceAnimations
+    ? { duration: 0.3, ease: "easeOut" as const }
+    : { type: "spring" as const, stiffness: 420, damping: 18 };
+
   return (
     <section
       id="hero"
@@ -33,6 +40,7 @@ export default function Hero() {
       {/* Animated Background Elements */}
 
       <div className="absolute inset-0 overflow-hidden">
+        {/* ColorBends: already hides itself on mobile via className + internal performance check */}
         <motion.div className="absolute inset-0 pointer-events-none ">
           <ColorBends
             colors={['#08414aff', '#0e4f5fff', '#083d4cff']}
@@ -47,6 +55,7 @@ export default function Hero() {
           />
         </motion.div>
 
+        {/* DotField: internally handles performance degradation */}
         <div className="absolute inset-0">
           <DotField
             dotRadius={1.5}
@@ -70,6 +79,7 @@ export default function Hero() {
         <motion.span
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={entranceTransition}
           className="mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest uppercase backdrop-blur-sm drop-shadow-[0_0_6px_rgba(255,255,255,0.4)]"
         >
           Available for work
@@ -78,7 +88,7 @@ export default function Hero() {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 420, damping: 18 }}
+          transition={entranceTransition}
           className="font-serif text-xl sm:text-2xl text-white/50 drop-shadow-[0_0_8px_rgba(255,255,255,0.35)]"
           style={{ fontStyle: "italic" }}
         >
@@ -89,10 +99,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            type: "spring",
-            stiffness: 420,
-            damping: 18,
-            delay: 0.2,
+            ...entranceTransition,
+            delay: shouldReduceAnimations ? 0.05 : 0.2,
           }}
           className="relative z-10 bg-clip-text text-transparent bg-linear-to-r from-white via-white/60 to-white/30 font-syne font-bold text-6xl sm:text-7xl md:text-8xl tracking-tight mt-4 drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]"
         >
@@ -103,10 +111,8 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            type: "spring",
-            stiffness: 420,
-            damping: 18,
-            delay: 0.3,
+            ...entranceTransition,
+            delay: shouldReduceAnimations ? 0.1 : 0.3,
           }}
           className="text-sm font-syne font-bold tracking-wider text-cyan-500 mt-4 drop-shadow-[0_0_6px_rgba(0,255,255,0.4)]"
         >
@@ -117,10 +123,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            type: "spring",
-            stiffness: 420,
-            damping: 18,
-            delay: 0.4,
+            ...entranceTransition,
+            delay: shouldReduceAnimations ? 0.15 : 0.4,
           }}
           className="mt-8 max-w-2xl text-white/70 text-lg sm:text-xl font-syne drop-shadow-[0_0_6px_rgba(255,255,255,0.3)]"
         >
@@ -133,10 +137,8 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            type: "spring",
-            stiffness: 420,
-            damping: 18,
-            delay: 0.5,
+            ...entranceTransition,
+            delay: shouldReduceAnimations ? 0.2 : 0.5,
           }}
           className="my-12 w-full flex justify-center absolute -z-90"
         >
@@ -148,10 +150,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            type: "spring",
-            stiffness: 420,
-            damping: 18,
-            delay: 0.6,
+            ...entranceTransition,
+            delay: shouldReduceAnimations ? 0.25 : 0.6,
           }}
           className="flex flex-col sm:flex-row items-center gap-6 mt-8"
         >

@@ -2,7 +2,7 @@
 import Hero from "@/components/hero/Hero";
 import Image from "next/image";
 import BackgroundGlow from "@/components/BackgroundGlow";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Dock from "@/components/Dock";
 import Works from "@/components/works/Works";
 import About from "@/components/about/About";
@@ -23,23 +23,35 @@ const jsonLd = {
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "projects", "about", "experience", "contact", "footer"];
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (
-          element &&
-          element.offsetTop <= scrollPosition &&
-          element.offsetTop + element.offsetHeight >= scrollPosition
-        ) {
-          setActiveSection(section);
+  useEffect(() => {
+    // Throttle scroll handler to fire at most once per ~100ms (rAF-based)
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const sections = ["hero", "projects", "about", "experience", "contact", "footer"];
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (
+            element &&
+            element.offsetTop <= scrollPosition &&
+            element.offsetTop + element.offsetHeight >= scrollPosition
+          ) {
+            setActiveSection(section);
+            break; // Exit on first match — no need to keep checking
+          }
         }
-      }
+        ticking = false;
+      });
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

@@ -39,8 +39,8 @@ const Footer = () => {
                   href={link.href}
                   className="text-white/60 hover:text-white/100 transition-colors text-sm"
                 >
-                    <RollingText>{link.label}</RollingText>
-                  
+                  <RollingText>{link.label}</RollingText>
+
                 </a>
               ))}
             </nav>
@@ -56,8 +56,8 @@ const Footer = () => {
                   className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-colors cursor-none"
                   aria-label={social.label}
                   href={social.href}
-                  
-                  
+
+
                 >
                   <social.icon
                     size={18}

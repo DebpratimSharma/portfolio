@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useDevicePerformance } from '@/lib/useDevicePerformance';
 import * as THREE from 'three';
 
 type ColorBendsProps = {
@@ -143,6 +144,7 @@ export default function ColorBends({
   intensity = 1.5,
   bandWidth = 6
 }: ColorBendsProps) {
+  const { shouldSkipGPUEffects, isLowEnd, dpr } = useDevicePerformance();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -155,6 +157,9 @@ export default function ColorBends({
   const pointerSmoothRef = useRef<number>(8);
 
   useEffect(() => {
+    // Skip GPU-heavy Three.js rendering on low-end mobile devices
+    if (shouldSkipGPUEffects) return;
+
     const container = containerRef.current!;
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -191,14 +196,17 @@ export default function ColorBends({
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
+    // Use lower pixel ratio on low-end devices for performance
+    const effectiveDpr = isLowEnd ? Math.min(dpr, 1) : dpr;
+
     const renderer = new THREE.WebGLRenderer({
       antialias: false,
-      powerPreference: 'high-performance',
+      powerPreference: isLowEnd ? 'low-power' : 'high-performance',
       alpha: true
     });
     rendererRef.current = renderer;
     (renderer as any).outputColorSpace = (THREE as any).SRGBColorSpace;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(effectiveDpr);
     renderer.setClearColor(0x000000, transparent ? 0 : 1);
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
@@ -257,7 +265,7 @@ export default function ColorBends({
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [shouldSkipGPUEffects, isLowEnd, dpr]);
 
   useEffect(() => {
     const material = materialRef.current;
@@ -314,6 +322,8 @@ export default function ColorBends({
   ]);
 
   useEffect(() => {
+    if (shouldSkipGPUEffects) return;
+
     const material = materialRef.current;
     const container = containerRef.current;
     if (!material || !container) return;
@@ -329,7 +339,21 @@ export default function ColorBends({
     return () => {
       container.removeEventListener('pointermove', handlePointerMove);
     };
-  }, []);
+  }, [shouldSkipGPUEffects]);
+
+  // On low-end mobile, render a lightweight CSS gradient fallback
+  if (shouldSkipGPUEffects) {
+    const fallbackGradient = colors.length > 0
+      ? `radial-gradient(ellipse at 50% 50%, ${colors[0]}33, ${colors[1] || colors[0]}1a, transparent 70%)`
+      : 'radial-gradient(ellipse at 50% 50%, rgba(8,65,74,0.2), rgba(14,79,95,0.1), transparent 70%)';
+
+    return (
+      <div
+        className={`w-full h-full relative overflow-hidden ${className}`}
+        style={{ ...style, background: fallbackGradient }}
+      />
+    );
+  }
 
   return <div ref={containerRef} className={`w-full h-full relative overflow-hidden ${className}`} style={style} />;
 }

@@ -3,7 +3,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import {
   motion,
-  motionValue,
   useSpring,
   useMotionTemplate,
   useMotionValue,
@@ -28,6 +27,9 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
     setIsTouchDevice(mq.matches);
   }, []);
 
+  // Determine if spring physics should be disabled (touch or explicit prop)
+  const noSpring = disableSpring || isTouchDevice;
+
   const ref = useRef<HTMLDivElement>(null);
 
   //magnetic motion
@@ -40,8 +42,10 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
 
   //trigger physics for a premium feel
   const springConfig = { stiffness: 370, damping: 20, mass: 0.8 };
-  const mouseX = disableSpring ? x : useSpring(x, springConfig);
-  const mouseY = disableSpring ? y : useSpring(y, springConfig);
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+  const mouseX = noSpring ? x : springX;
+  const mouseY = noSpring ? y : springY;
   const [hovered, setHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -49,10 +53,9 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
 
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
-    ref.current.getBoundingClientRect();
 
     //magnetic pull only if not disabled
-    if (!disableSpring) {
+    if (!noSpring) {
       const xPos = clientX - (left + width / 2);
       const yPos = clientY - (top + height / 2);
       x.set(xPos / 50);
@@ -76,14 +79,6 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
         transparent 40%
     )`;
 
-  const border = useMotionTemplate`
-        radial-gradient(
-          400px circle at ${spotX}px ${spotY}px,
-          rgba(255, 255, 255, 0.3),
-          transparent 40%
-        )
-    `;
-
   return (
     <motion.div
       ref={ref}
@@ -101,17 +96,17 @@ const CrystalCard: React.FC<CrystalCardProps> = ({
         handleMouseLeave();
       }}
       style={
-        isTouchDevice || disableSpring ? undefined : { x: mouseX, y: mouseY }
+        noSpring ? undefined : { x: mouseX, y: mouseY }
       }
-      whileHover={isTouchDevice || disableSpring ? undefined : { scale: 1.01 }}
+      whileHover={noSpring ? undefined : { scale: 1.01 }}
       transition={
-        isTouchDevice || disableSpring
+        noSpring
           ? undefined
           : { type: "spring", ...springConfig }
       }
       className={`group relative rounded-4xl overflow-hidden glass-panel backdrop-blur-none ${className}`}
     >
-      {/*spotlight */}
+      {/*spotlight — only render on non-touch devices when hovered */}
       {!isTouchDevice && hovered && (
         <motion.div
           className="pointer-events-none absolute inset-0"

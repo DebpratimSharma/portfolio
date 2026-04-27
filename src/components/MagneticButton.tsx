@@ -1,6 +1,6 @@
 "use client";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useRef, useEffect, useState } from "react";
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -21,8 +21,12 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
   const mass = 1;
   const mouseX = useSpring(x, { stiffness: stiffness, damping: damping, mass: mass});
   const mouseY = useSpring(y, { stiffness: stiffness, damping: damping, mass: mass});
-  const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
 
+  // Use state + useEffect to avoid SSR mismatch and skip on touch devices
+  const [canHover, setCanHover] = useState(false);
+  useEffect(() => {
+    setCanHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e;
@@ -41,10 +45,10 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
       <motion.div
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseMove={canHover ? handleMouseMove : undefined}
+        onMouseLeave={canHover ? handleMouseLeave : undefined}
         ref={ref}
-        style={{ x: mouseX, y: mouseY }}
+        style={canHover ? { x: mouseX, y: mouseY } : undefined}
         className={`relative flex items-center justify-center cursor-pointer ${className}`}
       >
         {children}

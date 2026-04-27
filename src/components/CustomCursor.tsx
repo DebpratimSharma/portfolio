@@ -1,8 +1,10 @@
 "use client";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useDevicePerformance } from "@/lib/useDevicePerformance";
 
 export function CustomCursor() {
+  const { isMobile, shouldReduceAnimations } = useDevicePerformance();
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
 
@@ -14,6 +16,9 @@ export function CustomCursor() {
   const cursorY = useSpring(y, spring);
 
   useEffect(() => {
+    // Completely disable custom cursor on mobile, touch, or reduced-motion devices
+    if (isMobile || shouldReduceAnimations) return;
+
     const isTouch =
       window.matchMedia("(pointer: coarse)").matches ||
       !window.matchMedia("(pointer: fine)").matches;
@@ -43,7 +48,7 @@ export function CustomCursor() {
       window.removeEventListener("mousemove", move);
       document.documentElement.classList.remove("has-custom-cursor");
     };
-  }, []);
+  }, [isMobile, shouldReduceAnimations]);
 
   if (!enabled) return null;
 

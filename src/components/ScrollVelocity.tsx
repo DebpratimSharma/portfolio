@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import {
   motion,
   useScroll,
@@ -27,6 +27,7 @@ interface VelocityTextProps {
   scrollerClassName?: string;
   parallaxStyle?: React.CSSProperties;
   scrollerStyle?: React.CSSProperties;
+  isLowEnd?: boolean;
 }
 
 interface ScrollVelocityProps {
@@ -75,6 +76,17 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
   parallaxStyle,
   scrollerStyle
 }) => {
+  // Detect low-end / mobile to reduce copies
+  const [isLowEnd, setIsLowEnd] = useState(false);
+  useEffect(() => {
+    const isMobile = window.matchMedia("(pointer: coarse)").matches && window.innerWidth <= 768;
+    const cores = navigator.hardwareConcurrency || 8;
+    setIsLowEnd(isMobile || cores <= 4);
+  }, []);
+
+  // Reduce copy count on low-end devices to decrease DOM nodes
+  const effectiveCopies = isLowEnd ? Math.min(numCopies, 3) : numCopies;
+
   function VelocityText({
     children,
     baseVelocity = velocity,
@@ -87,7 +99,8 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
     parallaxClassName,
     scrollerClassName,
     parallaxStyle,
-    scrollerStyle
+    scrollerStyle,
+    isLowEnd
   }: VelocityTextProps) {
     const baseX = useMotionValue(0);
     const scrollOptions = scrollContainerRef ? { container: scrollContainerRef } : {};
@@ -163,12 +176,13 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
           scrollContainerRef={scrollContainerRef}
           damping={damping}
           stiffness={stiffness}
-          numCopies={numCopies}
+          numCopies={effectiveCopies}
           velocityMapping={velocityMapping}
           parallaxClassName={parallaxClassName}
           scrollerClassName={scrollerClassName}
           parallaxStyle={parallaxStyle}
           scrollerStyle={scrollerStyle}
+          isLowEnd={isLowEnd}
         >
           {text}
         </VelocityText>
