@@ -56,13 +56,13 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       id: 1,
-      title: "Academic OS",
+      title: "Schedura OS",
       category: "Routine & Attendance Management System",
       description:
         "A production-ready academic attendance app handling routines, holidays, and many more.",
       tech: ["Next.js", "Supabase", "TypeScript", "Tailwind", "Shadcn UI"],
-      link: "https://academicos.vercel.app",
-      github: "https://github.com/DebpratimSharma/AcademicOs",
+      link: "https://scheduraos.vercel.app",
+      github: "https://github.com/DebpratimSharma/scheduraos",
 
       details: {
         problem:
