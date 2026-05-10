@@ -61,7 +61,7 @@ const Contact = () => {
             <div className="right md:w-1/3 flex flex-col justify-center gap-6">
               <a href="mailto:debpratimsharma33@gmail.com">
                 <RollingButton
-                  text="Initialize Comms"
+                  text="Mail Me"
                   className="w-full inline-flex px-7 py-5  items-center justify-center rounded-full bg-white text-black font-bold text-base md:text-lg transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)] cursor-none gap-3"
                   
                 >

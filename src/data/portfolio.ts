@@ -45,7 +45,7 @@ export const PORTFOLIO_DATA = {
   ],
 
   stack: [
-    { name: "Next.js", icon: Globe },
+    { name: "Next.js", icon: Globe, },
     { name: "React", icon: Code2 },
     { name: "TypeScript", icon: Terminal },
     { name: "Node.js", icon: Cpu },

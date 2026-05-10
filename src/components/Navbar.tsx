@@ -6,17 +6,7 @@ import MagneticButton from "./MagneticButton";
 
 export default function Navbar() {
   return (
-    <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{
-        type: "spring",
-        stiffness: 420,
-        damping: 18,
-        mass: 0.7,
-      }}
-      className="fixed top-6 left-0 w-full px-6 md:px-12 flex items-center justify-between z-50 pointer-events-none"
-    >
+    <header className="fixed top-0 py-6 left-0 w-full px-6 md:px-12 flex items-center justify-between z-50 pointer-events-none bg-linear-to-b from-black to-transparent">
       <div className="font-syne font-bold text-xl md:text-2xl tracking-wider text-white drop-shadow-md cursor-default pointer-events-auto">
         {PORTFOLIO_DATA.title.toUpperCase()}
       </div>
@@ -33,6 +23,6 @@ export default function Navbar() {
           );
         })}
       </div>
-    </motion.header>
+    </header>
   );
 }

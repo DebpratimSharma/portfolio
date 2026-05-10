@@ -76,15 +76,6 @@ export default function Hero() {
 
         className="relative w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center z-10"
       >
-        <motion.span
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={entranceTransition}
-          className="mb-8 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest uppercase backdrop-blur-sm drop-shadow-[0_0_6px_rgba(255,255,255,0.4)]"
-        >
-          Available for work
-        </motion.span>
-
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -173,22 +164,6 @@ export default function Hero() {
           </RollingButton>
         </motion.div>
       </motion.div>
-
-      {/* Top Navbar */}
-      
-
-      {/* Scroll Velocity - Skills */}
-      <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none pb-6 overflow-hidden">
-        <ScrollVelocity
-          texts={[
-            PORTFOLIO_DATA.stack.map((s) => s.name).join("  .  ") + "  .  ",
-            PORTFOLIO_DATA.stack.map((s) => s.name).reverse().join("  .  ") + "  .  "
-          ]}
-          velocity={50}
-          className="text-white/20 font-syne text-xl md:text-3xl"
-          scrollerClassName="!leading-none"
-        />
-      </div>
     </section>
   );
 }
