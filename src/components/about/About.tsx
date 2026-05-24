@@ -18,11 +18,14 @@ function About() {
     "Backend Systems",
     "UI Motion & Micro-interactions",
     "Performance Optimization",
+    "Blockchain & Decentralized Systems",
+    "IoT & Embedded Software",
   ];
 
   const frontendSkills = ["React", "Next.js", "Tailwind CSS", "Framer Motion"];
   const backendSkills = ["Node.js", "Express", "MongoDB", "PostgreSQL"];
-  const toolingSkills = ["Git", "GCP", "Vercel", "Figma"];
+  const languages = ["JavaScript & TypeScript", "Go", "Java", "C++/C"];
+  const toolingSkills = ["Git", "GCP", "Vercel", "Figma", "AWS"];
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -55,25 +58,21 @@ function About() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl md:text-2xl font-bold">
-                  Full-stack developer focused on{" "}
+                  Hey there, I'm{" "}
                   <span className="text-cyan-500">
-                    intelligent, scalable systems
+                    {PORTFOLIO_DATA.name}
                   </span>
                   .
                 </h2>
               </div>
 
-              <p className="text-base md:text-lg leading-loose  opacity-80">
-                I believe in engineering that prioritizes clarity, performance,
-                and long-term maintainability. I focus on building systems that
-                scale cleanly, remain understandable over time, and feel
-                deliberate in use.
+              <p className="text-base font-normal md:text-lg leading-loose  opacity-80">
+                <span className="font-bold">Bachelor of Technology(B.Tech) in Electrical Engineering <br/></span>
+                Full-stack developer bridging the gap between Electrical Engineering and modern web architecture. From optimizing <span className="font-bold">MERN stack PWAs</span> and writing <span className="font-bold">Go backends</span> to deploying <span className="font-bold">decentralized platforms on Solana</span>, I build software that is fast, secure, and highly optimized.
               </p>
 
               <p className="text-base md:text-lg leading-loose opacity-80">
-                I enjoy architecting clean frontends, reliable backends, and
-                interaction-driven interfaces. I'm particularly drawn to problems
-                at the intersection of engineering rigor and user experience.
+                My approach is rooted in systems thinking: whether I'm configuring an ESP32 IoT device or structuring a Next.js codebase. I own the pipeline from data architecture to shipped UI, and I’m at my best when collaborating with teams that value performance and clean craft.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 md:gap-2 pt-8 md:pt-4 md:mt-0 border-t border-white/20 mt-4 opacity-65 md:opacity-100 md:border-none ">
@@ -102,7 +101,6 @@ function About() {
                   onClick={() => window.open(PORTFOLIO_DATA.socials[0].href)}
                 ></RollingButton>
               </div>
-              <p className="text-xs opacity-50 mt-3 ml-4">PDF · Updated 2025</p>
             </div>
           </CrystalCard>
         </div>
@@ -130,6 +128,13 @@ function About() {
                 <h3 className="text-lg md:text-xl font-semibold mb-3 opacity-70">Backend</h3>
                 <p className="text-base md:text-lg opacity-60 leading-relaxed">
                   {backendSkills.join(" · ")}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg md:text-xl font-semibold mb-3 opacity-70">Languages</h3>
+                <p className="text-base md:text-lg opacity-60 leading-relaxed">
+                  {languages.join(" · ")}
                 </p>
               </div>
 
