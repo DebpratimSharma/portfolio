@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import SectionHeader from "../SectionHeader";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import ExperienceCard from "./ExperienceCard";
@@ -23,17 +22,11 @@ function Experiece() {
       />
       {/* Horizontal scrolling cards for mobile */}
       {/* Vertical Timeline for md+ screens */}
-      <motion.div 
-        className="mt-16"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
-      >
+      <div className="mt-16">
         <Timeline
           data={timelineData}
         />
-      </motion.div>
+      </div>
     </section>
   );
 }

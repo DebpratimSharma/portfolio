@@ -6,6 +6,7 @@ export const PORTFOLIO_DATA = {
   title: "Debprix",
   name: "Debpratim Sharma",
   role: "Full-Stack Engineer (Backend-leaning)",
+  location: "West Bengal, India",
   tagline:
     "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
   resumeUrl: "https://docs.google.com/document/d/1WXOgpowX7oe__Q_SAY8FImyXG62uJkWQDFlxInrUHyk/edit?usp=sharing",

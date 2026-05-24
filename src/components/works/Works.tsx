@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import SectionHeader from "../SectionHeader";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import ProjectCard from "./ProjectCard";
@@ -18,15 +17,9 @@ const Works = () => {
 
       <div className="w-full flex flex-col gap-y-8">
         {PORTFOLIO_DATA.projects.sort((a, b) => a.id - b.id).map((project, index) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: index * 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-          >
+          <div key={project.id}>
             <ProjectCard {...project} />
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

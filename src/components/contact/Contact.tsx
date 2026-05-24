@@ -6,18 +6,11 @@ import RollingText from "../RollingText";
 import MagneticButton from "../MagneticButton";
 import { Linkedin, Github, Mail, Search, Clock } from "lucide-react";
 import RollingButton from "../RollingButton";
-import { motion } from "framer-motion";
 const Contact = () => {
   return (
     <section id="contact">
       <SectionHeader title="Contact" subtitle="Get in touch" />
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
-      >
-        <CrystalCard className="w-full flex flex-col px-4 py-6 md:p-8">
+      <CrystalCard className="w-full flex flex-col px-4 py-6 md:p-8">
           <div className="header w-full flex flex-col items-start sm:flex-row sm:items-end sm:justify-between border-b border-white/20 pb-4 mb-4 md:mb-6 gap-4 sm:gap-0">
             <div className="">
               <h1 className="text-xl sm:text-3xl md:text-4xl font-syne font-bold">
@@ -102,7 +95,6 @@ const Contact = () => {
             </div>
           </div>
         </CrystalCard>
-      </motion.div>
     </section>
   );
 };

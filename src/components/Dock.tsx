@@ -118,8 +118,6 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
   return (
     <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
       <motion.div
-        initial={{ y: 100 }}
-        animate={{ y: 0 }}
         onMouseMove={canHover ? (e) => mouseX.set(e.pageX) : undefined}
         onMouseLeave={canHover ? () => mouseX.set(Infinity) : undefined}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}

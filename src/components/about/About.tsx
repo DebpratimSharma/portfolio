@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import SectionHeader from "../SectionHeader";
 import CrystalCard from "../CrystalCard";
 import RollingButton from "../RollingButton";
@@ -48,13 +47,7 @@ function About() {
       />
       <div className="w-full flex flex-col md:flex-row gap-8">
         {/* Left Card: Personal Narrative */}
-        <motion.div
-          className="w-full md:w-2/3"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
-        >
+        <div className="w-full md:w-2/3">
           <CrystalCard
             className="h-full px-4 py-6 md:p-8"
             disableSpring={true}
@@ -112,16 +105,10 @@ function About() {
               <p className="text-xs opacity-50 mt-3 ml-4">PDF · Updated 2025</p>
             </div>
           </CrystalCard>
-        </motion.div>
+        </div>
 
         {/* Right Card: Technical Tooling */}
-        <motion.div
-          className="w-full md:w-1/3"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
-        >
+        <div className="w-full md:w-1/3">
           <CrystalCard
             className="h-full px-4 py-6 md:p-8"
             disableSpring={true}
@@ -170,7 +157,7 @@ function About() {
               </div>
             </div>
           </CrystalCard>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
