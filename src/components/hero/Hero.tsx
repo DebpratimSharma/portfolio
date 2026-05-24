@@ -133,7 +133,7 @@ export default function Hero() {
             </div>
           </div>
           <div className="leftSection max-w-2xl">
-            <div className="buttons-container flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-start">
+            <div className="buttons-container flex items-start gap-4 sm:flex-row sm:flex-wrap sm:items-start">
               <RollingButton
                 onClick={onClickWorks}
                 text="Projects"
