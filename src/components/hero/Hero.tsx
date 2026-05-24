@@ -112,12 +112,12 @@ export default function Hero() {
                 <MoveDown size={18} />
               </RollingButton>
             </div>
-            <h1 className="text-lg sm:text-xl md:text-xl lg:text-3xl font-bold text-white/80 mt-4">
+            <h1 className="text-lg text-center md:text-left sm:text-xl md:text-xl lg:text-3xl font-bold text-white/80 mt-4">
               AI . IoT . Web . Backend Developer 
             </h1>
           </div>
           <div className="rightSection max-w-2xl w-full">
-            <h1 className="font-zen-dots text-cyan-500 font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-right">
+            <h1 className="font-zen-dots text-cyan-500 font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl md:text-right text-center">
               {PORTFOLIO_DATA.name}
             </h1>
           </div>
