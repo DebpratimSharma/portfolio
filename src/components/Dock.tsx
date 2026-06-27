@@ -9,7 +9,7 @@ import {
   useAnimationFrame,
   AnimatePresence,
 } from "framer-motion";
-import { House, Code2, User, Layers, Mail, Briefcase, FolderOpenDot } from "lucide-react";
+import { House, User, Mail, Briefcase, FolderOpenDot } from "lucide-react";
 
 interface DockItemProps {
   icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
@@ -48,7 +48,11 @@ const DockItem: React.FC<DockItemProps> = ({
   });
 
   //Map distance to width : closer => larger
-  const width = useTransform(distance, [-150, 0, 150], [50, canHover ? 64 : 50, 50]);
+  const width = useTransform(
+    distance,
+    [-150, 0, 150],
+    [50, canHover ? 64 : 50, 50],
+  );
   const widthSpring = useSpring(width, { damping: 25, stiffness: 200 });
 
   // Scale the icon based on the springed width for smooth animation
@@ -69,13 +73,13 @@ const DockItem: React.FC<DockItemProps> = ({
       style={itemStyle}
       className="relative flex items-center justify-center rounded-2xl cursor-pointer glass-panel text-white z-999"
     >
-
-      
-      <motion.div style={canHover ? { scale: iconScale } : undefined} className="text-white/60">
-        
+      <motion.div
+        style={canHover ? { scale: iconScale } : undefined}
+        className="text-white/60"
+      >
         <Icon size={20} strokeWidth={2} />
       </motion.div>
-      
+
       {/*Hover Tooltip*/}
       <AnimatePresence>
         {isHovered && !active && (
@@ -124,7 +128,6 @@ const Dock: React.FC<DockProps> = ({ currentSection }) => {
         className="z-0 flex gap-3 px-5 pb-3 h-19 items-end rounded-3xl glass-panel ring-1 ring-white/5"
       >
         <DockItem
-          
           mouseX={mouseX}
           href="#hero"
           icon={House}
