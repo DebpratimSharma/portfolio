@@ -165,7 +165,10 @@ a {
 ================================ */
 
 @utility glass-panel {
-    @apply bg-white/5 backdrop-blur-sm border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] [-webkit-backdrop-filter:blur(8px)];
+    @apply bg-white/5 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)];
+
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 
 @theme inline {
