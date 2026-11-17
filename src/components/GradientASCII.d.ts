@@ -2,6 +2,7 @@ import React from "react";
 
 export interface GradientASCIIProps
   extends React.HTMLAttributes<HTMLDivElement> {
+  preset?: "atmosphere" | "atmoshpere" | "lagoon" | "rose" | "corona" | (string & {});
   colors?: string[];
   shape?: "horizon" | "pinch" | "rise" | "eclipse" | (string & {});
   characters?: string;

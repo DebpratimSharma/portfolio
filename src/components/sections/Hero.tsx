@@ -49,10 +49,8 @@ export default function Hero() {
             </h1>
             <div className="w-full max-w-[96vw] pt-5 sm:pt-8 flex flex-col items-start gap-5 sm:gap-6">
               <ScrollReveal direction="up" duration={0.8} delay={0.2}>
-                <p className="max-w-xl text-sm sm:text-base md:text-lg text-white/60 font-light leading-relaxed select-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] pl-1">
-                  This is my World. A place where I share my projects, ideas, and
-                  passions. Dive in to explore the fusion of creativity and
-                  technology that defines who I am.
+                <p className="max-w-xl text-sm sm:text-base md:text-lg text-white/60 font-light leading-relaxed select-none pl-1">
+                  This is my World. A place where I share my projects, ideas, and passions. Dive in to explore the fusion of creativity and technology that defines who I am.
                 </p>
               </ScrollReveal>
 

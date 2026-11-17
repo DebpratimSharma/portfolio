@@ -20,6 +20,60 @@ const DEFAULT_FONT = '"Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consola
 const SHAPES = { horizon: 0, pinch: 1, rise: 2, eclipse: 3 };
 const CLICK_EFFECTS = { none: 0, wave: 1, burst: 2 };
 
+const PRESETS = {
+  atmosphere: {
+    colors: ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'],
+    shape: 'horizon',
+    characters: ' =+xX0S8#@',
+    cellSize: 18,
+    density: 0.8,
+    glyphOpacity: 0.85,
+    glow: 0.2,
+    depthOfField: 0,
+    flicker: 0.2,
+    softness: 0.5,
+    scale: 1,
+    flow: 0.5,
+    speed: 1,
+    gradientOpacity: 0.9,
+    grain: 0.08
+  },
+  atmoshpere: {
+    colors: ['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8'],
+    shape: 'horizon',
+    characters: ' =+xX0S8#@',
+    cellSize: 18,
+    density: 0.8,
+    glyphOpacity: 0.85,
+    glow: 0.2,
+    depthOfField: 0,
+    flicker: 0.2,
+    softness: 0.5,
+    scale: 1,
+    flow: 0.5,
+    speed: 1,
+    gradientOpacity: 0.9,
+    grain: 0.08
+  },
+  lagoon: {
+    shape: 'pinch',
+    colors: ['#0d9488', '#5eead4', '#f0fdfa'],
+    characters: ' .:-=+*#%@',
+    cellSize: 16
+  },
+  rose: {
+    shape: 'rise',
+    colors: ['#9f1239', '#f43f5e', '#fda4af', '#fff1f2'],
+    cellSize: 22
+  },
+  corona: {
+    shape: 'eclipse',
+    colors: ['#78350f', '#f59e0b', '#fffbeb'],
+    characters: ' 01',
+    cellSize: 15
+  }
+};
+
 const VERTEX = `#version 300 es
 out vec2 vUv;
 void main() {
@@ -421,28 +475,29 @@ const buildAtlas = (gl, characters, fontFamily) => {
 };
 
 const GradientASCII = ({
-  colors = DEFAULT_COLORS,
-  shape = 'horizon',
-  characters = DEFAULT_CHARACTERS,
-  cellSize = 18,
-  density = 0.8,
-  glyphOpacity = 0.85,
-  glow = 0.2,
-  depthOfField = 0,
-  flicker = 0.2,
-  softness = 0.5,
-  scale = 1,
-  flow = 0.5,
-  speed = 1,
-  gradientOpacity = 0.9,
-  grain = 0.08,
-  variation = 0,
+  preset = undefined,
+  colors = undefined,
+  shape = undefined,
+  characters = undefined,
+  cellSize = undefined,
+  density = undefined,
+  glyphOpacity = undefined,
+  glow = undefined,
+  depthOfField = undefined,
+  flicker = undefined,
+  softness = undefined,
+  scale = undefined,
+  flow = undefined,
+  speed = undefined,
+  gradientOpacity = undefined,
+  grain = undefined,
+  variation = undefined,
   mouseInteraction = true,
-  scrambleRadius = 0.1,
-  clickEffect = 'wave',
+  scrambleRadius = undefined,
+  clickEffect = undefined,
   intro = true,
   lightMode = false,
-  fontFamily = DEFAULT_FONT,
+  fontFamily = undefined,
   dpr = undefined,
   className = '',
   style = undefined,
@@ -451,30 +506,53 @@ const GradientASCII = ({
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const wakeRef = useRef(null);
-  const palette = (Array.isArray(colors) && colors.length ? colors : DEFAULT_COLORS).slice(0, MAX_COLORS);
+
+  const presetConfig = (preset && (PRESETS[preset.toLowerCase()] || PRESETS[preset])) || {};
+
+  const resolvedColors = colors ?? presetConfig.colors ?? DEFAULT_COLORS;
+  const resolvedShape = shape ?? presetConfig.shape ?? 'horizon';
+  const resolvedCharacters = characters ?? presetConfig.characters ?? DEFAULT_CHARACTERS;
+  const resolvedCellSize = cellSize ?? presetConfig.cellSize ?? 18;
+  const resolvedDensity = density ?? presetConfig.density ?? 0.8;
+  const resolvedGlyphOpacity = glyphOpacity ?? presetConfig.glyphOpacity ?? 0.85;
+  const resolvedGlow = glow ?? presetConfig.glow ?? 0.2;
+  const resolvedDepthOfField = depthOfField ?? presetConfig.depthOfField ?? 0;
+  const resolvedFlicker = flicker ?? presetConfig.flicker ?? 0.2;
+  const resolvedSoftness = softness ?? presetConfig.softness ?? 0.5;
+  const resolvedScale = scale ?? presetConfig.scale ?? 1;
+  const resolvedFlow = flow ?? presetConfig.flow ?? 0.5;
+  const resolvedSpeed = speed ?? presetConfig.speed ?? 1;
+  const resolvedGradientOpacity = gradientOpacity ?? presetConfig.gradientOpacity ?? 0.9;
+  const resolvedGrain = grain ?? presetConfig.grain ?? 0.08;
+  const resolvedVariation = variation ?? presetConfig.variation ?? 0;
+  const resolvedScrambleRadius = scrambleRadius ?? presetConfig.scrambleRadius ?? 0.1;
+  const resolvedClickEffect = clickEffect ?? presetConfig.clickEffect ?? 'wave';
+  const resolvedFontFamily = fontFamily ?? presetConfig.fontFamily ?? DEFAULT_FONT;
+
+  const palette = (Array.isArray(resolvedColors) && resolvedColors.length ? resolvedColors : DEFAULT_COLORS).slice(0, MAX_COLORS);
   const settings = {
     colors: palette.length > 1 ? palette : [palette[0], palette[0]],
-    shape: SHAPES[shape] ?? 0,
-    characters: characters || DEFAULT_CHARACTERS,
-    cellSize: clamp(cellSize, 6, 64),
-    density: clamp(density, 0, 1),
-    glyphOpacity: clamp(glyphOpacity, 0, 1),
-    glow: clamp(glow, 0, 2),
-    depthOfField: clamp(depthOfField, 0, 1),
-    flicker: clamp(flicker, 0, 1),
-    softness: clamp(softness, 0, 1),
-    scale: clamp(scale, 0.4, 2.5),
-    flow: clamp(flow, 0, 2),
-    speed: Math.max(0, speed),
-    gradientOpacity: clamp(gradientOpacity, 0, 1),
-    grain: clamp(grain, 0, 0.4),
-    variation: Math.max(0, variation),
+    shape: SHAPES[resolvedShape] ?? 0,
+    characters: resolvedCharacters || DEFAULT_CHARACTERS,
+    cellSize: clamp(resolvedCellSize, 6, 64),
+    density: clamp(resolvedDensity, 0, 1),
+    glyphOpacity: clamp(resolvedGlyphOpacity, 0, 1),
+    glow: clamp(resolvedGlow, 0, 2),
+    depthOfField: clamp(resolvedDepthOfField, 0, 1),
+    flicker: clamp(resolvedFlicker, 0, 1),
+    softness: clamp(resolvedSoftness, 0, 1),
+    scale: clamp(resolvedScale, 0.4, 2.5),
+    flow: clamp(resolvedFlow, 0, 2),
+    speed: Math.max(0, resolvedSpeed),
+    gradientOpacity: clamp(resolvedGradientOpacity, 0, 1),
+    grain: clamp(resolvedGrain, 0, 0.4),
+    variation: Math.max(0, resolvedVariation),
     mouseInteraction,
-    scrambleRadius: clamp(scrambleRadius, 0.02, 0.4),
-    clickEffect: CLICK_EFFECTS[clickEffect] ?? 1,
+    scrambleRadius: clamp(resolvedScrambleRadius, 0.02, 0.4),
+    clickEffect: CLICK_EFFECTS[resolvedClickEffect] ?? 1,
     intro,
     lightMode,
-    fontFamily: fontFamily || DEFAULT_FONT,
+    fontFamily: resolvedFontFamily || DEFAULT_FONT,
     dpr
   };
   const settingsRef = useRef(settings);
