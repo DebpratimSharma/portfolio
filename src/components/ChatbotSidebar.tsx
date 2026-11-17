@@ -34,10 +34,17 @@ export default function ChatbotSidebar({
   children,
   preset = "abyss",
   ballColor,
-  title = "AI Assistant",
+  title = "ACE Assistant",
   className = "",
 }: ChatbotSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Listen for open-chatbot custom events from navbar or other triggers
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener("open-chatbot", handleOpen);
+    return () => window.removeEventListener("open-chatbot", handleOpen);
+  }, []);
 
   // Close sidebar on Escape key press
   useEffect(() => {

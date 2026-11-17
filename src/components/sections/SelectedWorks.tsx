@@ -7,7 +7,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 export default function SelectedWorks() {
   return (
     <section
-      id="selected-works"
+      id="projects"
       className="relative w-full h-screen min-h-screen flex items-center justify-center px-8 border-b border-white/5 overflow-hidden"
     >
       <div className="relative z-10 pointer-events-none">

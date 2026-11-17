@@ -3,6 +3,7 @@ import { Roboto_Flex, Syne } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
+import Navbar from "@/components/Navbar";
 import ChatbotSidebar from "@/components/ChatbotSidebar";
 
 const robotoFlex = Roboto_Flex({
@@ -29,8 +30,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${robotoFlex.variable} ${syne.variable} antialiased dark`}
     >
       <body className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
-        {/* Top progress bar fixed to viewport */}
-        <ScrollProgress />
+
+        {/* Floating cosmic aurora navbar */}
+        <Navbar />
 
         {/* Physics-based smooth scroll container powered by motion */}
         <SmoothScroll>{children}</SmoothScroll>
