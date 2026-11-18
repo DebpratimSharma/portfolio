@@ -99,14 +99,101 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       id: 1,
+      number: "01",
+      title: "TellWeb",
+      category: "Anonymous Messaging Platform",
+      description:
+        "An anonymous messaging platform featuring private username inboxes, real-time message updates, input validation, rate limiting, and automatic 36-hour message cleanup.",
+      tech: ["Next.js", "React", "TypeScript", "Supabase", "PostgreSQL", "Upstash Redis", "Tailwind CSS"],
+      link: "https://tellweb.debprix.in",
+      github: "https://github.com/DebpratimSharma",
+      award: null,
+      details: {
+        problem:
+          "Traditional feedback and confession systems require registration or expose sender identity, reducing authentic candid feedback.",
+        role: "Full-stack design and implementation including database models, rate limiting, and real-time client updates.",
+        architecture: [
+          "Next.js App Router for frontend and serverless API endpoints",
+          "Supabase & PostgreSQL for transactional relational storage and auth",
+          "Upstash Redis for IP and token-based rate limiting to prevent spam",
+          "Automated cron worker for 36-hour ephemeral message cleanup",
+        ],
+        challenges: [
+          "Preventing abuse and spam with low-latency rate limiting",
+          "Handling real-time subscriptions cleanly across browser sessions",
+        ],
+        impact:
+          "Production messaging platform providing confidential, frictionless two-way feedback.",
+      },
+    },
+
+    {
+      id: 2,
+      number: "02",
+      title: "AI Voice Translator",
+      category: "Real-Time Speech-to-Speech Translation",
+      description:
+        "A multi-step AI speech translation system that captures browser audio with Web Media APIs, translates with OpenAI API, and synthesizes low-latency speech via ElevenLabs API.",
+      tech: ["Next.js", "TypeScript", "OpenAI API", "ElevenLabs API", "Web Audio APIs"],
+      link: "https://voices.debprix.in",
+      github: "https://github.com/DebpratimSharma/voice-to-voice-ai-translate",
+      award: null,
+      details: {
+        problem:
+          "Real-time voice translation requires orchestrating multiple AI services with low latency and failure handling.",
+        role: "Built the orchestration logic and frontend, integrating speech capture, LLM processing, and synthesis.",
+        architecture: [
+          "Frontend-driven orchestration across multiple AI APIs",
+          "Sequential processing with explicit error handling",
+        ],
+        challenges: [
+          "Managing latency across chained AI services",
+          "Keeping AI as a subsystem, not core logic",
+        ],
+        impact:
+          "Prototype system exploring architectural feasibility and AI trade-offs.",
+      },
+    },
+
+    {
+      id: 3,
+      number: "03",
+      title: "DonorFi",
+      category: "Transparent Charitable dApp on Solana",
+      description:
+        "A transparent charitable dApp on Solana eliminating intermediaries from charitable giving, leveraging smart contracts for immutable, peer-to-peer donation tracking.",
+      tech: ["Solana", "Next.js", "TypeScript", "Tailwind CSS", "Shadcn UI"],
+      link: "https://donorfi.vercel.app",
+      github: "https://github.com/HACKTROPICA-CODE-PHOENIX/hacktropica",
+      award: "BEST UI/UX AWARD @ SYNCHRONICITY S2 HACKATHON",
+      details: {
+        problem:
+          "Traditional philanthropy lacks transparency and direct peer-to-peer donation flows on the blockchain.",
+        role: "Built the frontend and Solana wallet integration, enabling direct donations via Phantom wallet.",
+        architecture: [
+          "Next.js frontend with Tailwind CSS and Shadcn UI",
+          "Solana wallet integration using Phantom adapter",
+        ],
+        challenges: [
+          "Integrating Solana wallet with React hooks",
+          "Ensuring seamless user experience during transaction flows",
+        ],
+        impact:
+          "Created a functional frontend prototype for a Web3 philanthropy platform.",
+      },
+    },
+
+    {
+      id: 4,
+      number: "04",
       title: "Schedura OS",
       category: "Routine & Attendance Management System",
       description:
-        "A production-ready academic attendance app handling routines, holidays, and many more.",
-      tech: ["Next.js", "Supabase", "TypeScript", "Tailwind", "Shadcn UI"],
+        "A production-ready academic attendance & routine management app with Google OAuth, automated schedule tracking, and cloud storage actively used by students.",
+      tech: ["Next.js", "Supabase", "TypeScript", "PostgreSQL", "Tailwind CSS", "Shadcn UI"],
       link: "https://scheduraos.vercel.app",
       github: "https://github.com/DebpratimSharma/scheduraos",
-
+      award: "1ST PLACE @ IOT HACKATHON 2024",
       details: {
         problem:
           "Manual handling of routines and attendance caused inconsistency, errors, and lack of visibility for students.",
@@ -127,15 +214,16 @@ export const PORTFOLIO_DATA = {
     },
 
     {
-      id: 2,
+      id: 5,
+      number: "05",
       title: "SCEEAOT Platform",
-      category: "Student Chapter of Electrical Engineering, AOT Website",
+      category: "Student Chapter of Electrical Engineering Platform",
       description:
-        "Public-facing and internal platform for managing events, announcements, and chapter identity.",
-      tech: ["Next.js", "TypeScript", "Tailwind"],
+        "Official digital portal and internal management system for events, announcements, and chapter identity for SCEE Academy of Technology.",
+      tech: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
       link: "https://sceeaot.in",
       github: "https://github.com/DebpratimSharma/sceeaot-web",
-
+      award: "CONVENOR & LEAD @ SCEE",
       details: {
         problem:
           "The student chapter lacked a central, maintainable digital presence for events and communication.",
@@ -150,65 +238,6 @@ export const PORTFOLIO_DATA = {
         ],
         impact:
           "Official platform representing the Electrical Engineering student chapter.",
-      },
-    },
-
-    {
-      id: 3,
-      title: "AI Voice Translator",
-      category: "AI-Powered Voice Translation System",
-      description:
-        "An AI-assisted system that captures, translates, and synthesises speech in real time.",
-      tech: [
-        "Next.js",
-        "OpenAI API",
-        "ElevenLabs API",
-        "Web Media APIs",
-        "TypeScript",
-      ],
-      link: "https://ai-voice-translator.vercel.app",
-      github: "https://github.com/DebpratimSharma/voice-to-voice-ai-translator",
-
-      details: {
-        problem:
-          "Real-time voice translation requires orchestrating multiple AI services with low latency and failure handling.",
-        role: "Built the orchestration logic and frontend, integrating speech capture, LLM processing, and synthesis.",
-        architecture: [
-          "Frontend-driven orchestration across multiple AI APIs",
-          "Sequential processing with explicit error handling",
-        ],
-        challenges: [
-          "Managing latency across chained AI services",
-          "Keeping AI as a subsystem, not core logic",
-        ],
-        impact:
-          "Prototype system exploring architectural feasibility and AI trade-offs.",
-      },
-    },
-    {
-      id: 0,
-      title: "DonorFi",
-      category: "Permissionless Philanthropy Layer on Solana",
-      description:
-        "The Permissionless Philanthropy Layer on Solana Where Compassion Meets the Blockchain.",
-      tech: ["Next.js", "Solana", "TypeScript", "Tailwind CSS", "Shadcn UI"],
-      link: "https://donorfi.vercel.app",
-      github: "https://github.com/HACKTROPICA-CODE-PHOENIX/hacktropica",
-
-      details: {
-        problem:
-          "Traditional philanthropy lacks transparency and direct peer-to-peer donation flows on the blockchain.",
-        role: "Built the frontend and Solana wallet integration, enabling direct donations via Phantom wallet.",
-        architecture: [
-          "Next.js frontend with Tailwind CSS and Shadcn UI",
-          "Solana wallet integration using Phantom adapter",
-        ],
-        challenges: [
-          "Integrating Solana wallet with React hooks",
-          "Ensuring seamless user experience during transaction flows",
-        ],
-        impact:
-          "Created a functional frontend prototype for a Web3 philanthropy platform.",
       },
     },
   ],

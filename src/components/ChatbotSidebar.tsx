@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Sparkles } from "lucide-react";
 import CrystalizedBall, { CrystalizedBallPreset } from "@/components/CrystalizedBall";
+import { cn } from "@/lib/utils";
 
 export interface ChatbotSidebarProps {
   /**
@@ -38,6 +39,42 @@ export default function ChatbotSidebar({
   className = "",
 }: ChatbotSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isInFooter, setIsInFooter] = useState(false);
+
+  // Monitor when the footer is reached so the floating trigger smoothly disappears
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+
+    const setupObserver = () => {
+      const footer = document.getElementById("footer");
+      if (!footer) return false;
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsInFooter(entry.isIntersecting);
+        },
+        {
+          threshold: 0.05,
+        }
+      );
+
+      observer.observe(footer);
+      return true;
+    };
+
+    if (!setupObserver()) {
+      const interval = setInterval(() => {
+        if (setupObserver()) {
+          clearInterval(interval);
+        }
+      }, 150);
+      return () => clearInterval(interval);
+    }
+
+    return () => {
+      observer?.disconnect();
+    };
+  }, []);
 
   // Listen for open-chatbot custom events from navbar or other triggers
   useEffect(() => {
@@ -59,9 +96,15 @@ export default function ChatbotSidebar({
 
   return (
     <>
-      {/* Floating CrystalizedBall Trigger in the Bottom Right Corner */}
+      {/* Floating CrystalizedBall Trigger in the Bottom Right Corner (hidden in footer) */}
       <div
-        className={`fixed bottom-6 right-6 z-40 flex items-center justify-center select-none ${className}`}
+        className={cn(
+          "fixed bottom-6 right-6 z-40 flex items-center justify-center select-none transition-all duration-300 ease-in-out",
+          isInFooter
+            ? "opacity-0 scale-75 pointer-events-none translate-y-6"
+            : "opacity-100 scale-100 pointer-events-auto translate-y-0",
+          className
+        )}
       >
         <button
           type="button"
