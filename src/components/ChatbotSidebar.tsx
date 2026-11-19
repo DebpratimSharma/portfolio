@@ -4,9 +4,16 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Sparkles } from "lucide-react";
 import CrystalizedBall, { CrystalizedBallPreset } from "@/components/CrystalizedBall";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
 export interface ChatbotSidebarProps {
+  /**
+   * Whether the AI chatbot trigger and sidebar are enabled.
+   * When false, the component renders nothing and all AI chatbot frontend elements stay invisible.
+   * Defaults to PORTFOLIO_DATA.features?.enableAceChatbot (false).
+   */
+  enabled?: boolean;
   /**
    * Children slot where the chatbot interface component will be plugged in.
    * Kept empty by default until provided.
@@ -32,17 +39,24 @@ export interface ChatbotSidebarProps {
 }
 
 export default function ChatbotSidebar({
+  enabled = PORTFOLIO_DATA.features?.enableAceChatbot ?? false,
   children,
   preset = "abyss",
   ballColor,
   title = "ACE Assistant",
   className = "",
 }: ChatbotSidebarProps) {
+  const [isEnabled, setIsEnabled] = useState(enabled);
   const [isOpen, setIsOpen] = useState(false);
   const [isInFooter, setIsInFooter] = useState(false);
 
+  useEffect(() => {
+    setIsEnabled(enabled);
+  }, [enabled]);
+
   // Monitor when the footer is reached so the floating trigger smoothly disappears
   useEffect(() => {
+    if (!isEnabled) return;
     let observer: IntersectionObserver | null = null;
 
     const setupObserver = () => {
@@ -74,17 +88,19 @@ export default function ChatbotSidebar({
     return () => {
       observer?.disconnect();
     };
-  }, []);
+  }, [isEnabled]);
 
   // Listen for open-chatbot custom events from navbar or other triggers
   useEffect(() => {
+    if (!isEnabled) return;
     const handleOpen = () => setIsOpen(true);
     window.addEventListener("open-chatbot", handleOpen);
     return () => window.removeEventListener("open-chatbot", handleOpen);
-  }, []);
+  }, [isEnabled]);
 
   // Close sidebar on Escape key press
   useEffect(() => {
+    if (!isEnabled) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
         setIsOpen(false);
@@ -92,7 +108,12 @@ export default function ChatbotSidebar({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+  }, [isEnabled, isOpen]);
+
+  // Keep all AI chatbot elements invisible when disabled
+  if (!isEnabled) {
+    return null;
+  }
 
   return (
     <>

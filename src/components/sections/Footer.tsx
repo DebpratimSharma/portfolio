@@ -5,6 +5,7 @@ import { Mail, Code2 } from "lucide-react";
 import GradientASCII from "@/components/GradientASCII";
 import AnimatedNavLink from "@/components/ui/animated-nav-link";
 import { useSmoothScroll } from "@/components/SmoothScroll";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
 // Custom inline SVG icons for GitHub & LinkedIn in the circular badges
@@ -56,34 +57,58 @@ interface NavColumn {
 
 const navColumns: NavColumn[] = [
   {
-    title: "Find Work",
+    title: "Navigation",
     links: [
-      { label: "Explore Jobs", href: "#projects" },
-      { label: "Discover Companies", href: "#experience" },
-      { label: "Browse Collections", href: "#what-i-do" },
+      { label: "About", href: "#hero" },
+      { label: "Selected Works", href: "#projects" },
+      { label: "Experience", href: "#experience" },
+      { label: "What I Do", href: "#what-i-do" },
+      { label: "Contact", href: "#contact" },
     ],
   },
   {
-    title: "Find People",
+    title: "Connect",
     links: [
-      { label: "Learn More", href: "#hero" },
       {
-        label: "Sign up",
-        href: "https://docs.google.com/document/d/1WXOgpowX7oe__Q_SAY8FImyXG62uJkWQDFlxInrUHyk/edit?usp=sharing",
+        label: "GitHub",
+        href: "https://github.com/DebpratimSharma",
         isExternal: true,
       },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About us", href: "#hero" },
       {
-        label: "Careers",
+        label: "LinkedIn",
         href: "https://www.linkedin.com/in/debpratim-sharma-916203267/",
         isExternal: true,
       },
-      { label: "Contact", href: "#contact" },
+      {
+        label: "LeetCode",
+        href: "https://leetcode.com/u/debpratimsharma/",
+        isExternal: true,
+      },
+      {
+        label: "Email",
+        href: `mailto:${PORTFOLIO_DATA.email || "debpratimsharma33@gmail.com"}`,
+        isExternal: true,
+      },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      {
+        label: "Resume (PDF)",
+        href: PORTFOLIO_DATA.resumeUrl || "/resume.pdf",
+        isExternal: true,
+      },
+      {
+        label: "TellWeb Note",
+        href: PORTFOLIO_DATA.tellwebUrl || "https://tellweb.debprix.in/ear/me_ur_deb",
+        isExternal: true,
+      },
+      {
+        label: "Source Code",
+        href: "https://github.com/DebpratimSharma/portfolio",
+        isExternal: true,
+      },
     ],
   },
 ];

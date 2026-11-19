@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
@@ -8,6 +8,7 @@ import { TextAnimate } from "@/components/ui/text-animate";
 import { AnimatedNavLink } from "@/components/ui/animated-nav-link";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
 export interface NavItem {
@@ -23,6 +24,7 @@ export interface NavbarProps {
   aboutHref?: string;
   aboutText?: string;
   askAceText?: string;
+  enableAskAce?: boolean;
   className?: string;
 }
 
@@ -40,14 +42,21 @@ export default function Navbar({
   aboutHref = "#hero",
   aboutText = "About me",
   askAceText = "Ask ACE",
+  enableAskAce = PORTFOLIO_DATA.features?.enableAceChatbot ?? false,
   className = "",
 }: NavbarProps) {
+  const [isAskAceEnabled, setIsAskAceEnabled] = useState(enableAskAce);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoHoverKey, setLogoHoverKey] = useState(0);
   const [aceHoverKey, setAceHoverKey] = useState(0);
   const [mobileAceHoverKey, setMobileAceHoverKey] = useState(0);
 
+  useEffect(() => {
+    setIsAskAceEnabled(enableAskAce);
+  }, [enableAskAce]);
+
   const handleOpenAce = () => {
+    if (!isAskAceEnabled) return;
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("open-chatbot"));
     }
@@ -143,45 +152,47 @@ export default function Navbar({
             </InteractiveHoverButton>
 
             {/* Ask ACE button using ShinyButton */}
-            <div
-              onMouseEnter={() => setAceHoverKey((prev) => prev + 1)}
-              className="inline-flex items-center"
-            >
-              <ShinyButton
-                onClick={handleOpenAce}
-                className="!py-1.5 sm:!py-2 !px-4 sm:!px-5 !text-[12px] !font-semibold transition-all active:scale-95 cursor-pointer shadow-[0_0_16px_rgba(132,132,255,0.25)] hover:shadow-[0_0_24px_rgba(132,132,255,0.45)]"
+            {isAskAceEnabled && (
+              <div
+                onMouseEnter={() => setAceHoverKey((prev) => prev + 1)}
+                className="inline-flex items-center"
               >
-                <div className="flex items-center gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkle preview-icon"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg>{askAceText}
-                
-                </div>
-                  
-              </ShinyButton>
-            </div>
+                <ShinyButton
+                  onClick={handleOpenAce}
+                  className="!py-1.5 sm:!py-2 !px-4 sm:!px-5 !text-[12px] !font-semibold transition-all active:scale-95 cursor-pointer shadow-[0_0_16px_rgba(132,132,255,0.25)] hover:shadow-[0_0_24px_rgba(132,132,255,0.45)]"
+                >
+                  <div className="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkle preview-icon"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/></svg>{askAceText}
+                  </div>
+                </ShinyButton>
+              </div>
+            )}
           </div>
 
           {/* MOBILE TOGGLE (Mobile screens) */}
           <div className="flex sm:hidden items-center gap-2">
-            <div
-              onMouseEnter={() => setMobileAceHoverKey((prev) => prev + 1)}
-              className="inline-flex"
-            >
-              <ShinyButton
-                onClick={handleOpenAce}
-                className="!py-1.5 !px-3.5 !text-[18px] !font-semibold"
+            {isAskAceEnabled && (
+              <div
+                onMouseEnter={() => setMobileAceHoverKey((prev) => prev + 1)}
+                className="inline-flex"
               >
-                <TextAnimate
-                  key={mobileAceHoverKey}
-                  animation="blurInUp"
-                  by="character"
-                  duration={0.25}
-                  as="span"
-                  startOnView={false}
+                <ShinyButton
+                  onClick={handleOpenAce}
+                  className="!py-1.5 !px-3.5 !text-[18px] !font-semibold"
                 >
-                  {askAceText}
-                </TextAnimate>
-              </ShinyButton>
-            </div>
+                  <TextAnimate
+                    key={mobileAceHoverKey}
+                    animation="blurInUp"
+                    by="character"
+                    duration={0.25}
+                    as="span"
+                    startOnView={false}
+                  >
+                    {askAceText}
+                  </TextAnimate>
+                </ShinyButton>
+              </div>
+            )}
 
             <button
               type="button"
@@ -229,17 +240,19 @@ export default function Navbar({
                   {aboutText}
                 </InteractiveHoverButton>
 
-                <div
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleOpenAce();
-                  }}
-                  className="w-full flex justify-center"
-                >
-                  <ShinyButton className="w-full !py-2.5 !text-[18px] !font-semibold">
-                    {askAceText}
-                  </ShinyButton>
-                </div>
+                {isAskAceEnabled && (
+                  <div
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleOpenAce();
+                    }}
+                    className="w-full flex justify-center"
+                  >
+                    <ShinyButton className="w-full !py-2.5 !text-[18px] !font-semibold">
+                      {askAceText}
+                    </ShinyButton>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}

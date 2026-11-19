@@ -47,17 +47,31 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) =>
 export const PORTFOLIO_DATA = {
   title: "Debprix",
   name: "Debpratim Sharma",
-  role: "Full-Stack Engineer (Backend-leaning)",
+  role: "Full-Stack Engineer",
   location: "West Bengal, India",
   tagline:
     "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
   resumeUrl: "/resume.pdf",
+  email: "debpratimsharma33@gmail.com",
+  tellwebUrl: "https://tellweb.debprix.in/ear/me_ur_deb",
+  responseTime: "< 24 hours",
   status: "Available for work",
   statusDescription: [
     "Open to full-time roles",
     "Remote or hybrid preferred",
     "Looking for a long-term opportunity",
   ],
+
+  // Feature flags to easily toggle features across the portfolio
+  features: {
+    /**
+     * Ask ACE & AI Chatbot feature toggle.
+     * Keep false for now: all frontend triggers (Ask ACE buttons in navbar and floating CrystalizedBall trigger)
+     * and the chatbot sidebar stay invisible and disabled.
+     * Set to true when ready to enable and test the AI chatbot.
+     */
+    enableAceChatbot: false,
+  },
   about: {
     description:
       "I'm a Full-Stack Engineer with strong experience in building and shipping real-world products using the React and Next.js ecosystem. I enjoy working close to production—thinking about system boundaries, trade-offs, and long-term maintainability. My background in electrical engineering and IoT gives me a systems-first mindset that goes beyond UI development.",
@@ -227,7 +241,7 @@ export const PORTFOLIO_DATA = {
       details: {
         problem:
           "The student chapter lacked a central, maintainable digital presence for events and communication.",
-        role: "Led frontend development and deployment, collaborating closely with organisers on requirements.",
+        role: "Lead frontend development and deployment, collaborating closely with organisers on requirements.",
         architecture: [
           "Static-first Next.js architecture for performance and reliability",
           "Simple, maintainable structure for future student teams",
@@ -280,7 +294,7 @@ export const PORTFOLIO_DATA = {
         "Leading the chapter’s technical roadmap, coordinating hackathons, workshops and community events, and mentoring juniors moving from EE fundamentals into software.",
       contributions: [
         "Lead the chapter’s technical roadmap, coordinating hackathons, workshops and community events, and mentor juniors moving from EE fundamentals into software.",
-        "Led technical workshops and peer-learning initiatives in collaboration with faculty for academic and departmental activities.",
+        "Lead technical workshops and peer-learning initiatives in collaboration with faculty for academic and departmental activities.",
         "Mentored juniors in EE fundamentals, modern software practices, and basic programming.",
       ],
       focus: [

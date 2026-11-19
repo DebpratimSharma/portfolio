@@ -94,7 +94,7 @@ export default function WhatIDo() {
     <section
       id="what-i-do"
       ref={sectionRef}
-      className="relative w-full min-h-screen py-20 sm:py-24 border-b border-white/5 bg-black select-none flex flex-col justify-start"
+      className="relative w-full min-h-screen py-20 sm:py-24 bg-black select-none flex flex-col justify-start"
     >
       {/* 
         Scroll-Triggered Animated Heading:

@@ -11,7 +11,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full h-screen min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 border-b border-white/5 overflow-hidden"
+      className="relative w-full h-screen min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 overflow-hidden"
     >
       {/* Background GradientASCII Animation */}
       <div className="absolute inset-0 z-0 pointer-events-auto">
