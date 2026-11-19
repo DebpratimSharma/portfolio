@@ -47,7 +47,7 @@ export default function Hero() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" duration={0.8} delay={0.35}>
-              <div className="flex items-center gap-4 pl-1 pointer-events-auto">
+              <div className="flex items-center gap-3 md:pag-4  pl-1 pointer-events-auto">
                 <h1
                   className="font-syne font-semibold text-lg sm:text-xl md:text-4xl text-white tracking-wide select-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
                 >
