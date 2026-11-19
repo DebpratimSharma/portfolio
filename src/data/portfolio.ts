@@ -346,4 +346,141 @@ export const PORTFOLIO_DATA = {
       techStack: ["Next.js", "React", "Tailwind CSS", "Git", "Vercel", "Domain & DNS"],
     },
   ],
+
+  caseStudies: {
+    enabled: false,
+    items: [
+      {
+        id: "rate-limiting-ttl",
+        index: "01",
+        title: "Abuse Prevention & Ephemeral Lifecycle",
+        shortDesc: "Stopping bot spam and PostgreSQL bloat before requests touch core tables.",
+        project: "TellWeb",
+        projectUrl: "https://tellweb.debprix.in",
+        tags: ["Upstash Redis", "PostgreSQL", "Supabase", "Cron Workers"],
+        problem:
+          "Public-facing anonymous messaging apps are prime targets for automated bot spam, unmanaged database accumulation, and concurrency crashes that degrade query performance over time.",
+        solution:
+          "Engineered an edge-level rate-limiting defense with sub-millisecond Redis caching, paired with an automated 36-hour TTL cron lifecycle that purges expired messages to keep storage bounded.",
+        highlights: [
+          {
+            metric: "Sub-ms Rate Limiting",
+            desc: "Throttled malicious burst requests at the edge via Upstash Redis before touching primary tables.",
+          },
+          {
+            metric: "36h Ephemeral TTL",
+            desc: "Automated cron workers that clean up expired records, maintaining zero unbounded row accumulation.",
+          },
+          {
+            metric: "Zero-Lag Sync",
+            desc: "Implemented Supabase real-time channels for live inbox delivery with zero client polling.",
+          },
+        ],
+      },
+      {
+        id: "ai-pipeline-latency",
+        index: "02",
+        title: "Multi-Step AI Pipeline Orchestration",
+        shortDesc: "Chaining audio capture, translation, and speech synthesis with low latency.",
+        project: "AI Voice Translator",
+        projectUrl: "https://voices.debprix.in",
+        tags: ["OpenAI API", "ElevenLabs API", "Web Audio APIs", "TypeScript"],
+        problem:
+          "Chaining multiple third-party AI APIs (browser audio recording, LLM translation, voice synthesis) usually triggers multi-second latency spikes, timeout failures, and broken client state.",
+        solution:
+          "Orchestrated a sequential async streaming pipeline with strict error boundaries and audio chunk buffering, treating external AI services as fault-tolerant subsystems.",
+        highlights: [
+          {
+            metric: "Sub-Second Audio Pipeline",
+            desc: "Streamlined audio blob buffering to deliver rapid speech-to-speech turnaround across API boundaries.",
+          },
+          {
+            metric: "Isolated Subsystems",
+            desc: "Wrapped external AI dependencies in defensive error boundaries so API outages degrade gracefully.",
+          },
+          {
+            metric: "Native Media Integration",
+            desc: "Interfaced directly with browser Web Audio APIs for clean capture without bloated third-party SDKs.",
+          },
+        ],
+      },
+      {
+        id: "routine-automation",
+        index: "03",
+        title: "Routine Automation & Internal Tooling",
+        shortDesc: "Replacing scattered spreadsheets with centralized, automated platforms.",
+        project: "Schedura OS & Narratives",
+        projectUrl: "https://scheduraos.vercel.app",
+        tags: ["Google OAuth 2.0", "Supabase", "Workflow Automation", "Next.js"],
+        problem:
+          "Educational departments and creative agencies lose hundreds of manual hours coordinating schedules, conflicting timezones, and asset handoffs over chaotic chat groups.",
+        solution:
+          "Architected bespoke authenticated portals normalizing local vs. global time offsets and built internal workflow automation tools replacing repetitive manual tasks.",
+        highlights: [
+          {
+            metric: "1st Place Hackathon",
+            desc: "Won 1st Place @ IoT Hackathon 2024 for Schedura OS, actively adopted by student batches daily.",
+          },
+          {
+            metric: "Timezone Normalization",
+            desc: "Resolved conflicting local device offsets against global academic calendars with Google OAuth.",
+          },
+          {
+            metric: "Client Workflow Tooling",
+            desc: "Designed and prototyped automated internal systems for Narratives Creative Labs Pvt. Ltd.",
+          },
+        ],
+      },
+      {
+        id: "web3-ux-transparency",
+        index: "04",
+        title: "Frictionless Web3 UX & Transparency",
+        shortDesc: "Transforming complex blockchain wallet handshakes into 1-click giving flows.",
+        project: "DonorFi",
+        projectUrl: "https://donorfi.vercel.app",
+        tags: ["Solana", "Phantom Wallet", "Shadcn UI", "Tailwind CSS"],
+        problem:
+          "Cryptic hex transaction errors, wallet confirmation loops, and poor feedback cause over 60% of mainstream donors to drop off during decentralized transactions.",
+        solution:
+          "Abstracted Solana smart contract transactions into human-readable UI states with clear feedback loaders and instant receipt verification.",
+        highlights: [
+          {
+            metric: "Best UI/UX Award",
+            desc: "Awarded Best UI/UX @ Synchronicity S2 Hackathon for intuitive peer-to-peer philanthropic giving.",
+          },
+          {
+            metric: "1-Click Phantom Flow",
+            desc: "Streamlined wallet connection and instant transaction approval without confusing Web3 jargon.",
+          },
+          {
+            metric: "Zero-Intermediary",
+            desc: "Direct P2P micro-donations verified immutably on the Solana blockchain.",
+          },
+        ],
+      },
+    ],
+  },
+};
+
+export type CaseStudyHighlight = {
+  metric: string;
+  desc: string;
+};
+
+export type CaseStudyItem = {
+  id: string;
+  index: string;
+  title: string;
+  shortDesc: string;
+  project: string;
+  projectUrl?: string;
+  tags: string[];
+  problem: string;
+  solution: string;
+  highlights: CaseStudyHighlight[];
+};
+
+export type CaseStudiesConfig = {
+  enabled: boolean;
+  items: CaseStudyItem[];
 };

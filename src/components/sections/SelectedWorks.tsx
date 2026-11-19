@@ -105,7 +105,7 @@ export default function SelectedWorks() {
 
       <div
         className={cn(
-          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-20 md:pt-36 pb-12 transition-all duration-400 ease-out flex flex-col",
+          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 transition-all duration-400 ease-out flex flex-col",
           isAtLeft
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-6 pointer-events-none"

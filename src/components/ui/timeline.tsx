@@ -137,7 +137,7 @@ export const Timeline = ({
                 </h3>
               </div>
 
-              <div className="relative pl-20 pr-2 md:pl-4 w-full">
+              <div className="relative pl-16 sm:pl-20 pr-0 md:pl-4 md:pr-0 w-full">
                 <h3
                   className="md:hidden block text-xl font-google-sans-flex font-extrabold mb-4 text-left text-zinc-300"
                   style={{ fontFamily: "'Google Sans Flex', sans-serif" }}

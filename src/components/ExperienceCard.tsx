@@ -40,7 +40,7 @@ export default function ExperienceCard({
 
   return (
     <div className={cn("w-full select-none", className)}>
-      <div className="group relative rounded-2xl border border-white/10  p-6 sm:p-8 transition-all duration-300 hover:border-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden">
+      <div className="group relative rounded-2xl border border-white/10 p-5 sm:p-7 md:p-8 transition-all duration-300 hover:border-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden">
         {/* 
           Low-opacity GradientASCII background with 'rise' shape and dynamic presets.
           Zero blur is applied to keep rendering crisp and performant.
