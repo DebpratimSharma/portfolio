@@ -239,20 +239,20 @@ export default function WhatIDo() {
                 {/* Key snapshot details */}
                 <div className="space-y-3 pt-2">
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/5 pb-2.5 gap-1">
-                    <span className="text-xs font-mono text-zinc-500 uppercase">Specialty</span>
-                    <span className="text-sm font-medium text-white">Full-Stack / Backend-leaning</span>
-                  </div>
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/5 pb-2.5 gap-1">
-                    <span className="text-xs font-mono text-zinc-500 uppercase">Experience</span>
-                    <span className="text-sm font-medium text-white">Freelance @ Narratives · Lead @ SCEE</span>
-                  </div>
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/5 pb-2.5 gap-1">
-                    <span className="text-xs font-mono text-zinc-500 uppercase">Location</span>
+                    <span className="text-xs font-mono text-zinc-500 uppercase">Based in</span>
                     <span className="text-sm font-medium text-white">West Bengal, India (Remote-Ready)</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/5 pb-2.5 gap-1">
-                    <span className="text-xs font-mono text-zinc-500 uppercase">Primary Stack</span>
-                    <span className="text-sm font-medium text-zinc-300">Next.js · React · TS · PostgreSQL</span>
+                    <span className="text-xs font-mono text-zinc-500 uppercase">Work Mostly in</span>
+                    <span className="text-sm font-medium text-white">TypeScript · JavaScript · PostgreSQL · Java</span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/5 pb-2.5 gap-1">
+                    <span className="text-xs font-mono text-zinc-500 uppercase">Comfortable across</span>
+                    <span className="text-sm font-medium text-zinc-300">Next.js · React · Node.js · Supabase</span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/5 pb-2.5 gap-1">
+                    <span className="text-xs font-mono text-zinc-500 uppercase">Looking for</span>
+                    <span className="text-sm font-medium text-white">Full-Stack · Backend · GenAI Roles</span>
                   </div>
                 </div>
               </div>
