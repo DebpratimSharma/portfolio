@@ -49,18 +49,26 @@ export default function Contact() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // Scroll detection to slowly disappear the centered heading on scroll down
+  // Scroll detection to slowly disappear the centered heading on scroll down (throttled with RAF to prevent layout thrashing)
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (sectionRef.current) {
+            const rect = sectionRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
 
-      // Hysteresis threshold to smoothly transition on scroll down/up
-      if (rect.top <= windowHeight * 0.10) {
-        setIsScrolled(true);
-      } else if (rect.top > windowHeight * 0.25) {
-        setIsScrolled(false);
+            // Hysteresis threshold to smoothly transition on scroll down/up
+            if (rect.top <= windowHeight * 0.10) {
+              setIsScrolled(true);
+            } else if (rect.top > windowHeight * 0.25) {
+              setIsScrolled(false);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -203,7 +211,7 @@ export default function Contact() {
               href={`mailto:${PORTFOLIO_DATA.email}`}
               icon={<Mail className="w-4 h-4" />}
               iconPosition="left"
-              className="w-full sm:w-auto min-w-[220px] text-center"
+              className="mx-auto md:mx-0 md:min-w-55 text-center"
             >
               Mail Me
             </MainButton>

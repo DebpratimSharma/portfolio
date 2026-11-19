@@ -29,10 +29,32 @@ export interface ExperienceCardProps {
 
 const PRESET_LIST = ["atmosphere", "lagoon", "corona", "rose"];
 
+const PRESET_GRADIENTS: Record<string, string> = {
+  atmosphere:
+    "radial-gradient(ellipse 90% 70% at 50% -10%, rgba(30, 63, 216, 0.25), rgba(56, 189, 248, 0.12) 50%, transparent 80%)",
+  lagoon:
+    "radial-gradient(ellipse 90% 70% at 50% -10%, rgba(13, 148, 136, 0.25), rgba(94, 234, 212, 0.12) 50%, transparent 80%)",
+  corona:
+    "radial-gradient(ellipse 90% 70% at 50% -10%, rgba(120, 53, 15, 0.25), rgba(245, 158, 11, 0.12) 50%, transparent 80%)",
+  rose:
+    "radial-gradient(ellipse 90% 70% at 50% -10%, rgba(159, 18, 57, 0.25), rgba(244, 63, 94, 0.12) 50%, transparent 80%)",
+};
+
 export default function ExperienceCard({
   experience,
   className,
 }: ExperienceCardProps) {
+  const [isDesktop, setIsDesktop] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
   // Use the item's custom preset or assign one of the 4 rise presets by id
   const assignedPreset =
     experience.preset ||
@@ -41,22 +63,30 @@ export default function ExperienceCard({
   return (
     <div className={cn("w-full select-none", className)}>
       <div className="group relative rounded-2xl border border-white/10 p-5 sm:p-7 md:p-8 transition-all duration-300 hover:border-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden">
-        {/* 
-          Low-opacity GradientASCII background with 'rise' shape and dynamic presets.
-          Zero blur is applied to keep rendering crisp and performant.
-        */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-15 group-hover:opacity-25 transition-opacity duration-500">
-          <GradientASCII
-            preset={assignedPreset}
-            shape="rise"
-            mouseInteraction={false}
-            cellSize={14}
-            speed={0.4}
-            glyphOpacity={0.65}
-            gradientOpacity={0.5}
-            depthOfField={0.4}
-          />
-        </div>
+        {/* On mobile: lightweight CSS radial gradient matching the preset style (0 GPU overhead) */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none md:hidden opacity-40 transition-opacity duration-500"
+          style={{
+            background:
+              PRESET_GRADIENTS[assignedPreset] || PRESET_GRADIENTS.atmosphere,
+          }}
+        />
+
+        {/* On desktop: full animated GradientASCII */}
+        {isDesktop && (
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-15 group-hover:opacity-25 transition-opacity duration-500 hidden md:block">
+            <GradientASCII
+              preset={assignedPreset}
+              shape="rise"
+              mouseInteraction={false}
+              cellSize={14}
+              speed={0.4}
+              glyphOpacity={0.65}
+              gradientOpacity={0.5}
+              depthOfField={0.4}
+            />
+          </div>
+        )}
 
         {/* Foreground Content */}
         <div className="relative z-10">

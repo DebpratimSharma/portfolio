@@ -770,7 +770,10 @@ const GradientASCII = ({
       const s = settingsRef.current;
       view.width = Math.max(1, container.clientWidth);
       view.height = Math.max(1, container.clientHeight);
-      view.ratio = Math.min(s.dpr || window.devicePixelRatio || 1, 2);
+      const isMobile =
+        typeof window !== 'undefined' &&
+        (window.innerWidth < 768 || window.matchMedia?.('(pointer: coarse)').matches);
+      view.ratio = isMobile ? 1 : Math.min(s.dpr || window.devicePixelRatio || 1, 2);
       canvas.width = Math.max(1, Math.round(view.width * view.ratio));
       canvas.height = Math.max(1, Math.round(view.height * view.ratio));
       sizeTarget(
@@ -866,6 +869,8 @@ const GradientASCII = ({
     };
 
     const onPointerMove = event => {
+      // Don't intercept touch pointers on mobile to allow native zero-latency scrolling
+      if (event.pointerType === 'touch') return;
       locate(event);
       const s = settingsRef.current;
       if (!pointer.inside || !s.mouseInteraction || reduce) return;

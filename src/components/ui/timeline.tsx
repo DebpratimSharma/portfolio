@@ -33,11 +33,10 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: {
       duration: 0.65,
       ease: [0.22, 1, 0.36, 1],
@@ -124,7 +123,7 @@ export const Timeline = ({
               )}
             >
               <div className="sticky flex flex-col md:flex-row z-30 items-center top-28 md:top-36 self-start max-w-xs lg:max-w-sm md:w-full">
-                <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-black/90 backdrop-blur-md border border-[#38bdf8]/30 flex items-center justify-center shadow-[0_0_16px_rgba(30,63,216,0.35)]">
+                <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-black border border-[#38bdf8]/30 flex items-center justify-center shadow-[0_0_16px_rgba(30,63,216,0.35)]">
                   <div className="h-4 w-4 rounded-full bg-zinc-950 border border-[#38bdf8]/40 flex items-center justify-center">
                     <div className="h-1.5 w-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8]" />
                   </div>

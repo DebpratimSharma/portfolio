@@ -152,7 +152,7 @@ export default function Footer() {
     <footer
       id="footer"
       ref={footerRef}
-      className="relative w-full h-[85dvh] min-h-[580px] pointer-events-none"
+      className="relative w-full h-[85svh] sm:h-[85dvh] min-h-[580px] pointer-events-none"
     >
       {/* 
         Fixed reveal container:
@@ -162,7 +162,7 @@ export default function Footer() {
       */}
       <div
         className={cn(
-          "fixed bottom-0 left-0 w-full h-[85dvh] min-h-[580px] z-0 flex flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-10 md:px-14 lg:px-20 pt-6 sm:pt-10 pb-0 transition-opacity duration-300",
+          "fixed bottom-0 left-0 w-full h-[85svh] sm:h-[85dvh] min-h-[580px] z-0 flex flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-10 md:px-14 lg:px-20 pt-6 sm:pt-10 pb-[calc(1.5rem+env(safe-area-inset-bottom))] transition-opacity duration-300",
           isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
       >
@@ -198,7 +198,7 @@ export default function Footer() {
               </span>
 
               {/* In place of the text input box of email */}
-              <div className="flex items-center px-4 py-2.5 rounded-lg border border-white/20 bg-white/[0.04] backdrop-blur-sm text-xs sm:text-[13px] font-mono text-zinc-300 shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+              <div className="flex items-center px-4 py-2.5 rounded-lg border border-white/20 bg-white/[0.04] text-xs sm:text-[13px] font-mono text-zinc-300 shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
                 <span>© 2026 Debpratim Sharma. Built with Next.js & Motion.</span>
               </div>
 

@@ -46,6 +46,14 @@ export default function WhatIDo() {
   const [contributions, setContributions] = useState<ContributionDay[] | undefined>(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
   const [openProblemId, setOpenProblemId] = useState<string | null>(caseStudies[0]?.id ?? null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
 
   // Fetch real GitHub contribution data
   useEffect(() => {
@@ -70,18 +78,26 @@ export default function WhatIDo() {
     };
   }, []);
 
-  // Pure scroll-triggered bi-directional animation
+  // Pure scroll-triggered bi-directional animation (throttled with RAF to prevent layout thrashing)
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (sectionRef.current) {
+            const rect = sectionRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
 
-      // Scroll threshold with generous hysteresis to prevent any jitter:
-      if (rect.top <= windowHeight * 0.55) {
-        setIsAtLeft(true);
-      } else if (rect.top > windowHeight * 0.68) {
-        setIsAtLeft(false);
+            // Scroll threshold with generous hysteresis to prevent any jitter:
+            if (rect.top <= windowHeight * 0.55) {
+              setIsAtLeft(true);
+            } else if (rect.top > windowHeight * 0.68) {
+              setIsAtLeft(false);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -206,19 +222,30 @@ export default function WhatIDo() {
           {/* Right Column: "At a Glance" Card with GradientASCII background */}
           <div className="lg:col-span-5 flex flex-col">
             <div className="relative h-full w-full rounded-2xl border border-white/20 bg-zinc-950 p-5 sm:p-7 md:p-8 flex flex-col justify-between shadow-2xl overflow-hidden min-h-[360px] sm:min-h-[380px]">
-              {/* Background GradientASCII Animation */}
-              <div className="absolute inset-0 z-0 pointer-events-none opacity-40 overflow-hidden">
-                <GradientASCII
-                  shape="rise"
-                  mouseInteraction={false}
-                  clickEffect="none"
-                  cellSize={16}
-                  speed={0.5}
-                  glyphOpacity={1}
-                  gradientOpacity={0.6}
-                  depthOfField={1}
-                />
-              </div>
+              {/* On mobile: lightweight CSS radial gradient */}
+              <div
+                className="absolute inset-0 z-0 pointer-events-none md:hidden opacity-40 overflow-hidden"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 90% 70% at 50% 100%, rgba(30, 63, 216, 0.28), rgba(56, 189, 248, 0.12) 50%, transparent 80%)",
+                }}
+              />
+
+              {/* On desktop: GradientASCII Animation */}
+              {isDesktop && (
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-40 overflow-hidden hidden md:block">
+                  <GradientASCII
+                    shape="rise"
+                    mouseInteraction={false}
+                    clickEffect="none"
+                    cellSize={16}
+                    speed={0.5}
+                    glyphOpacity={1}
+                    gradientOpacity={0.6}
+                    depthOfField={1}
+                  />
+                </div>
+              )}
 
               {/* Card Foreground Content */}
               <div className="relative z-10 flex flex-col gap-6">
@@ -363,7 +390,7 @@ export default function WhatIDo() {
               data={contributions}
               palette="github"
               defaultView="3d"
-              className="border-white/10 bg-zinc-950/60 backdrop-blur-md shadow-2xl rounded-2xl overflow-hidden"
+              className="border-white/10 bg-zinc-950 shadow-2xl rounded-2xl overflow-hidden"
             />
           </Suspense>
         </div>
@@ -383,7 +410,7 @@ export default function WhatIDo() {
             </div>
 
             {/* Smooth Motion Accordion */}
-            <div className="w-full border border-white/10 rounded-2xl bg-black backdrop-blur-xl overflow-hidden shadow-2xl divide-y divide-white/10">
+            <div className="w-full border border-white/10 rounded-2xl bg-black overflow-hidden shadow-2xl divide-y divide-white/10">
               {caseStudies.map((item) => {
                 const isOpen = openProblemId === item.id;
                 return (

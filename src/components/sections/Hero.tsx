@@ -11,7 +11,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full h-screen min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 overflow-hidden"
+      className="relative w-full h-[100svh] min-h-[100svh] sm:h-screen sm:min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 overflow-hidden"
     >
       {/* Background GradientASCII Animation */}
       <div className="absolute inset-0 z-0 pointer-events-auto">
@@ -73,7 +73,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom Left: Badge Card inspired by reference, Keywords & Location */}
-      <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 left-0 right-0 z-20 pointer-events-none px-4 sm:px-8 md:px-12">
+      <div className="absolute bottom-[calc(5rem+env(safe-area-inset-bottom))] sm:bottom-8 md:bottom-10 left-0 right-0 z-20 pointer-events-none px-4 sm:px-8 md:px-12">
         <div className="w-full max-w-[96vw] px-2 sm:px-6 md:px-8 mx-auto">
           <ScrollReveal direction="up" duration={0.8} delay={0.45}>
             <div className="flex flex-col items-start gap-2.5 sm:gap-3 pl-1 select-none pointer-events-auto max-w-xl">

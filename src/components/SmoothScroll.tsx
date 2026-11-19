@@ -41,7 +41,14 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     ).matches;
     if (prefersReducedMotion) return;
 
-    // Initialize Lenis with silky smooth physics
+    // Disable Lenis on touch devices to enable native 120Hz iOS compositor momentum scrolling
+    const isTouch =
+      window.matchMedia("(pointer: coarse)").matches ||
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0;
+    if (isTouch) return;
+
+    // Initialize Lenis with silky smooth physics for desktop pointer devices
     const lenis = new Lenis({
       autoRaf: false,
       duration: 1.4, // Silky cinematic smooth scroll duration

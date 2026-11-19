@@ -11,18 +11,26 @@ export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isAtLeft, setIsAtLeft] = useState(false);
 
-  // Pure scroll-triggered bi-directional animation
+  // Pure scroll-triggered bi-directional animation (throttled with RAF to prevent layout thrashing)
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (sectionRef.current) {
+            const rect = sectionRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
 
-      // Scroll threshold with generous hysteresis to prevent any jitter:
-      if (rect.top <= windowHeight * 0.55) {
-        setIsAtLeft(true);
-      } else if (rect.top > windowHeight * 0.68) {
-        setIsAtLeft(false);
+            // Scroll threshold with generous hysteresis to prevent any jitter:
+            if (rect.top <= windowHeight * 0.55) {
+              setIsAtLeft(true);
+            } else if (rect.top > windowHeight * 0.68) {
+              setIsAtLeft(false);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

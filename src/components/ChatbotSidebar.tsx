@@ -120,7 +120,7 @@ export default function ChatbotSidebar({
       {/* Floating CrystalizedBall Trigger in the Bottom Right Corner (hidden in footer) */}
       <div
         className={cn(
-          "fixed bottom-6 right-6 z-40 flex items-center justify-center select-none transition-all duration-300 ease-in-out",
+          "fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 z-40 flex items-center justify-center select-none transition-all duration-300 ease-in-out",
           isInFooter
             ? "opacity-0 scale-75 pointer-events-none translate-y-6"
             : "opacity-100 scale-100 pointer-events-auto translate-y-0",
@@ -136,7 +136,7 @@ export default function ChatbotSidebar({
           aria-haspopup="dialog"
         >
           {/* Tooltip on hover */}
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-full bg-neutral-900/95 text-white text-xs font-medium tracking-wide whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none border border-white/10 shadow-lg backdrop-blur-md">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-full bg-neutral-900 text-white text-xs font-medium tracking-wide whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none border border-white/10 shadow-lg">
             {isOpen ? "Close assistant" : "Chat with AI"}
           </div>
 
@@ -166,7 +166,7 @@ export default function ChatbotSidebar({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-black/80"
               aria-hidden="true"
             />
 
@@ -179,7 +179,7 @@ export default function ChatbotSidebar({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[440px] md:w-[480px] max-w-[95vw] bg-neutral-950/95 backdrop-blur-2xl border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
+              className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[440px] md:w-[480px] max-w-[95vw] bg-neutral-950 border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">

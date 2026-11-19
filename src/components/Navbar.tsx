@@ -65,7 +65,7 @@ export default function Navbar({
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 w-full pb-5 select-none bg-gradient-to-b from-black/30 to-transparent transition-all duration-300 font-syne font-semibold",
+        "fixed top-0 left-0 right-0 z-40 w-full pt-[env(safe-area-inset-top)] pb-5 select-none bg-gradient-to-b from-black/30 to-transparent transition-all duration-300 font-syne font-semibold",
         className
       )}
     >
