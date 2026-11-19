@@ -3,6 +3,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
+import { Timeline, type TimelineEntry } from "@/components/ui/timeline";
+import ExperienceCard from "@/components/ExperienceCard";
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -27,6 +30,12 @@ export default function Experience() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prepare timeline entries using the modular ExperienceCard component
+  const timelineData: TimelineEntry[] = PORTFOLIO_DATA.experience.map((exp) => ({
+    title: exp.timelineDate || exp.period,
+    content: <ExperienceCard experience={exp} />,
+  }));
 
   return (
     <section
@@ -70,18 +79,31 @@ export default function Experience() {
 
       {/* 
         Content Container:
-        Reserved for 3rd party components / future content.
+        Animates in smoothly AFTER the title has moved to the left side.
+        delay of 0.55s ensures title docks first, then the timeline entries glide in.
       */}
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
+        animate={{
+          opacity: isAtLeft ? 1 : 0,
+          y: isAtLeft ? 0 : 32,
+        }}
+        transition={{
+          duration: 0.65,
+          delay: isAtLeft ? 0.55 : 0,
+          ease: [0.22, 1, 0.36, 1],
+        }}
         className={cn(
-          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-36 sm:pt-44 md:pt-48 pb-12 transition-all duration-400 ease-out flex flex-col",
-          isAtLeft
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-6 pointer-events-none"
+          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 flex flex-col",
+          isAtLeft ? "pointer-events-auto" : "pointer-events-none"
         )}
       >
-        {/* Empty container ready for 3rd-party components */}
-      </div>
+        {/* Top subtle dividing rule */}
+        <div className="w-full " />
+
+        {/* Aceternity Timeline Component */}
+        <Timeline data={timelineData} animateIn={isAtLeft} />
+      </motion.div>
     </section>
   );
 }

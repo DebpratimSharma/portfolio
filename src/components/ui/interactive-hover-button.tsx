@@ -3,6 +3,7 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import TextAnimate from "./text-animate";
 
 export interface InteractiveHoverButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -43,9 +44,23 @@ export function InteractiveHoverButton({
       ) : (
         <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400 transition-colors duration-300 group-hover:bg-white" />
       )}
-      <span className="inline-block whitespace-nowrap transition-colors duration-300">
-        {children}
-      </span>
+      {typeof children === "string" ? (
+        <TextAnimate
+          animation="blurInUp"
+          by="character"
+          duration={0.25}
+          as="span"
+          startOnView={false}
+          className={cn("inline-block whitespace-nowrap transition-colors duration-300")}
+          delay={0.1}
+        >
+          {children}
+        </TextAnimate>
+      ) : (
+        <span className="inline-block whitespace-nowrap transition-colors duration-300">
+          {children}
+        </span>
+      )}
     </div>
   ) : (
     <>

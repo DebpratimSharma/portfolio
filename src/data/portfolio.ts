@@ -51,7 +51,7 @@ export const PORTFOLIO_DATA = {
   location: "West Bengal, India",
   tagline:
     "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
-  resumeUrl: "https://docs.google.com/document/d/1WXOgpowX7oe__Q_SAY8FImyXG62uJkWQDFlxInrUHyk/edit?usp=sharing",
+  resumeUrl: "/resume.pdf",
   status: "Available for work",
   statusDescription: [
     "Open to full-time roles",
@@ -245,72 +245,105 @@ export const PORTFOLIO_DATA = {
   experience: [
     {
       id: 1,
+      role: "Freelance Developer",
+      organisation: "Narratives Creative Labs Pvt. Ltd.",
+      location: "Remote",
+      period: "2026 – Present",
+      timelineDate: "2026 — Present",
+      link: "https://narratives.tv",
+      type: "Freelance / Client Work",
+      preset: "atmosphere",
+      summary:
+        "Building client-facing web systems and engineering internal workflow automation tools.",
+      contributions: [
+        "Built and deployed the company’s portfolio website using Next.js and Tailwind CSS.",
+        "Currently designing and prototyping internal workflow automation tools for the company (details confidential).",
+      ],
+      focus: [
+        "Frontend Engineering",
+        "Workflow Automation",
+        "Production Systems",
+      ],
+      techStack: ["Next.js", "Tailwind CSS", "TypeScript", "React", "Workflow Automation", "Vercel"],
+    },
+    {
+      id: 2,
+      role: "Convenor",
+      organisation: "Student Chapter of Electrical Engineering (SCEE), Academy of Technology",
+      location: "India",
+      period: "2026 – Present",
+      timelineDate: "2026 — Present",
+      link: "https://sceeaot.in",
+      type: "Leadership / Chapter Lead",
+      preset: "lagoon",
+      summary:
+        "Leading the chapter’s technical roadmap, coordinating hackathons, workshops and community events, and mentoring juniors moving from EE fundamentals into software.",
+      contributions: [
+        "Lead the chapter’s technical roadmap, coordinating hackathons, workshops and community events, and mentor juniors moving from EE fundamentals into software.",
+        "Led technical workshops and peer-learning initiatives in collaboration with faculty for academic and departmental activities.",
+        "Mentored juniors in EE fundamentals, modern software practices, and basic programming.",
+      ],
+      focus: [
+        "Technical Roadmap",
+        "Student Leadership",
+        "Peer Mentorship",
+      ],
+      techStack: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Git & GitHub",
+        "JavaScript",
+        "ESP32",
+      ],
+    },
+    {
+      id: 3,
       role: "Tech Team Member",
-      organisation: "Student Chapter of Electrical Engineering, AOT",
+      organisation: "Google Developer Group on Campus (GDGoC) – Academy of Technology",
+      location: "India",
+      period: "2025 – 2026",
+      timelineDate: "2025 — 2026",
+      type: "Developer Community",
+      preset: "corona",
+      summary:
+        "Part of the core technical organising team for large-scale hackathons and technical community events.",
+      contributions: [
+        "Helped manage GDG events, learned Google Cloud Platform (GCP) and mentored juniors on it.",
+        "Part of the core technical organising team for a large-scale hackathon.",
+        "Supported technical planning and execution, assisted in participant onboarding and tooling, and coordinated with organisers for smooth operations.",
+      ],
+      focus: ["Event Systems", "Google Cloud", "Community Tech", "Coordination"],
+      techStack: [
+        "Google Cloud Platform (GCP)",
+        "Web Platforms",
+        "Developer Community",
+        "Event Infrastructure",
+      ],
+    },
+    {
+      id: 4,
+      role: "Tech Team Member",
+      organisation: "Student Chapter of Electrical Engineering (SCEE), Academy of Technology",
       location: "India",
       period: "2024 – 2025",
+      timelineDate: "2024 — 2025",
+      link: "https://sceeaot.in",
+      type: "Department Tech Team",
+      preset: "rose",
       summary:
-        "Worked on real-world technical platforms supporting student and departmental activities.",
+        "Built and maintained production-facing web platforms supporting student and departmental activities.",
       contributions: [
-        "Built and maintained production-facing web platforms",
-        "Handled deployment, domain configuration, and updates",
-        "Collaborated across teams to ensure system reliability",
+        "Built and maintained web platforms for department activities, including domain configuration, HTTPS deployment and cross-team feature rollouts.",
+        "Handled deployment, domain configuration, and continuous updates to ensure high system uptime.",
+        "Collaborated across teams to ensure platform reliability and smooth user experience for students and faculty.",
       ],
       focus: [
         "Frontend Engineering",
         "Deployment & Operations",
         "System Ownership",
       ],
-      techStack: ["Next.js", "React", "Tailwind CSS", "Git", "Vercel"],
+      techStack: ["Next.js", "React", "Tailwind CSS", "Git", "Vercel", "Domain & DNS"],
     },
-
-    {
-      id: 2,
-      role: "Tech Team Member",
-      organisation: "GDG On Campus – Academy of Technology",
-      location: "India",
-      period: "2025 – 2026",
-      summary:
-        "Part of the core technical organising team for a large-scale hackathon.",
-      contributions: [
-        "Supported technical planning and execution",
-        "Assisted in participant onboarding and tooling",
-        "Coordinated with organisers for smooth operations",
-      ],
-      focus: ["Event Systems", "Community Tech", "Coordination"],
-      techStack: [
-        "Web Platforms",
-        "Google Cloud Console",
-        "Collaboration Tools",
-      ],
-    },
-    {
-  id: 3,
-  role: "Convenor",
-  organisation: "Student Chapter of Electrical Engineering, AOT (SCEEAOT)",
-  location: "India",
-  period: "2026 – 2027",
-  summary:
-    "Leading the Electrical Engineering student chapter, focusing on technical growth, peer learning, and bridging core EE with modern technologies.",
-  contributions: [
-    "Led technical workshops and peer-learning initiatives",
-    "Collaborated with faculty for academic and technical activities",
-    "Mentored juniors in EE fundamentals and basic programming"
-  ],
-  focus: [
-    "Student leadership",
-    "Core Electrical Engineering",
-    "Tech-enabled learning"
-  ],
-  techStack: [
-    "Electrical Engineering",
-    "Git & GitHub",
-    "JavaScript",
-    "React",
-    "Next.js",
-    "ESP32"
-  ],
-}
-,
   ],
 };

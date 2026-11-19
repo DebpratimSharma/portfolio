@@ -15,10 +15,15 @@
   --font-sans: var(--font-roboto-flex), system-ui, -apple-system, sans-serif;
   --font-heading: var(--font-syne), var(--font-roboto-flex), sans-serif;
   --font-syne: var(--font-syne), sans-serif;
+  --font-google-sans-flex: "Google Sans Flex", sans-serif;
 }
 
 .font-syne {
   font-family: var(--font-syne), sans-serif;
+}
+
+.font-google-sans-flex {
+  font-family: "Google Sans Flex", sans-serif;
 }
 
 h1,

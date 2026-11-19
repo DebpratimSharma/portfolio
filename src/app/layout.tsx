@@ -29,6 +29,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${robotoFlex.variable} ${syne.variable} antialiased dark`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&display=swap"
+        />
+      </head>
       <body className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
 
         {/* Floating cosmic aurora navbar */}

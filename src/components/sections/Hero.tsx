@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Download, MapPin } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import GradientASCII from "@/components/GradientASCII";
-import { TextAnimate } from "@/components/ui/text-animate";
+import { MainButton } from "@/components/ui/MainButton";
 import { cn } from "@/lib/utils";
 
 export default function Hero() {
-  const [resumeHoverKey, setResumeHoverKey] = useState(0);
-  const [isResumeHovered, setIsResumeHovered] = useState(false);
-
   return (
     <section
       id="hero"
@@ -58,51 +55,17 @@ export default function Hero() {
                 </h1>
 
                 {/* Primary Resume Button */}
-                <a
+                <MainButton
+                  variant="primary"
                   href="/resume.pdf"
                   download="Debpratim_Sharma_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onMouseEnter={() => {
-                    setIsResumeHovered(true);
-                    setResumeHoverKey((prev) => prev + 1);
-                  }}
-                  onMouseLeave={() => setIsResumeHovered(false)}
-                  className={cn(
-                    "group relative inline-flex items-center justify-center gap-2.5 sm:gap-3 px-7 sm:px-8 py-3 rounded-full font-syne font-bold text-xs sm:text-sm tracking-[0.16em] uppercase cursor-pointer select-none transition-all duration-300 ease-out border shadow-sm active:scale-95",
-                    isResumeHovered
-                      ? "bg-black text-white border-white shadow-[0_0_24px_rgba(255,255,255,0.25)]"
-                      : "bg-white text-black border-white hover:bg-black hover:text-white"
-                  )}
+                  icon={<Download className="w-4 h-4" strokeWidth={2.4} />}
                   aria-label="Resume"
                 >
-                  <Download
-                    className={cn(
-                      "w-4 h-4 shrink-0 transition-all duration-300",
-                      isResumeHovered
-                        ? "text-white -translate-y-0.5"
-                        : "text-black group-hover:text-white group-hover:-translate-y-0.5"
-                    )}
-                    strokeWidth={2.4}
-                  />
-                  <TextAnimate
-                    key={resumeHoverKey}
-                    animation="blurInUp"
-                    by="character"
-                    duration={0.25}
-                    as="span"
-                    startOnView={false}
-                    className={cn(
-                      "inline-block font-syne font-bold text-xs tracking-[0.16em] uppercase transition-colors duration-300",
-                      isResumeHovered
-                        ? "text-white"
-                        : "text-black group-hover:text-white"
-                    )}
-                    segmentClassName="tracking-[0.16em]"
-                  >
-                    RESUME
-                  </TextAnimate>
-                </a>
+                  RESUME
+                </MainButton>
               </div>
             </ScrollReveal>
           </div>

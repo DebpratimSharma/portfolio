@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
+import { MainButton } from "@/components/ui/MainButton";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { TextAnimate } from "@/components/ui/text-animate";
 
@@ -75,13 +76,6 @@ export default function SelectedWorks() {
       ref={sectionRef}
       className="relative w-full min-h-screen py-20 sm:py-24 border-b border-white/5 bg-black select-none flex flex-col justify-start"
     >
-      {/* 
-        Scroll-Triggered Animated Heading:
-        - Initial Y and Final Y are identical (constant Y below navbar).
-        - Smooth horizontal slide along X from center to left margin.
-        - Scales down to 0.72 when docked at the left corner.
-        - Zero CSS transition conflict for pure hardware-accelerated 60/120 FPS motion.
-      */}
       <motion.div
         initial={false}
         animate={{
@@ -109,15 +103,9 @@ export default function SelectedWorks() {
         </h2>
       </motion.div>
 
-      {/* 
-        Project List Container:
-        - In normal document flow with NO inner scrollbar!
-        - Smoothly scrolls with natural mouse wheel.
-        - Fades and slides in quickly when isAtLeft is true; reverses smoothly when scrolling back up.
-      */}
       <div
         className={cn(
-          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-36 sm:pt-44 md:pt-48 pb-12 transition-all duration-400 ease-out flex flex-col",
+          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-20 md:pt-36 pb-12 transition-all duration-400 ease-out flex flex-col",
           isAtLeft
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-6 pointer-events-none"
@@ -202,17 +190,18 @@ export default function SelectedWorks() {
                           onMouseEnter={() => setIsOverInteractive(true)}
                           onMouseLeave={() => setIsOverInteractive(false)}
                         >
-                          <InteractiveHoverButton
+                          <MainButton
                             variant="secondary"
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
                             icon={<GithubIcon className="w-3.5 h-3.5 shrink-0" />}
+                            textColor="text-zinc-300"
                             className="!py-1.5 sm:!py-2 !px-3.5 sm:!px-4 !text-xs sm:!text-[13px] min-w-[95px]"
                             aria-label={`${project.title} GitHub repository`}
                           >
                             GitHub
-                          </InteractiveHoverButton>
+                          </MainButton>
                         </div>
                       )}
                     </div>
@@ -222,15 +211,15 @@ export default function SelectedWorks() {
             );
           })}
         </div>
+        <InteractiveHoverButton
+          href={PORTFOLIO_DATA.socials.find((s) => s.label === "GitHub")?.href.concat("?tab=repositories")}
+          className=" mx-auto text-center justify-center mt-10 py-2.5 "
+        >
+          View All
+        </InteractiveHoverButton>
+
       </div>
 
-      {/* 
-        Custom White Floating Cursor:
-        - Appears when hovering over any project card.
-        - Follows mouse with spring physics.
-        - Uses TextAnimate with "go to site" character animation.
-        - Smoothly scales away when leaving card or hovering the GitHub button.
-      */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-50 hidden md:flex items-center justify-center"
         style={{
