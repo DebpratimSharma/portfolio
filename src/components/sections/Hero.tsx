@@ -5,7 +5,6 @@ import { Download, MapPin } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import GradientASCII from "@/components/GradientASCII";
 import { MainButton } from "@/components/ui/MainButton";
-import { cn } from "@/lib/utils";
 
 export default function Hero() {
   return (
@@ -42,17 +41,17 @@ export default function Hero() {
           <div className="w-full max-w-[96vw] pt-5 sm:pt-8 flex flex-col items-start gap-5 sm:gap-6">
             <ScrollReveal direction="up" duration={0.8} delay={0.2}>
               <p className="max-w-xl text-sm sm:text-base md:text-lg text-white/60 font-light leading-relaxed select-none pl-1">
-                This is my World. A place where I share my projects, ideas, and passions. Dive in to explore the fusion of creativity and technology that defines who I am.
+                Full-Stack Web Developer, Gen AI Engineer &amp; Freelance React Developer based in Kolkata. Dive in to explore the fusion of creativity, AI systems, and robust web applications.
               </p>
             </ScrollReveal>
 
             <ScrollReveal direction="up" duration={0.8} delay={0.35}>
-              <div className="flex items-center gap-3 md:pag-4  pl-1 pointer-events-auto">
-                <h1
+              <div className="flex items-center gap-3 md:gap-4 pl-1 pointer-events-auto">
+                <h2
                   className="font-syne font-semibold text-lg sm:text-xl md:text-4xl text-white tracking-wide select-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
                 >
                   Debpratim Sharma
-                </h1>
+                </h2>
 
                 {/* Primary Resume Button */}
                 <MainButton
@@ -79,7 +78,7 @@ export default function Hero() {
             <div className="flex flex-col items-start gap-2.5 sm:gap-3 pl-1 select-none pointer-events-auto max-w-xl">
 
               <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-0.5">
-                {["Gen AI", "React", "Design", "Blockchain"].map((tag) => (
+                {["Web Developer", "Gen AI Engineer", "Freelancer", "React Developer"].map((tag) => (
                   <span
                     key={tag}
                     className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider uppercase bg-white/[0.04] border border-white/10 text-zinc-300 hover:border-white/30 hover:text-white transition-colors"
@@ -90,7 +89,7 @@ export default function Hero() {
 
                 <div className="flex items-center gap-1.5 text-xs text-zinc-400 font-light">
                   <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-                  <span>Halisahar, West Bengal, India</span>
+                  <span>Kolkata, West Bengal, India</span>
                 </div>
               </div>
             </div>

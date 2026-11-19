@@ -47,8 +47,8 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) =>
 export const PORTFOLIO_DATA = {
   title: "Debprix",
   name: "Debpratim Sharma",
-  role: "Full-Stack Engineer",
-  location: "West Bengal, India",
+  role: "Web Developer & Gen AI Engineer",
+  location: "Kolkata, West Bengal, India",
   tagline:
     "I build production-grade web systems with real users, focusing on reliability, scalability, and long-term growth.",
   resumeUrl: "/resume.pdf",
@@ -57,7 +57,7 @@ export const PORTFOLIO_DATA = {
   responseTime: "< 24 hours",
   status: "Available for work",
   statusDescription: [
-    "Open to full-time roles",
+    "Open to full-time & freelance roles",
     "Remote or hybrid preferred",
     "Looking for a long-term opportunity",
   ],
@@ -74,9 +74,9 @@ export const PORTFOLIO_DATA = {
   },
   about: {
     description:
-      "I'm a Full-Stack Engineer with strong experience in building and shipping real-world products using the React and Next.js ecosystem. I enjoy working close to production—thinking about system boundaries, trade-offs, and long-term maintainability. My background in electrical engineering and IoT gives me a systems-first mindset that goes beyond UI development.",
+      "I'm a Web Developer and Gen AI Engineer with strong experience in building and shipping real-world products using the React and Next.js ecosystem. I enjoy working close to production—thinking about system boundaries, trade-offs, and long-term maintainability. My background in electrical engineering and IoT gives me a systems-first mindset that goes beyond UI development.",
   },
-  roles: ["Full-Stack Engineer", "Backend Engineer", "Frontend Engineer"],
+  roles: ["Web Developer", "Gen AI Engineer", "Freelancer", "React Developer", "Full-Stack Engineer"],
 
   socials: [
     {
