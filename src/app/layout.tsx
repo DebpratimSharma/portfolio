@@ -166,6 +166,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${robotoFlex.variable} ${syne.variable} antialiased dark`}
+      suppressHydrationWarning
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -183,7 +184,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
+      <body
+        className="min-h-screen bg-black text-white selection:bg-white selection:text-black"
+        suppressHydrationWarning
+      >
         {/* Physics-based smooth scroll container powered by motion */}
         <SmoothScroll>
           {/* Floating cosmic aurora navbar */}

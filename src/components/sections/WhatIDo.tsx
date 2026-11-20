@@ -9,37 +9,12 @@ import { MainButton } from "@/components/ui/MainButton";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import ContributionSkyline, { ContributionDay } from "@/components/ui/contribution-skyline";
 import AtAGlanceCard from "@/components/AtAGlanceCard";
-import { PORTFOLIO_DATA } from "@/data/portfolio";
+import { PORTFOLIO_DATA, TECH_STACK_CATEGORIES } from "@/data/portfolio";
+
+export { TECH_STACK_CATEGORIES };
 
 const caseStudiesConfig = PORTFOLIO_DATA.caseStudies;
 const caseStudies = caseStudiesConfig?.items ?? [];
-
-export const TECH_STACK_CATEGORIES = [
-  {
-    title: "Languages",
-    items: ["TypeScript", "JavaScript", "Python", "SQL", "C", "Java"],
-  },
-  {
-    title: "Frontend",
-    items: ["Next.js", "React", "Tailwind CSS", "Shadcn UI", "Motion", "HTML5 / CSS3"],
-  },
-  {
-    title: "Backend",
-    items: ["Node.js", "REST APIs", "FastAPI", "Express", "Serverless"],
-  },
-  {
-    title: "Data",
-    items: ["PostgreSQL", "Supabase", "Upstash Redis", "MongoDB", "SQL"],
-  },
-  {
-    title: "Infrastructure",
-    items: ["Docker", "Vercel", "Google Cloud (GCP)", "AWS", "Git & GitHub", "Linux"],
-  },
-  {
-    title: "Models & APIs",
-    items: ["OpenAI API", "ElevenLabs", "Web Audio APIs", "Solana Web3"],
-  },
-];
 
 export default function WhatIDo() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -149,15 +124,18 @@ export default function WhatIDo() {
 
       {/* 
         Content Container:
-        Reserved for 3rd party components / future content.
+        Fades in with a 20ms delay on view
       */}
-      <div
-        className={cn(
-          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 transition-all duration-400 ease-out flex flex-col gap-12 sm:gap-16",
-          isAtLeft
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-6 pointer-events-none"
-        )}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{
+          duration: 0.5,
+          delay: 0.2,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 flex flex-col gap-12 sm:gap-16 pointer-events-auto"
       >
         {/* ========================================================
             PART 1: Identity, Core Focus, Targets & At-a-Glance
@@ -534,7 +512,7 @@ export default function WhatIDo() {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -111,13 +111,16 @@ export default function SelectedWorks() {
         </h2>
       </motion.div>
 
-      <div
-        className={cn(
-          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 transition-all duration-400 ease-out flex flex-col",
-          isAtLeft
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-6 pointer-events-none"
-        )}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{
+          duration: 0.5,
+          delay: 0.2,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 flex flex-col pointer-events-auto"
       >
         {/* Top dividing border */}
         <div className="w-full border-t border-white/10" />
@@ -226,7 +229,7 @@ export default function SelectedWorks() {
           View All
         </InteractiveHoverButton>
 
-      </div>
+      </motion.div>
 
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-50 hidden md:flex items-center justify-center"

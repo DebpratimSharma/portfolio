@@ -87,30 +87,24 @@ export default function Experience() {
 
       {/* 
         Content Container:
-        Animates in smoothly AFTER the title has moved to the left side.
-        delay of 0.55s ensures title docks first, then the timeline entries glide in.
+        Fades in with a 20ms delay on view
       */}
       <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        animate={{
-          opacity: isAtLeft ? 1 : 0,
-          y: isAtLeft ? 0 : 32,
-        }}
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
         transition={{
-          duration: 0.65,
-          delay: isAtLeft ? 0.55 : 0,
+          duration: 0.5,
+          delay: 0.4,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className={cn(
-          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 flex flex-col",
-          isAtLeft ? "pointer-events-auto" : "pointer-events-none"
-        )}
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-16 flex flex-col pointer-events-auto"
       >
         {/* Top subtle dividing rule */}
         <div className="w-full " />
 
         {/* Aceternity Timeline Component */}
-        <Timeline data={timelineData} animateIn={isAtLeft} />
+        <Timeline data={timelineData} />
       </motion.div>
     </section>
   );

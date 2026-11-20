@@ -133,15 +133,18 @@ export default function Contact() {
 
       {/* 
         Content Container:
-        Fades in smoothly as the centered heading disappears on scroll.
+        Fades in with a 20ms delay on view
       */}
-      <div
-        className={cn(
-          "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 transition-all duration-700 ease-out flex flex-col gap-8 sm:gap-10",
-          isScrolled
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-8 pointer-events-none"
-        )}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{
+          duration: 0.5,
+          delay: 0.02,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 flex flex-col gap-8 sm:gap-10 pointer-events-auto"
       >
         
 
@@ -329,7 +332,7 @@ export default function Contact() {
             <span>Response time: {PORTFOLIO_DATA.responseTime || "< 24 hours"}</span>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

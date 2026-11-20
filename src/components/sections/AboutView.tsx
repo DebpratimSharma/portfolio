@@ -1,62 +1,23 @@
-"use client";
-
-import React, { Suspense, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import React from "react";
 import {
   Briefcase,
   Code2,
   Compass,
-  ChevronDown,
-  Layers,
   ShieldCheck,
   Database,
   Zap,
-  ArrowRight,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import AtAGlanceCard from "@/components/AtAGlanceCard";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
-import ContributionSkyline, {
-  ContributionDay,
-} from "@/components/ui/contribution-skyline";
-import { PORTFOLIO_DATA } from "@/data/portfolio";
-import { TECH_STACK_CATEGORIES } from "@/components/sections/WhatIDo";
+import { MotionFadeIn } from "@/components/ui/motion-fade-in";
+import ProblemAccordion from "@/components/sections/ProblemAccordion";
+import AboutGitHubActivity from "@/components/sections/AboutGitHubActivity";
+import { PORTFOLIO_DATA, TECH_STACK_CATEGORIES } from "@/data/portfolio";
 
 const caseStudiesConfig = PORTFOLIO_DATA.caseStudies;
 const caseStudies = caseStudiesConfig?.items ?? [];
 
 export default function AboutView() {
-  const [contributions, setContributions] = useState<ContributionDay[] | undefined>(
-    undefined
-  );
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [openProblemId, setOpenProblemId] = useState<string | null>(
-    caseStudies[0]?.id ?? null
-  );
-
-  // Fetch real GitHub contribution data
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchContributions() {
-      try {
-        const res = await fetch("/api/github");
-        if (!res.ok) throw new Error("Network response was not ok");
-        const json = await res.json();
-        if (isMounted && json.success && Array.isArray(json.contributions)) {
-          setContributions(json.contributions);
-          setIsLoaded(true);
-        }
-      } catch (err) {
-        console.warn("Using sample contributions due to API fetch fallback:", err);
-      }
-    }
-
-    fetchContributions();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
   return (
     <section className="relative w-full min-h-screen py-24 sm:py-32 bg-black select-none flex flex-col justify-start">
       {/* Subtle ambient lighting */}
@@ -69,31 +30,32 @@ export default function AboutView() {
         {/* ========================================================
             PAGE HEADER: Heading "About"
            ======================================================== */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        <MotionFadeIn
+          yOffset={20}
+          duration={0.6}
           className="flex flex-col items-start text-left gap-1 pt-2 sm:pt-4"
         >
           
           <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white capitalize drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
             About
           </h1>
-        </motion.div>
+        </MotionFadeIn>
 
         {/* ========================================================
             PART 1: Paragraph About Me on Left & At a Glance on Right
            ======================================================== */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        <MotionFadeIn
+          yOffset={24}
+          duration={0.65}
+          delay={0.1}
           className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch"
         >
           {/* Left Column: Paragraph About Me and Core Focus Points */}
           <div className="lg:col-span-7 flex flex-col justify-between space-y-6 px-1 sm:px-2">
             <div className="space-y-4">
-              
+              <h2 className="font-syne text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-snug">
+                Engineering resilient web systems from the boundaries up.
+              </h2>
               <div className="space-y-3.5 text-sm sm:text-base text-zinc-400 leading-relaxed font-light">
                 <p>
                   I'm Debpratim Sharma — Web Developer and Gen AI Engineer with a
@@ -166,16 +128,16 @@ export default function AboutView() {
           <div className="lg:col-span-5 flex flex-col">
             <AtAGlanceCard />
           </div>
-        </motion.div>
+        </MotionFadeIn>
 
         {/* ========================================================
             PART 2: "How I Work" Section
            ======================================================== */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        <MotionFadeIn
+          yOffset={24}
+          whileInView={true}
+          duration={0.65}
+          viewportMargin="-80px"
           className="w-full flex flex-col gap-6 pt-2"
         >
           <div className="space-y-2 px-1 sm:px-2">
@@ -195,9 +157,7 @@ export default function AboutView() {
           {/* 3 Pillars Grid */}
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 px-1 sm:px-2">
             <div className="rounded-2xl border border-white/10 bg-zinc-950/60 p-6 flex flex-col gap-3.5 hover:border-white/20 transition-colors">
-              <div className="h-9 w-9 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-zinc-200">
-                <ShieldCheck className="w-5 h-5 text-emerald-400" />
-              </div>
+              
               <h4 className="font-syne text-lg font-bold text-white tracking-wide">
                 Defensive API Boundaries
               </h4>
@@ -209,9 +169,7 @@ export default function AboutView() {
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-zinc-950/60 p-6 flex flex-col gap-3.5 hover:border-white/20 transition-colors">
-              <div className="h-9 w-9 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-zinc-200">
-                <Database className="w-5 h-5 text-sky-400" />
-              </div>
+              
               <h4 className="font-syne text-lg font-bold text-white tracking-wide">
                 Lifecycle &amp; Relational Clarity
               </h4>
@@ -223,9 +181,7 @@ export default function AboutView() {
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-zinc-950/60 p-6 flex flex-col gap-3.5 hover:border-white/20 transition-colors">
-              <div className="h-9 w-9 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-zinc-200">
-                <Zap className="w-5 h-5 text-amber-400" />
-              </div>
+              
               <h4 className="font-syne text-lg font-bold text-white tracking-wide">
                 Low Latency &amp; Fluid UX
               </h4>
@@ -236,7 +192,7 @@ export default function AboutView() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </MotionFadeIn>
 
         {/* ========================================================
             PART 3: TECH STACK - "What I work with"
@@ -280,259 +236,13 @@ export default function AboutView() {
         {/* ========================================================
             PART 4: GitHub Contribution Skyline Section
            ======================================================== */}
-        <div className="w-full flex flex-col gap-3">
-          <div className="flex flex-wrap items-center justify-between mb-1 px-1 sm:px-2 gap-2">
-            <div className="flex items-center gap-2.5">
-              <span className="text-xs font-mono tracking-widest text-zinc-500 uppercase">
-                GitHub Activity
-              </span>
-              <span className="text-zinc-700">•</span>
-              <a
-                href="https://github.com/DebpratimSharma"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-mono text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5"
-              >
-                @DebpratimSharma
-                <span className="text-[10px] text-zinc-500">↗</span>
-              </a>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span
-                  className={cn(
-                    "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
-                    isLoaded ? "bg-emerald-400" : "bg-zinc-500"
-                  )}
-                />
-                <span
-                  className={cn(
-                    "relative inline-flex rounded-full h-2 w-2",
-                    isLoaded ? "bg-emerald-500" : "bg-zinc-400"
-                  )}
-                />
-              </span>
-              <span className="text-xs text-zinc-400 font-mono">
-                {isLoaded ? "Live GitHub Synced" : "Fetching live data..."}
-              </span>
-            </div>
-          </div>
-
-          <Suspense
-            fallback={
-              <div className="h-[280px] w-full rounded-2xl border border-white/10 bg-zinc-950/60 animate-pulse flex items-center justify-center text-xs text-zinc-600 font-mono">
-                Loading activity skyline...
-              </div>
-            }
-          >
-            <ContributionSkyline
-              data={contributions}
-              palette="github"
-              defaultView="3d"
-              className="border-white/10 bg-zinc-950 shadow-2xl rounded-2xl overflow-hidden"
-            />
-          </Suspense>
-        </div>
+        <AboutGitHubActivity />
 
         {/* ========================================================
             PART 5: Case Studies (Problems I Have Solved)
            ======================================================== */}
         {caseStudiesConfig?.enabled && (
-          <div className="w-full flex flex-col gap-6 pt-2">
-            {/* Section Header */}
-            <div className="space-y-2 px-1 sm:px-2">
-              <h3 className="font-syne text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-                Problems I Have Solved
-              </h3>
-              <p className="text-xs sm:text-sm font-mono text-zinc-400">
-                Architectural decisions, real-world metrics, and production-tested solutions.
-              </p>
-            </div>
-
-            {/* Smooth Motion Accordion */}
-            <div className="w-full border border-white/10 rounded-2xl bg-black overflow-hidden shadow-2xl divide-y divide-white/10">
-              {caseStudies.map((item) => {
-                const isOpen = openProblemId === item.id;
-                return (
-                  <div
-                    key={item.id}
-                    className={cn(
-                      "relative overflow-hidden group transition-colors duration-300",
-                      isOpen ? "bg-white/5" : "hover:bg-white/[0.02]"
-                    )}
-                  >
-                    {/* Header Trigger */}
-                    <button
-                      type="button"
-                      onClick={() => setOpenProblemId(isOpen ? null : item.id)}
-                      aria-expanded={isOpen}
-                      aria-controls={`problem-content-${item.id}`}
-                      id={`problem-header-${item.id}`}
-                      className="w-full px-4 sm:px-6 md:px-8 py-4.5 sm:py-5 text-left flex items-center justify-between cursor-pointer group transition-colors duration-300 hover:bg-white/[0.03]"
-                    >
-                      <div className="flex items-center gap-3 sm:gap-5 flex-1 min-w-0 pr-3 sm:pr-4">
-                        <span
-                          className={cn(
-                            "text-xs sm:text-sm font-mono font-medium select-none transition-colors duration-300 shrink-0",
-                            isOpen ? "text-white" : "text-zinc-500 group-hover:text-zinc-300"
-                          )}
-                        >
-                          {item.index}
-                        </span>
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 flex-1 min-w-0">
-                          <h4
-                            className={cn(
-                              "font-syne text-base sm:text-lg md:text-xl font-bold tracking-tight transition-all duration-300 ease-out",
-                              isOpen
-                                ? "text-white translate-x-1.5"
-                                : "text-zinc-300 group-hover:text-white group-hover:translate-x-1.5"
-                            )}
-                          >
-                            {item.title}
-                          </h4>
-                          <span
-                            className={cn(
-                              "text-[11px] font-mono uppercase tracking-wider shrink-0 transition-colors duration-300",
-                              isOpen ? "text-zinc-300" : "text-zinc-500 group-hover:text-zinc-400"
-                            )}
-                          >
-                            / {item.project}
-                          </span>
-                        </div>
-                      </div>
-
-                      <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className="shrink-0"
-                      >
-                        <ChevronDown
-                          className={cn(
-                            "h-4 w-4 transition-colors duration-300",
-                            isOpen ? "text-white" : "text-zinc-500 group-hover:text-zinc-300"
-                          )}
-                        />
-                      </motion.div>
-                    </button>
-
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          id={`problem-content-${item.id}`}
-                          role="region"
-                          aria-labelledby={`problem-header-${item.id}`}
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{
-                            height: "auto",
-                            opacity: 1,
-                            transition: {
-                              height: {
-                                duration: 0.45,
-                                ease: [0.16, 1, 0.3, 1],
-                              },
-                              opacity: {
-                                duration: 0.35,
-                                delay: 0.08,
-                                ease: "easeOut",
-                              },
-                            },
-                          }}
-                          exit={{
-                            height: 0,
-                            opacity: 0,
-                            transition: {
-                              height: {
-                                duration: 0.32,
-                                ease: [0.16, 1, 0.3, 1],
-                              },
-                              opacity: {
-                                duration: 0.2,
-                                ease: "easeIn",
-                              },
-                            },
-                          }}
-                          className="overflow-hidden"
-                        >
-                          <div className="w-full relative border-t border-white/10 p-4 sm:p-6 md:p-8 flex flex-col gap-4 sm:gap-6">
-                            <div className="flex flex-col sm:flex-row sm:items-start gap-1.5 sm:gap-6 pb-3.5 sm:pb-5 border-b border-white/5">
-                              <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider shrink-0 sm:w-24 pt-0.5">
-                                Problem
-                              </span>
-                              <p className="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed flex-1">
-                                {item.problem}
-                              </p>
-                            </div>
-
-                            <div className="flex flex-col sm:flex-row sm:items-start gap-1.5 sm:gap-6 pb-3.5 sm:pb-5 border-b border-white/5">
-                              <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider shrink-0 sm:w-24 pt-0.5">
-                                Solution
-                              </span>
-                              <p className="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed flex-1">
-                                {item.solution}
-                              </p>
-                            </div>
-
-                            <div className="flex flex-col sm:flex-row sm:items-start gap-1.5 sm:gap-6 pb-3.5 sm:pb-5 border-b border-white/5">
-                              <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider shrink-0 sm:w-24 pt-0.5">
-                                Results
-                              </span>
-                              <div className="flex flex-col gap-2.5 sm:gap-3 flex-1">
-                                {item.highlights.map((h, i) => (
-                                  <div
-                                    key={i}
-                                    className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 text-xs sm:text-sm"
-                                  >
-                                    <span className="font-medium text-white shrink-0 sm:min-w-[170px] font-syne">
-                                      {h.metric}
-                                    </span>
-                                    <span className="text-zinc-400 font-light leading-relaxed text-xs sm:text-sm">
-                                      {h.desc}
-                                    </span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pt-1">
-                              <div className="flex flex-col sm:flex-row sm:items-start sm:items-center gap-1.5 sm:gap-6">
-                                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider shrink-0 sm:w-24">
-                                  Stack
-                                </span>
-                                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                                  {item.tags.map((tag) => (
-                                    <span
-                                      key={tag}
-                                      className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider uppercase bg-white/[0.04] border border-white/10 text-zinc-300 select-none hover:border-white/20 transition-colors"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {item.projectUrl && (
-                                <div className="shrink-0 self-start sm:self-auto pl-0 sm:pl-4">
-                                  <InteractiveHoverButton
-                                    href={item.projectUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="h-8 px-4 text-xs font-mono tracking-wider"
-                                  >
-                                    Live Project
-                                  </InteractiveHoverButton>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <ProblemAccordion items={caseStudies} />
         )}
 
         {/* ========================================================

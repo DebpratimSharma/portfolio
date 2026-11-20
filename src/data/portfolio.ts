@@ -498,3 +498,31 @@ export type CaseStudiesConfig = {
   enabled: boolean;
   items: CaseStudyItem[];
 };
+
+export const TECH_STACK_CATEGORIES = [
+  {
+    title: "Languages",
+    items: ["TypeScript", "JavaScript", "Python", "SQL", "C", "Java"],
+  },
+  {
+    title: "Frontend",
+    items: ["Next.js", "React", "Tailwind CSS", "Shadcn UI", "Motion", "HTML5 / CSS3"],
+  },
+  {
+    title: "Backend",
+    items: ["Node.js", "REST APIs", "FastAPI", "Express", "Serverless"],
+  },
+  {
+    title: "Data",
+    items: ["PostgreSQL", "Supabase", "Upstash Redis", "MongoDB", "SQL"],
+  },
+  {
+    title: "Infrastructure",
+    items: ["Docker", "Vercel", "Google Cloud (GCP)", "AWS", "Git & GitHub", "Linux"],
+  },
+  {
+    title: "Models & APIs",
+    items: ["OpenAI API", "ElevenLabs", "Web Audio APIs", "Solana Web3"],
+  },
+];
+
