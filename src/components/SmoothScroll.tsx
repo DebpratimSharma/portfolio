@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, createContext, useContext, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { frame, cancelFrame } from "motion/react";
 import "lenis/dist/lenis.css";
@@ -15,7 +16,17 @@ interface SmoothScrollContextType {
 
 const SmoothScrollContext = createContext<SmoothScrollContextType>({
   getLenis: () => null,
-  scrollTo: () => {},
+  scrollTo: (target) => {
+    if (typeof window !== "undefined") {
+      if (typeof target === "number") {
+        window.scrollTo({ top: target, behavior: "smooth" });
+      } else {
+        const el =
+          typeof target === "string" ? document.querySelector(target) : target;
+        el?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  },
 });
 
 export const useSmoothScroll = () => useContext(SmoothScrollContext);
@@ -33,6 +44,7 @@ interface SmoothScrollProps {
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Respect reduced motion accessibility
@@ -69,29 +81,72 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     frame.update(update, true);
 
+    // Initial hash scroll handling if landed with a hash
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash;
+      setTimeout(() => {
+        const targetEl = document.querySelector(hash);
+        if (targetEl) {
+          lenis.scrollTo(targetEl as HTMLElement, {
+            offset: -40,
+            duration: 1.2,
+          });
+        }
+      }, 350);
+    }
+
+    const handleHashChange = () => {
+      if (typeof window !== "undefined" && window.location.hash) {
+        const targetEl = document.querySelector(window.location.hash);
+        if (targetEl) {
+          lenis.scrollTo(targetEl as HTMLElement, {
+            offset: -40,
+            duration: 1.2,
+          });
+        }
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+
     return () => {
+      window.removeEventListener("hashchange", handleHashChange);
       cancelFrame(update);
       lenis.destroy();
       lenisRef.current = null;
     };
   }, []);
 
+  // Reset scroll to top on route change if no hash is present
+  useEffect(() => {
+    if (typeof window !== "undefined" && !window.location.hash) {
+      lenisRef.current?.scrollTo(0, { immediate: true });
+    }
+  }, [pathname]);
+
   const scrollTo = (
     target: string | number | HTMLElement,
     options?: Record<string, unknown>
   ) => {
     const lenis = lenisRef.current;
+    const resolvedTarget =
+      typeof target === "string"
+        ? (document.querySelector(target) as HTMLElement | null) ?? target
+        : target;
+
     if (lenis) {
-      lenis.scrollTo(target, {
+      lenis.scrollTo(resolvedTarget, {
         duration: 1.4,
         ...options,
       });
     } else {
-      if (typeof target === "number") {
-        window.scrollTo({ top: target, behavior: "smooth" });
+      if (typeof resolvedTarget === "number") {
+        window.scrollTo({ top: resolvedTarget, behavior: "smooth" });
       } else {
         const el =
-          typeof target === "string" ? document.querySelector(target) : target;
+          typeof resolvedTarget === "string"
+            ? document.querySelector(resolvedTarget)
+            : resolvedTarget;
         el?.scrollIntoView({ behavior: "smooth" });
       }
     }

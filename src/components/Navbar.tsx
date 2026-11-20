@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { AnimatedNavLink } from "@/components/ui/animated-nav-link";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { useSmoothScroll } from "@/components/SmoothScroll";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
@@ -29,17 +31,17 @@ export interface NavbarProps {
 }
 
 const defaultNavItems: NavItem[] = [
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "What I Do", href: "#what-i-do" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Experience", href: "/#experience" },
+  { label: "What I Do", href: "/#what-i-do" },
 ];
 
 export default function Navbar({
   logoText = "Debprix",
-  logoHref = "#",
+  logoHref = "/",
   logoIconSrc = "/navbar-icon.png",
   navItems = defaultNavItems,
-  aboutHref = "#hero",
+  aboutHref = "/about",
   aboutText = "About me",
   askAceText = "Ask ACE",
   enableAskAce = PORTFOLIO_DATA.features?.enableAceChatbot ?? false,
@@ -50,6 +52,27 @@ export default function Navbar({
   const [logoHoverKey, setLogoHoverKey] = useState(0);
   const [aceHoverKey, setAceHoverKey] = useState(0);
   const [mobileAceHoverKey, setMobileAceHoverKey] = useState(0);
+  const pathname = usePathname();
+  const { scrollTo } = useSmoothScroll();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      scrollTo(href);
+    } else if (href.startsWith("/#")) {
+      if (pathname === "/") {
+        e.preventDefault();
+        const hash = href.slice(1);
+        scrollTo(hash);
+        if (typeof window !== "undefined") {
+          window.history.pushState(null, "", hash);
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     setIsAskAceEnabled(enableAskAce);
@@ -131,6 +154,7 @@ export default function Navbar({
               <AnimatedNavLink
                 key={item.label}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 animation="blurInUp"
                 by="character"
                 duration={0.25}
@@ -220,7 +244,10 @@ export default function Navbar({
                   <AnimatedNavLink
                     key={item.label}
                     href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, item.href);
+                    }}
                     animation="blurInUp"
                     by="character"
                     duration={0.25}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Mail, Code2 } from "lucide-react";
 import GradientASCII from "@/components/GradientASCII";
 import AnimatedNavLink from "@/components/ui/animated-nav-link";
@@ -59,11 +60,11 @@ const navColumns: NavColumn[] = [
   {
     title: "Navigation",
     links: [
-      { label: "About", href: "#hero" },
-      { label: "Selected Works", href: "#projects" },
-      { label: "Experience", href: "#experience" },
-      { label: "What I Do", href: "#what-i-do" },
-      { label: "Contact", href: "#contact" },
+      { label: "About", href: "/about" },
+      { label: "Selected Works", href: "/#projects" },
+      { label: "Experience", href: "/#experience" },
+      { label: "What I Do", href: "/#what-i-do" },
+      { label: "Contact", href: "/#contact" },
     ],
   },
   {
@@ -116,6 +117,7 @@ const navColumns: NavColumn[] = [
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
   const { scrollTo } = useSmoothScroll();
 
   // Monitor when the footer spacer enters/leaves the viewport.
@@ -145,6 +147,15 @@ export default function Footer() {
     if (item.href.startsWith("#")) {
       e.preventDefault();
       scrollTo(item.href);
+    } else if (item.href.startsWith("/#")) {
+      if (pathname === "/") {
+        e.preventDefault();
+        const hash = item.href.slice(1);
+        scrollTo(hash);
+        if (typeof window !== "undefined") {
+          window.history.pushState(null, "", hash);
+        }
+      }
     }
   };
 

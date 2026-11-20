@@ -184,14 +184,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
-        {/* Floating cosmic aurora navbar */}
-        <Navbar />
-
         {/* Physics-based smooth scroll container powered by motion */}
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          {/* Floating cosmic aurora navbar */}
+          <Navbar />
 
-        {/* Floating crystalized ball trigger and chatbot sidebar */}
-        <ChatbotSidebar />
+          {children}
+
+          {/* Floating crystalized ball trigger and chatbot sidebar */}
+          <ChatbotSidebar />
+        </SmoothScroll>
       </body>
     </html>
   );
