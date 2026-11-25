@@ -15,7 +15,9 @@ function stripRawUrls(text: string): string {
   return text
     .replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/gi, "$1")
     .replace(/https?:\/\/\S+/gi, "")
-    .replace(/\s{2,}/g, " ")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 

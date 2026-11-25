@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { ArrowUp, Check, ChevronRight, Sparkles, Square } from "lucide-react";
+import { MarkdownContent } from "@/components/chat/MarkdownContent";
 
 export type ThinkingStatus = "idle" | "thinking" | "answering" | "done";
 export type ThinkingStep = { id: string; text: string; status?: "active" | "complete" };
@@ -73,7 +74,6 @@ export function ThinkingPromptInput({
   const open = status === "thinking" || (status !== "idle" && expanded);
   const seconds = Number.isFinite(elapsedSeconds) ? Math.max(0, Math.round(elapsedSeconds)) : 0;
   const inputPlaceholder = status === "idle" ? placeholder : followUpPlaceholder;
-  const paragraphs = answer.split("\n").filter(Boolean);
   const lastBoundary = [...answer.matchAll(/[.!?。！？](?=\s|$)|\n/g)].at(-1);
   const completeAnswer = status === "done" ? answer : answer.slice(0, lastBoundary ? lastBoundary.index + 1 : 0).trim();
 
@@ -245,10 +245,18 @@ export function ThinkingPromptInput({
               )}
               {(status === "answering" || status === "done") && (
                 <div data-answer role="region" aria-label="Response" aria-live="off" className="mt-4 space-y-2.5 break-words text-sm leading-6 text-white/90">
-                  {paragraphs.map((paragraph, index) => (
-                    <p key={index}>{paragraph}{status === "answering" && index === paragraphs.length - 1 && <span data-cursor aria-hidden="true" className="ml-1 inline-block h-3.5 w-1 translate-y-0.5 rounded-full bg-white motion-safe:animate-pulse" />}</p>
-                  ))}
-                  {status === "answering" && paragraphs.length === 0 && <span data-cursor aria-hidden="true" className="inline-block h-3.5 w-1 rounded-full bg-white motion-safe:animate-pulse" />}
+                  <MarkdownContent
+                    content={answer}
+                    trailingCursor={
+                      status === "answering" ? (
+                        <span
+                          data-cursor
+                          aria-hidden="true"
+                          className="ml-1 inline-block h-3.5 w-1 translate-y-0.5 rounded-full bg-white motion-safe:animate-pulse"
+                        />
+                      ) : undefined
+                    }
+                  />
                   {answerNote && status === "done" && <p className="text-[11px] leading-4 text-white/45">{answerNote}</p>}
                   {status === "done" && answerFooter}
                 </div>

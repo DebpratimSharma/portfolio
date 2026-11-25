@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ExternalLink, RotateCcw } from "lucide-react";
 import { useChat, type ChatMessage } from "./useChat";
+import { MarkdownContent } from "./MarkdownContent";
 import type { Citation } from "@/lib/chat/schema";
 import {
   ThinkingPromptInput,
@@ -284,9 +285,7 @@ export default function ChatPanel() {
             </div>
           ) : (
             <div key={msg.id} className="min-w-0 space-y-2.5 break-words text-sm leading-6 text-white/90">
-              {msg.content.split("\n").filter(Boolean).map((p, idx) => (
-                <p key={idx}>{p}</p>
-              ))}
+              <MarkdownContent content={msg.content} />
               {!msg.isError && msg.citations && msg.citations.length > 0 && (
                 <CitationList citations={msg.citations} />
               )}
