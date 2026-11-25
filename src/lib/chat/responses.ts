@@ -11,7 +11,7 @@ export const FIXED_RESPONSES = {
   abstained: (): ChatResponse => ({
     status: "abstained",
     answer:
-      "I don't have enough verified information in Debpratim's portfolio to answer that reliably. Try asking about his projects (like TellWeb, AI Voice Translator, DonorFi, or Schedura OS), experience, tech stack, or how to contact him.",
+      "I can't help with that—I only answer to queries about Debpratim's public work here. For more, feel free to reach out to him directly at debpratimsharma33@gmail.com.",
     citations: [],
   }),
 
@@ -33,6 +33,13 @@ export const FIXED_RESPONSES = {
     status: "answered",
     answer:
       "Hi! I'm ACE, Debpratim Sharma's portfolio assistant. Ask me about his projects, engineering experience, tech stack, or how to get in touch.",
+    citations: [],
+  }),
+
+  identity: (): ChatResponse => ({
+    status: "answered",
+    answer:
+      "I'm ACE, Debpratim Sharma's portfolio assistant. I'm built to answer questions grounded in his portfolio—covering his projects, engineering and leadership experience, tech stack, and availability or contact details.",
     citations: [],
   }),
 

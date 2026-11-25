@@ -13,6 +13,44 @@ import { checkRateLimit } from "@/lib/ratelimit";
 
 export const maxDuration = 30;
 
+const RESPONSE_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const MAX_CACHE_ENTRIES = 200;
+
+type CachedChatEntry = {
+  response: ChatResponse;
+  expiresAt: number;
+};
+
+const globalForChatCache = globalThis as typeof globalThis & {
+  __portfolioChatResponseCache?: Map<string, CachedChatEntry>;
+};
+
+function getResponseCache(): Map<string, CachedChatEntry> {
+  if (!globalForChatCache.__portfolioChatResponseCache) {
+    globalForChatCache.__portfolioChatResponseCache = new Map();
+  }
+  return globalForChatCache.__portfolioChatResponseCache;
+}
+
+function getCacheKey(
+  question: string,
+  recentTurns: { role: "user" | "assistant"; content: string }[]
+): string {
+  const normQ = question.trim().toLowerCase().replace(/\s+/g, " ");
+  // Standalone questions (or repeating an already-asked question) share the same cache key.
+  const isStandalone =
+    recentTurns.length === 0 ||
+    (question.split(/\s+/).length > 8 &&
+      !/\b(it|that|this|they|them|those|other|more|details)\b/i.test(question));
+  if (isStandalone) {
+    return `${CHAT_CONFIG.PROMPT_VERSION}::${normQ}`;
+  }
+  const turnsKey = recentTurns
+    .map((t) => `${t.role}:${t.content.trim().toLowerCase().slice(0, 120)}`)
+    .join("|");
+  return `${CHAT_CONFIG.PROMPT_VERSION}::${normQ}::${turnsKey}`;
+}
+
 function jsonResponse(payload: ChatResponse, statusCode = 200) {
   return NextResponse.json(payload, { status: statusCode });
 }
@@ -149,11 +187,25 @@ export async function POST(req: NextRequest) {
     if (scope.action === "greeting") {
       return jsonResponse(FIXED_RESPONSES.greeting());
     }
+    if (scope.action === "identity") {
+      return jsonResponse(FIXED_RESPONSES.identity());
+    }
     if (scope.action === "capabilities") {
       return jsonResponse(FIXED_RESPONSES.capabilities());
     }
+    if (scope.action === "personal") {
+      return jsonResponse(FIXED_RESPONSES.abstained());
+    }
     if (scope.action === "refuse") {
       return jsonResponse(FIXED_RESPONSES.refused());
+    }
+
+    // 6b. Check in-memory response cache for identical/repeated questions
+    const cache = getResponseCache();
+    const cacheKey = getCacheKey(question, recentTurns);
+    const cached = cache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) {
+      return jsonResponse(cached.response);
     }
 
     // 7. Follow-up resolution + Retrieval
@@ -186,9 +238,20 @@ export async function POST(req: NextRequest) {
 
     // 10. Validate & return DB-sourced citations
     const validated = validateModelOutput(rawModelOutput, retrieval.passages);
+    if (validated.status === "answered") {
+      if (cache.size >= MAX_CACHE_ENTRIES) {
+        const oldestKey = cache.keys().next().value;
+        if (oldestKey !== undefined) cache.delete(oldestKey);
+      }
+      cache.set(cacheKey, {
+        response: validated,
+        expiresAt: Date.now() + RESPONSE_CACHE_TTL_MS,
+      });
+    }
     return jsonResponse(validated);
   } catch (err) {
+    const isAbort = err instanceof Error && err.name === "AbortError";
     console.error("Chat route error:", err instanceof Error ? err.message : "unknown");
-    return jsonResponse(FIXED_RESPONSES.error(), 500);
+    return jsonResponse(FIXED_RESPONSES.error(), isAbort ? 504 : 500);
   }
 }

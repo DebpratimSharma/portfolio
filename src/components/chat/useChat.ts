@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { CHAT_CONFIG } from "@/lib/chat/config";
 import type { ChatResponse, ChatStatus, ChatTurn, Citation } from "@/lib/chat/schema";
 
 export type ChatMessage = {
@@ -11,8 +12,6 @@ export type ChatMessage = {
   citations?: Citation[];
   isError?: boolean;
 };
-
-const MAX_RECENT_TURNS = 4;
 
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -41,10 +40,10 @@ export function useChat() {
 
       const recentTurns: ChatTurn[] = messages
         .filter((m) => !m.isError)
-        .slice(-MAX_RECENT_TURNS)
+        .slice(-CHAT_CONFIG.MAX_RECENT_TURNS)
         .map((m) => ({
           role: m.role,
-          content: m.content.slice(0, 400),
+          content: m.content.slice(0, CHAT_CONFIG.MAX_TURN_CHARS),
         }));
 
       setMessages((prev) => [...prev, userMsg]);

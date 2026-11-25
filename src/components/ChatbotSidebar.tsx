@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { X, Sparkles } from "lucide-react";
+import { X } from "lucide-react";
 import CrystalizedBall, { CrystalizedBallPreset } from "@/components/CrystalizedBall";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 const LazyChatPanel = dynamic(() => import("@/components/chat/ChatPanel"), {
   ssr: false,
   loading: () => (
-    <div className="flex-1 flex items-center justify-center p-6 text-xs font-mono text-neutral-500">
-      Loading assistant...
+    <div className="flex-1 flex items-center justify-center p-6 text-xs font-syne text-white/50 bg-black">
+      Loading...
     </div>
   ),
 });
@@ -138,7 +138,7 @@ export default function ChatbotSidebar({
       {/* Floating CrystalizedBall Trigger in the Bottom Right Corner (hidden in footer) */}
       <div
         className={cn(
-          "fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 z-40 flex items-center justify-center select-none transition-all duration-300 ease-in-out",
+          "fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-5 sm:right-6 z-40 flex items-center justify-center select-none transition-all duration-300 ease-in-out",
           isInFooter
             ? "opacity-0 scale-75 pointer-events-none translate-y-6"
             : "opacity-100 scale-100 pointer-events-auto translate-y-0",
@@ -155,8 +155,8 @@ export default function ChatbotSidebar({
           aria-haspopup="dialog"
         >
           {/* Tooltip on hover */}
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-full bg-neutral-900 text-white text-xs font-medium tracking-wide whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none border border-white/10 shadow-lg">
-            {isOpen ? "Close assistant" : "Chat with AI"}
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-full bg-black text-white font-syne text-xs font-medium tracking-wide whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none">
+            {isOpen ? "Close" : "Ask ACE"}
           </div>
 
           {/* Interactive CrystalizedBall Component */}
@@ -202,30 +202,19 @@ export default function ChatbotSidebar({
                   ? { duration: 0 }
                   : { type: "spring", damping: 30, stiffness: 300 }
               }
-              className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[440px] md:w-[480px] max-w-[95vw] bg-neutral-950 border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
+              className="fixed top-0 left-0 right-0 h-dvh max-h-dvh pt-[env(safe-area-inset-top)] pb-[calc(4rem+env(safe-area-inset-bottom))] sm:inset-y-0 sm:left-auto sm:right-0 sm:h-auto sm:max-h-none sm:pt-0 sm:pb-0 z-50 w-full sm:w-[440px] md:w-[480px] bg-black font-syne flex flex-col overflow-hidden"
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full border border-white/15 bg-white/5 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-pink-400" />
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <h2 className="font-syne text-base font-semibold text-white tracking-wide">
-                        {title}
-                      </h2>
-                    </div>
-                    <span className="text-xs text-neutral-400">Online</span>
-                  </div>
-                </div>
+              <div className="flex items-center justify-between px-6 py-4">
+                <h2 className="font-syne text-base font-semibold text-white tracking-wide">
+                  {title}
+                </h2>
 
                 {/* Close Button */}
                 <button
                   type="button"
                   onClick={closeSidebar}
-                  className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  className="p-2 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
                   aria-label="Close sidebar"
                 >
                   <X className="w-5 h-5" />
@@ -233,7 +222,7 @@ export default function ChatbotSidebar({
               </div>
 
               {/* Chatbot Interface Slot */}
-              <div className="flex-1 min-h-0 flex flex-col">
+              <div className="flex-1 min-h-0 flex flex-col bg-black">
                 {children ? children : <LazyChatPanel />}
               </div>
             </motion.aside>

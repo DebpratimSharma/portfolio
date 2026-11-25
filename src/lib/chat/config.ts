@@ -4,7 +4,7 @@
  */
 export const CHAT_CONFIG = {
   /** Number of top passages to retrieve per query. */
-  TOP_K: 5,
+  TOP_K: 3,
 
   /**
    * Minimum combined hybrid score (0..1) required for the top passage.
@@ -23,13 +23,13 @@ export const CHAT_CONFIG = {
   /** Input & request caps. */
   MAX_BODY_BYTES: 16 * 1024, // 16 KB
   MAX_QUESTION_CHARS: 500,
-  MAX_RECENT_TURNS: 4,
+  MAX_RECENT_TURNS: 2,
   MAX_TURN_CHARS: 400,
 
   /** Output caps & timeouts. */
-  MAX_OUTPUT_TOKENS: 450,
+  MAX_OUTPUT_TOKENS: 1024,
   MAX_ANSWER_CHARS: 1800,
-  LLM_TIMEOUT_MS: 18_000,
+  LLM_TIMEOUT_MS: 25_000,
 
   /** Versioning for prompt / cache invalidation. */
   PROMPT_VERSION: "v1",

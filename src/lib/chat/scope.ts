@@ -1,7 +1,9 @@
 export type ScopeDecision =
   | { action: "allow" }
   | { action: "greeting" }
+  | { action: "identity" }
   | { action: "capabilities" }
+  | { action: "personal" }
   | { action: "refuse"; reason: string };
 
 const GREETING_PATTERNS = [
@@ -9,8 +11,16 @@ const GREETING_PATTERNS = [
   /^how\s+are\s+you[?!.\s]*$/i,
 ];
 
+const IDENTITY_PATTERNS = [
+  /^(who|what)\s+(are|r)\s+you[?!.\s]*$/i,
+  /^(what('?s|\s+is)\s+your\s+name|introduce\s+yourself|tell\s+me\s+about\s+yourself)[?!.\s]*$/i,
+  /\b(who|what)\s+(is|are)\s+(this\s+)?(chatbot|chat\s*bot|assistant|ai\s+assistant|bot|ace(\s+ai)?)\b/i,
+  /\btell\s+me\s+about\s+(this\s+)?(chatbot|chat\s*bot|assistant|ace(\s+ai)?)\b/i,
+  /\bwho\s+(built|created|made|developed|trained|owns)\s+(you|this\s+(chatbot|chat\s*bot|assistant|bot)|ace(\s+ai)?)\b/i,
+];
+
 const CAPABILITY_PATTERNS = [
-  /^(what\s+can\s+you\s+do|who\s+are\s+you|what\s+are\s+you|help|how\s+does\s+this\s+work)[?!.\s]*$/i,
+  /^(what\s+can\s+you\s+do|help|how\s+does\s+this\s+work)[?!.\s]*$/i,
 ];
 
 const INJECTION_PATTERNS = [
@@ -31,9 +41,15 @@ const OUT_OF_SCOPE_PATTERNS = [
   /\bhow\s+to\s+(hack|exploit|bypass|crack|scrape)\b/i,
 ];
 
+const PERSONAL_PATTERNS = [
+  /\b(girlfriend|boyfriend|gf|bf|wife|husband|partner|spouse|dating|married|single|relationship\s+status|crush|love\s+life)\b/i,
+  /\b(personal\s+life|private\s+life|family\s+details|parents?|siblings?|mother|father|sister|brother|religion|caste|political|politics|zodiac|horoscope)\b/i,
+  /\b(salary|ctc|package|income|net\s+worth|bank\s+account|aadhaar|pan\s+card|passport|home\s+address|phone\s+number|whatsapp\s+number|date\s+of\s+birth|dob|how\s+old\s+is\s+(he|debpratim))\b/i,
+];
+
 /**
  * Deterministic scope gate that runs before retrieval and LLM calls.
- * Blocks prompt injections and out-of-scope requests without spending tokens.
+ * Blocks prompt injections, private/personal queries, and out-of-scope requests without spending tokens.
  */
 export function checkScope(question: string): ScopeDecision {
   const normalized = question.trim();
@@ -42,12 +58,20 @@ export function checkScope(question: string): ScopeDecision {
     return { action: "greeting" };
   }
 
+  if (IDENTITY_PATTERNS.some((re) => re.test(normalized))) {
+    return { action: "identity" };
+  }
+
   if (CAPABILITY_PATTERNS.some((re) => re.test(normalized))) {
     return { action: "capabilities" };
   }
 
   if (INJECTION_PATTERNS.some((re) => re.test(normalized))) {
     return { action: "refuse", reason: "prompt_injection" };
+  }
+
+  if (PERSONAL_PATTERNS.some((re) => re.test(normalized))) {
+    return { action: "personal" };
   }
 
   if (OUT_OF_SCOPE_PATTERNS.some((re) => re.test(normalized))) {
