@@ -202,7 +202,7 @@ export default function Navbar({
               >
                 <ShinyButton
                   onClick={handleOpenAce}
-                  className="!py-1.5 !px-3.5 !text-[18px] !font-semibold"
+                  className="!py-1.5 !px-3.5 text-[16px]! sm:text-[18px]! !font-semibold"
                 >
                   <TextAnimate
                     key={mobileAceHoverKey}
