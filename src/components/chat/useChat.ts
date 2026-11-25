@@ -11,6 +11,8 @@ export type ChatMessage = {
   status?: ChatStatus;
   citations?: Citation[];
   isError?: boolean;
+  isStreaming?: boolean;
+  wasStreamed?: boolean;
 };
 
 export function useChat() {
@@ -51,51 +53,135 @@ export function useChat() {
 
       const controller = new AbortController();
       abortRef.current = controller;
+      const assistantId = `a-${Date.now()}`;
+      let receivedAnyDelta = false;
 
       try {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question, recentTurns }),
+          body: JSON.stringify({ question, recentTurns, stream: true }),
           signal: controller.signal,
         });
 
-        const data = (await res.json()) as ChatResponse;
-
-        const assistantMsg: ChatMessage = {
-          id: `a-${Date.now()}`,
-          role: "assistant",
-          content: data.answer,
-          status: data.status,
-          citations: data.citations ?? [],
-          isError: data.status === "error",
-        };
-
-        if (data.status === "error") {
-          setLastFailedQuestion(question);
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("ndjson") || !res.body) {
+          const data = (await res.json()) as ChatResponse;
+          const assistantMsg: ChatMessage = {
+            id: assistantId,
+            role: "assistant",
+            content: data.answer,
+            status: data.status,
+            citations: data.citations ?? [],
+            isError: data.status === "error",
+          };
+          if (data.status === "error") {
+            setLastFailedQuestion(question);
+          }
+          setMessages((prev) => [...prev, assistantMsg]);
+          return;
         }
 
-        setMessages((prev) => [...prev, assistantMsg]);
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let finalReceived = false;
+
+        const upsertAssistant = (updater: (prev: ChatMessage | undefined) => ChatMessage) => {
+          setMessages((prev) => {
+            const idx = prev.findIndex((m) => m.id === assistantId);
+            if (idx === -1) {
+              return [...prev, updater(undefined)];
+            }
+            const next = [...prev];
+            next[idx] = updater(prev[idx]);
+            return next;
+          });
+        };
+
+        const handleEvent = (line: string) => {
+          const trimmed = line.trim();
+          if (!trimmed) return;
+          const event = JSON.parse(trimmed) as
+            | { type: "delta"; text: string }
+            | { type: "final"; response: ChatResponse };
+
+          if (event.type === "delta" && event.text) {
+            receivedAnyDelta = true;
+            upsertAssistant((existing) => ({
+              id: assistantId,
+              role: "assistant",
+              content: (existing?.content ?? "") + event.text,
+              status: "answered",
+              isStreaming: true,
+              wasStreamed: true,
+            }));
+          } else if (event.type === "final") {
+            finalReceived = true;
+            const data = event.response;
+            if (data.status === "error") {
+              setLastFailedQuestion(question);
+            }
+            upsertAssistant((existing) => ({
+              id: assistantId,
+              role: "assistant",
+              content: data.answer,
+              status: data.status,
+              citations: data.citations ?? [],
+              isError: data.status === "error",
+              isStreaming: false,
+              wasStreamed: existing?.wasStreamed ?? false,
+            }));
+          }
+        };
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+          for (const line of lines) {
+            handleEvent(line);
+          }
+        }
+        if (buffer.trim()) {
+          handleEvent(buffer);
+        }
+
+        if (!finalReceived && receivedAnyDelta) {
+          upsertAssistant((existing) => ({
+            ...(existing ?? { id: assistantId, role: "assistant", content: "" }),
+            isStreaming: false,
+          }));
+        }
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") {
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: `a-${Date.now()}`,
-              role: "assistant",
-              content: "Request cancelled.",
-              status: "abstained",
-            },
-          ]);
+          setMessages((prev) => {
+            const idx = prev.findIndex((m) => m.id === assistantId);
+            if (idx !== -1 && prev[idx].content) {
+              const next = [...prev];
+              next[idx] = { ...next[idx], isStreaming: false };
+              return next;
+            }
+            return [
+              ...prev,
+              {
+                id: assistantId,
+                role: "assistant",
+                content: "Stopped.",
+                status: "abstained",
+              },
+            ];
+          });
         } else {
           setLastFailedQuestion(question);
           setMessages((prev) => [
-            ...prev,
+            ...prev.filter((m) => m.id !== assistantId),
             {
-              id: `a-${Date.now()}`,
+              id: assistantId,
               role: "assistant",
-              content:
-                "Could not reach the assistant right now. Please check your connection and retry.",
+              content: "Could not reach the assistant right now. Please check your connection and retry.",
               status: "error",
               isError: true,
             },

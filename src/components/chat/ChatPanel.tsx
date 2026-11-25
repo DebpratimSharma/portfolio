@@ -82,9 +82,40 @@ export default function ChatPanel() {
     return messages.slice(0, -2);
   })();
 
-  // Tick elapsed seconds and advance thinking steps while waiting for the API.
+  // Derive live streaming UI state during render to avoid cascading setState in effects.
+  const lastMessage = messages[messages.length - 1];
+  const isActivelyStreaming = Boolean(isLoading && latestAssistant?.isStreaming);
+  const isFinishedStream = Boolean(
+    !isLoading &&
+      uiStatus !== "idle" &&
+      lastMessage?.role === "assistant" &&
+      lastMessage.wasStreamed
+  );
+
+  const effectiveUiStatus: ThinkingStatus = isActivelyStreaming
+    ? "answering"
+    : isFinishedStream
+      ? "done"
+      : uiStatus;
+
+  const effectiveDisplayedAnswer =
+    isActivelyStreaming || isFinishedStream
+      ? (latestAssistant?.content ?? "")
+      : displayedAnswer;
+
+  const effectiveSteps: ThinkingStep[] =
+    isActivelyStreaming || isFinishedStream
+      ? think
+        ? (steps.length ? steps : INITIAL_STEPS).map((s) => ({
+            ...s,
+            status: "complete",
+          }))
+        : []
+      : steps;
+
+  // Tick elapsed seconds and advance thinking steps while waiting for the first token.
   useEffect(() => {
-    if (uiStatus !== "thinking") return;
+    if (effectiveUiStatus !== "thinking") return;
 
     const start = Date.now();
     const secondInterval = window.setInterval(() => {
@@ -111,15 +142,20 @@ export default function ChatPanel() {
       window.clearTimeout(t1);
       window.clearTimeout(t2);
     };
-  }, [uiStatus]);
+  }, [effectiveUiStatus]);
 
-  // Reveal the latest assistant response once the API request completes.
+  // Reveal non-streamed responses (e.g. cached/fixed/error) once the API request completes.
   useEffect(() => {
     if (isLoading || !latestAssistant) return;
+    if (latestAssistant.wasStreamed) {
+      lastAssistantIdRef.current = latestAssistant.id;
+      return;
+    }
     if (latestAssistant.id === lastAssistantIdRef.current) return;
 
     lastAssistantIdRef.current = latestAssistant.id;
     const fullText = latestAssistant.content;
+
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -226,14 +262,14 @@ export default function ChatPanel() {
   }
 
   const showCitations =
-    uiStatus === "done" &&
+    effectiveUiStatus === "done" &&
     latestAssistant &&
     !latestAssistant.isError &&
     latestAssistant.citations &&
     latestAssistant.citations.length > 0;
 
   const showRetry =
-    uiStatus === "done" && latestAssistant?.isError && canRetry;
+    effectiveUiStatus === "done" && latestAssistant?.isError && canRetry;
 
   const historyNode =
     previousMessages.length > 0 ? (
@@ -317,10 +353,10 @@ export default function ChatPanel() {
         }
       >
         <ThinkingPromptInput
-          status={uiStatus}
+          status={effectiveUiStatus}
           prompt={activePrompt}
-          steps={steps}
-          answer={displayedAnswer}
+          steps={effectiveSteps}
+          answer={effectiveDisplayedAnswer}
           elapsedSeconds={elapsedSeconds}
           value={inputValue}
           onValueChange={setInputValue}

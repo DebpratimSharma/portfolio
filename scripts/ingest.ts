@@ -104,6 +104,10 @@ function buildPortfolioSources(): RawSource[] {
         heading: "Availability & Contact",
         body: `Status: ${PORTFOLIO_DATA.status} (${PORTFOLIO_DATA.statusDescription.join(", ")}). Typical response time: ${PORTFOLIO_DATA.responseTime}. Email: ${PORTFOLIO_DATA.email}. Anonymous inbox (TellWeb): ${PORTFOLIO_DATA.tellwebUrl}. Resume: https://debprix.in${PORTFOLIO_DATA.resumeUrl}. Roles: ${PORTFOLIO_DATA.roles.join(", ")}.`,
       },
+      {
+        heading: "Hobbies & Interests",
+        body: `Outside of work and engineering, Debpratim's hobbies and personal interests include: ${PORTFOLIO_DATA.hobbies.join(", ")}.`,
+      },
     ],
   });
 

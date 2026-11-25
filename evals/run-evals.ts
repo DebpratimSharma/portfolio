@@ -63,7 +63,11 @@ async function main() {
 
     if (scope.action === "refuse") {
       actualStatus = "refused";
-    } else if (scope.action === "greeting" || scope.action === "capabilities") {
+    } else if (
+      scope.action === "greeting" ||
+      scope.action === "identity" ||
+      scope.action === "capabilities"
+    ) {
       actualStatus = "answered";
     } else if (fullMode || process.env.MONGODB_URI) {
       const lastUser = c.recentTurns

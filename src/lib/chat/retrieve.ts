@@ -27,7 +27,7 @@ type PassageCache = {
   passages: PassageDoc[];
 };
 
-const CACHE_TTL_MS = 60_000;
+const CACHE_TTL_MS = 5 * 60_000;
 
 const globalForPassages = globalThis as typeof globalThis & {
   __portfolioPassageCache?: PassageCache;
@@ -135,7 +135,21 @@ async function loadActivePassages(): Promise<{
   }
 
   const docs = await passages
-    .find({ version: metaDoc.activeVersion, visibility: "public" })
+    .find(
+      { version: metaDoc.activeVersion, visibility: "public" },
+      {
+        projection: {
+          _id: 1,
+          sourceId: 1,
+          sourceType: 1,
+          title: 1,
+          section: 1,
+          text: 1,
+          embedding: 1,
+          citationUrl: 1,
+        },
+      }
+    )
     .toArray();
 
   globalForPassages.__portfolioPassageCache = {
@@ -152,11 +166,12 @@ async function loadActivePassages(): Promise<{
  */
 export async function retrievePassages(
   resolvedQuery: string,
-  topK: number = CHAT_CONFIG.TOP_K
+  topK: number = CHAT_CONFIG.TOP_K,
+  signal?: AbortSignal
 ): Promise<RetrievalResult> {
   const [{ version, passages }, queryEmbedding] = await Promise.all([
     loadActivePassages(),
-    embedQuery(resolvedQuery),
+    embedQuery(resolvedQuery, signal),
   ]);
 
   const ranked = rankPassages(resolvedQuery, queryEmbedding, passages, topK);

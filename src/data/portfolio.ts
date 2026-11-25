@@ -77,6 +77,14 @@ export const PORTFOLIO_DATA = {
       "I'm a Web Developer and Gen AI Engineer with strong experience in building and shipping real-world products using the React and Next.js ecosystem. I enjoy working close to production—thinking about system boundaries, trade-offs, and long-term maintainability. My background in electrical engineering and IoT gives me a systems-first mindset that goes beyond UI development.",
   },
   roles: ["Web Developer", "Gen AI Engineer", "Freelancer", "React Developer", "Full-Stack Engineer"],
+  hobbies: [
+    "Gaming",
+    "Photography",
+    "Workout",
+    "Movies",
+    "Building something stupid",
+    "Listening to music",
+  ],
 
   socials: [
     {

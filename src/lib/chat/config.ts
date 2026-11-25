@@ -26,10 +26,9 @@ export const CHAT_CONFIG = {
   MAX_RECENT_TURNS: 2,
   MAX_TURN_CHARS: 400,
 
-  /** Output caps & timeouts. */
-  MAX_OUTPUT_TOKENS: 1024,
+  /** Output caps. */
+  MAX_OUTPUT_TOKENS: 512,
   MAX_ANSWER_CHARS: 1800,
-  LLM_TIMEOUT_MS: 25_000,
 
   /** Versioning for prompt / cache invalidation. */
   PROMPT_VERSION: "v1",

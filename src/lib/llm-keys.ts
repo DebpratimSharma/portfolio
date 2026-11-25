@@ -66,7 +66,15 @@ export function getConfiguredApiKeys(): string[] {
     "";
   const backup = process.env.LLM_API_KEY_BKP || "";
 
-  const keys = [primary, backup]
+  // Support additional backup keys LLM_API_KEY_BKP_2 … LLM_API_KEY_BKP_5
+  // so you can register multiple free-tier API keys and spread load across them.
+  const extraBackups: string[] = [];
+  for (let i = 2; i <= 5; i++) {
+    const k = process.env[`LLM_API_KEY_BKP_${i}`] ?? "";
+    if (k) extraBackups.push(k);
+  }
+
+  const keys = [primary, backup, ...extraBackups]
     .map((k) => k.trim())
     .filter((k, idx, arr) => k.length > 0 && arr.indexOf(k) === idx);
 

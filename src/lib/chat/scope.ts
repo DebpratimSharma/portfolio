@@ -12,11 +12,16 @@ const GREETING_PATTERNS = [
 ];
 
 const IDENTITY_PATTERNS = [
-  /^(who|what)\s+(are|r)\s+you[?!.\s]*$/i,
-  /^(what('?s|\s+is)\s+your\s+name|introduce\s+yourself|tell\s+me\s+about\s+yourself)[?!.\s]*$/i,
+  /\b(who|what)\s+(are|r)\s+(you|u)\b/i,
+  /\b(who|what)\s+(you|u)\s+(are|r)\b/i,
+  /\bwho('?s|s|\s+is)\s+this\b(?!\s+(portfolio|site|website|project|page|guy|person|developer|man))/i,
+  /\bwho\s+am\s+i\s+(talking|chatting|speaking)\s+(to|with)\b/i,
+  /\b(what('?s|s|\s+is)\s+your\s+name|do\s+you\s+have\s+a\s+name)\b/i,
+  /\b(introduce\s+yourself|tell\s+me\s+about\s+yourself)\b/i,
   /\b(who|what)\s+(is|are)\s+(this\s+)?(chatbot|chat\s*bot|assistant|ai\s+assistant|bot|ace(\s+ai)?)\b/i,
   /\btell\s+me\s+about\s+(this\s+)?(chatbot|chat\s*bot|assistant|ace(\s+ai)?)\b/i,
   /\bwho\s+(built|created|made|developed|trained|owns)\s+(you|this\s+(chatbot|chat\s*bot|assistant|bot)|ace(\s+ai)?)\b/i,
+  /\bare\s+you\s+(a|an)\s+(ai|bot|chatbot|chat\s*bot|assistant|human|person|robot)\b/i,
 ];
 
 const CAPABILITY_PATTERNS = [
@@ -39,6 +44,8 @@ const OUT_OF_SCOPE_PATTERNS = [
   /\b(write|create|generate|build|fix|debug|refactor|implement|explain)\s+(me\s+)?(a\s+|an\s+|some\s+)?(html|css|javascript|typescript|python|java|c\+\+|rust|sql|bash|react\s+component|function|script|algorithm|regex|dockerfile)\b/i,
   /\b(solve\s+this\s+leetcode|homework|essay|write\s+a\s+poem|tell\s+me\s+a\s+joke|translate\s+this|weather\s+in|stock\s+price|recipe\s+for)\b/i,
   /\bhow\s+to\s+(hack|exploit|bypass|crack|scrape)\b/i,
+  /\b(solve|calculate|compute|evaluate|simplify|factor|integrate|differentiate)\s+(this\s+)?(math|equation|integral|derivative|matrix|expression|\d+\s*[+\-*/^%])/i,
+  /^\s*(what\s+is\s+)?-?\d+(\.\d+)?\s*[+\-*/^%]\s*-?\d+(\.\d+)?(\s*[+\-*/^%]\s*-?\d+(\.\d+)?)*\s*[=?]*\s*$/i,
 ];
 
 const PERSONAL_PATTERNS = [

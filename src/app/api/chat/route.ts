@@ -7,8 +7,11 @@ import {
   retrievePassages,
   meetsEvidenceThreshold,
 } from "@/lib/chat/retrieve";
-import { generateAnswer } from "@/lib/chat/generate";
-import { validateModelOutput } from "@/lib/chat/validate";
+import { generateAnswer, streamAnswer } from "@/lib/chat/generate";
+import {
+  validateModelOutput,
+  validateStreamedOutput,
+} from "@/lib/chat/validate";
 import { checkRateLimit } from "@/lib/ratelimit";
 
 export const maxDuration = 30;
@@ -53,6 +56,19 @@ function getCacheKey(
 
 function jsonResponse(payload: ChatResponse, statusCode = 200) {
   return NextResponse.json(payload, { status: statusCode });
+}
+
+function ndjsonSingleResponse(payload: ChatResponse) {
+  return new Response(
+    JSON.stringify({ type: "final", response: payload }) + "\n",
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "application/x-ndjson; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+      },
+    }
+  );
 }
 
 function getClientIp(req: NextRequest): string {
@@ -167,7 +183,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { question, recentTurns, turnstileToken } = parsedReq.data;
+    const { question, recentTurns, turnstileToken, stream } = parsedReq.data;
     const ip = getClientIp(req);
 
     // 4. Optional Turnstile verification
@@ -182,22 +198,25 @@ export async function POST(req: NextRequest) {
       return jsonResponse(FIXED_RESPONSES.rateLimited(), 429);
     }
 
+    const respond = (payload: ChatResponse) =>
+      stream ? ndjsonSingleResponse(payload) : jsonResponse(payload);
+
     // 6. Scope gate (before retrieval and LLM)
     const scope = checkScope(question);
     if (scope.action === "greeting") {
-      return jsonResponse(FIXED_RESPONSES.greeting());
+      return respond(FIXED_RESPONSES.greeting());
     }
     if (scope.action === "identity") {
-      return jsonResponse(FIXED_RESPONSES.identity());
+      return respond(FIXED_RESPONSES.identity());
     }
     if (scope.action === "capabilities") {
-      return jsonResponse(FIXED_RESPONSES.capabilities());
+      return respond(FIXED_RESPONSES.capabilities());
     }
     if (scope.action === "personal") {
-      return jsonResponse(FIXED_RESPONSES.abstained());
+      return respond(FIXED_RESPONSES.abstained());
     }
     if (scope.action === "refuse") {
-      return jsonResponse(FIXED_RESPONSES.refused());
+      return respond(FIXED_RESPONSES.refused());
     }
 
     // 6b. Check in-memory response cache for identical/repeated questions
@@ -205,36 +224,183 @@ export async function POST(req: NextRequest) {
     const cacheKey = getCacheKey(question, recentTurns);
     const cached = cache.get(cacheKey);
     if (cached && cached.expiresAt > Date.now()) {
-      return jsonResponse(cached.response);
+      return respond(cached.response);
     }
 
-    // 7. Follow-up resolution + Retrieval
+    // 7. Streaming path (NDJSON)
+    if (stream) {
+      const encoder = new TextEncoder();
+      const CITATION_MARKER = "---CITATIONS---";
+      const INSUFFICIENT_TOKEN = "INSUFFICIENT_EVIDENCE";
+
+      const readable = new ReadableStream({
+        async start(controller) {
+          const send = (obj: unknown) => {
+            controller.enqueue(encoder.encode(JSON.stringify(obj) + "\n"));
+          };
+
+          try {
+            const resolvedQuery = resolveFollowUpQuery(question, recentTurns);
+            const retrieval = await retrievePassages(
+              resolvedQuery,
+              CHAT_CONFIG.TOP_K,
+              req.signal
+            );
+
+            if (!meetsEvidenceThreshold(retrieval)) {
+              send({ type: "final", response: FIXED_RESPONSES.abstained() });
+              controller.close();
+              return;
+            }
+
+            let fullRaw = "";
+            let sentLen = 0;
+            let confirmedAnswer = false;
+            let hitCitations = false;
+
+            for await (const delta of streamAnswer({
+              question,
+              recentTurns,
+              passages: retrieval.passages,
+              signal: req.signal,
+            })) {
+              fullRaw += delta;
+
+              if (hitCitations) continue;
+
+              // Wait until we know it's not INSUFFICIENT_EVIDENCE before streaming to UI
+              if (!confirmedAnswer) {
+                const trimmed = fullRaw.trimStart();
+                if (
+                  trimmed.length < INSUFFICIENT_TOKEN.length &&
+                  INSUFFICIENT_TOKEN.startsWith(trimmed)
+                ) {
+                  continue;
+                }
+                if (trimmed.startsWith(INSUFFICIENT_TOKEN)) {
+                  send({ type: "final", response: FIXED_RESPONSES.abstained() });
+                  controller.close();
+                  return;
+                }
+                confirmedAnswer = true;
+              }
+
+              const markerIdx = fullRaw.indexOf(CITATION_MARKER);
+              if (markerIdx !== -1) {
+                hitCitations = true;
+                const safeEnd = Math.max(sentLen, markerIdx);
+                const tail = fullRaw.slice(sentLen, safeEnd).replace(/\s+$/, "");
+                if (tail) {
+                  send({ type: "delta", text: tail });
+                }
+                sentLen = safeEnd;
+                continue;
+              }
+
+              // Hold back enough characters so a split `---CITATIONS---` never flashes
+              const safeEnd = Math.max(sentLen, fullRaw.length - CITATION_MARKER.length);
+              if (safeEnd > sentLen) {
+                send({ type: "delta", text: fullRaw.slice(sentLen, safeEnd) });
+                sentLen = safeEnd;
+              }
+            }
+
+            const trimmedRaw = fullRaw.trim();
+            if (!trimmedRaw || trimmedRaw.startsWith(INSUFFICIENT_TOKEN)) {
+              send({ type: "final", response: FIXED_RESPONSES.abstained() });
+              controller.close();
+              return;
+            }
+
+            const markerIdx = fullRaw.indexOf(CITATION_MARKER);
+            let answerPart = fullRaw;
+            let citationIds: string[] = [];
+
+            if (markerIdx !== -1) {
+              answerPart = fullRaw.slice(0, markerIdx).trim();
+              const metaRaw = fullRaw
+                .slice(markerIdx + CITATION_MARKER.length)
+                .trim()
+                .replace(/^```(?:json)?\s*/i, "")
+                .replace(/\s*```$/, "");
+              try {
+                const parsedIds = JSON.parse(metaRaw);
+                if (Array.isArray(parsedIds)) {
+                  citationIds = parsedIds.filter(
+                    (x): x is string => typeof x === "string"
+                  );
+                }
+              } catch {
+                citationIds = [];
+              }
+            }
+
+            const validated = validateStreamedOutput(
+              answerPart,
+              citationIds,
+              retrieval.passages
+            );
+
+            if (validated.status === "answered") {
+              if (cache.size >= MAX_CACHE_ENTRIES) {
+                const oldestKey = cache.keys().next().value;
+                if (oldestKey !== undefined) cache.delete(oldestKey);
+              }
+              cache.set(cacheKey, {
+                response: validated,
+                expiresAt: Date.now() + RESPONSE_CACHE_TTL_MS,
+              });
+            }
+
+            send({ type: "final", response: validated });
+          } catch (err) {
+            const isAbort = err instanceof Error && err.name === "AbortError";
+            if (!isAbort) {
+              console.error(
+                "Chat stream error:",
+                err instanceof Error ? err.message : "unknown"
+              );
+              try {
+                send({ type: "final", response: FIXED_RESPONSES.error() });
+              } catch {
+                // Stream already closed
+              }
+            }
+          } finally {
+            try {
+              controller.close();
+            } catch {
+              // Already closed
+            }
+          }
+        },
+      });
+
+      return new Response(readable, {
+        status: 200,
+        headers: {
+          "Content-Type": "application/x-ndjson; charset=utf-8",
+          "Cache-Control": "no-cache, no-transform",
+        },
+      });
+    }
+
+    // 7b. Non-streaming path (used by evals & direct JSON callers)
     const resolvedQuery = resolveFollowUpQuery(question, recentTurns);
-    const retrieval = await retrievePassages(resolvedQuery);
+    const retrieval = await retrievePassages(resolvedQuery, CHAT_CONFIG.TOP_K);
 
     // 8. Evidence threshold check (abstain without LLM call if weak)
     if (!meetsEvidenceThreshold(retrieval)) {
       return jsonResponse(FIXED_RESPONSES.abstained());
     }
 
-    // 9. Generation with timeout
-    const controller = new AbortController();
-    const timeout = setTimeout(
-      () => controller.abort(),
-      CHAT_CONFIG.LLM_TIMEOUT_MS
-    );
-
-    let rawModelOutput: unknown;
-    try {
-      rawModelOutput = await generateAnswer({
-        question,
-        recentTurns,
-        passages: retrieval.passages,
-        signal: controller.signal,
-      });
-    } finally {
-      clearTimeout(timeout);
-    }
+    // 9. Generation — no server-side timeout; the platform maxDuration ceiling applies.
+    const rawModelOutput = await generateAnswer({
+      question,
+      recentTurns,
+      passages: retrieval.passages,
+      signal: req.signal,
+    });
 
     // 10. Validate & return DB-sourced citations
     const validated = validateModelOutput(rawModelOutput, retrieval.passages);

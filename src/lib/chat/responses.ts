@@ -32,14 +32,14 @@ export const FIXED_RESPONSES = {
   greeting: (): ChatResponse => ({
     status: "answered",
     answer:
-      "Hi! I'm ACE, Debpratim Sharma's portfolio assistant. Ask me about his projects, engineering experience, tech stack, or how to get in touch.",
+      "Hi! I'm ACE AI, Debpratim Sharma's portfolio assistant. Ask me about his projects, engineering experience, tech stack, or how to get in touch.",
     citations: [],
   }),
 
   identity: (): ChatResponse => ({
     status: "answered",
     answer:
-      "I'm ACE, Debpratim Sharma's portfolio assistant. I'm built to answer questions grounded in his portfolio—covering his projects, engineering and leadership experience, tech stack, and availability or contact details.",
+      "I'm ACE AI, Debpratim Sharma's portfolio assistant. I'm built to answer questions grounded in his portfolio—covering his projects, engineering and leadership experience, tech stack, and availability or contact details.",
     citations: [],
   }),
 

@@ -21,6 +21,7 @@ export const ChatRequestSchema = z.object({
     .optional()
     .default([]),
   turnstileToken: z.string().trim().max(2048).optional(),
+  stream: z.boolean().optional().default(false),
 });
 
 export type ChatTurn = z.infer<typeof ChatTurnSchema>;

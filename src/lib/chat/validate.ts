@@ -19,6 +19,50 @@ function stripRawUrls(text: string): string {
     .trim();
 }
 
+export function validateStreamedOutput(
+  rawAnswer: string,
+  citationIds: string[],
+  retrievedPassages: ScoredPassage[]
+): ChatResponse {
+  const passageMap = new Map(retrievedPassages.map((p) => [p.id, p]));
+  const validPassages: ScoredPassage[] = [];
+  const seenSources = new Set<string>();
+
+  for (const id of citationIds) {
+    const match = passageMap.get(id.trim());
+    if (!match) {
+      console.warn("Chat stream validation failed: unknown citationId", id);
+      return FIXED_RESPONSES.abstained();
+    }
+    if (!seenSources.has(match.sourceId)) {
+      seenSources.add(match.sourceId);
+      validPassages.push(match);
+    }
+  }
+
+  if (validPassages.length === 0) {
+    console.warn("Chat stream validation failed: answered with zero valid citations");
+    return FIXED_RESPONSES.abstained();
+  }
+
+  const cleanedAnswer = stripRawUrls(rawAnswer).slice(0, CHAT_CONFIG.MAX_ANSWER_CHARS);
+  if (!cleanedAnswer) {
+    return FIXED_RESPONSES.abstained();
+  }
+
+  const citations: Citation[] = validPassages.map((p) => ({
+    id: p.id,
+    title: p.title,
+    ...(p.citationUrl ? { url: p.citationUrl } : {}),
+  }));
+
+  return {
+    status: "answered",
+    answer: cleanedAnswer,
+    citations,
+  };
+}
+
 /**
  * Validates structured model output against retrieved passages and builds the
  * final ChatResponse with trusted DB citation URLs.
