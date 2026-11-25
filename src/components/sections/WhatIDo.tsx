@@ -155,7 +155,7 @@ export default function WhatIDo() {
             {/* Bullets: Targets, Focus & Foundation */}
             <div className="space-y-4 pt-1">
               <div className="flex items-start gap-3.5">
-                <div className="mt-1 h-6 w-6 rounded-md bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0">
+                <div className="mt-1 h-6 w-6 rounded-md bg-white/6 border border-white/10 flex items-center justify-center shrink-0">
                   <Briefcase className="w-3.5 h-3.5 text-zinc-300" />
                 </div>
                 <div>
@@ -169,7 +169,7 @@ export default function WhatIDo() {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="mt-1 h-6 w-6 rounded-md bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0">
+                <div className="mt-1 h-6 w-6 rounded-md bg-white/6 border border-white/10 flex items-center justify-center shrink-0">
                   <Code2 className="w-3.5 h-3.5 text-zinc-300" />
                 </div>
                 <div>
@@ -183,7 +183,7 @@ export default function WhatIDo() {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="mt-1 h-6 w-6 rounded-md bg-white/[0.06] border border-white/10 flex items-center justify-center shrink-0">
+                <div className="mt-1 h-6 w-6 rounded-md bg-white/6 border border-white/10 flex items-center justify-center shrink-0">
                   <Compass className="w-3.5 h-3.5 text-zinc-300" />
                 </div>
                 <div>
@@ -201,7 +201,7 @@ export default function WhatIDo() {
             <div className="pt-2 flex items-center">
               <InteractiveHoverButton
                 href="/about"
-                className="text-xs sm:text-sm font-syne tracking-wide !py-2 !px-5"
+                className="text-xs sm:text-sm font-syne tracking-wide py-2! px-5!"
               >
                 More About Me
               </InteractiveHoverButton>
@@ -292,7 +292,7 @@ export default function WhatIDo() {
 
           <Suspense
             fallback={
-              <div className="h-[280px] w-full rounded-2xl border border-white/10 bg-zinc-950/60 animate-pulse flex items-center justify-center text-xs text-zinc-600 font-mono">
+              <div className="h-70 w-full rounded-2xl border border-white/10 bg-zinc-950/60 animate-pulse flex items-center justify-center text-xs text-zinc-600 font-mono">
                 Loading activity skyline...
               </div>
             }
@@ -329,7 +329,7 @@ export default function WhatIDo() {
                     key={item.id}
                     className={cn(
                       "relative overflow-hidden group transition-colors duration-300",
-                      isOpen ? "bg-white/5" : "hover:bg-white/[0.02]"
+                      isOpen ? "bg-white/5" : "hover:bg-white/2"
                     )}
                   >
                     {/* Header Trigger */}
@@ -339,7 +339,7 @@ export default function WhatIDo() {
                       aria-expanded={isOpen}
                       aria-controls={`problem-content-${item.id}`}
                       id={`problem-header-${item.id}`}
-                      className="w-full px-4 sm:px-6 md:px-8 py-4.5 sm:py-5 text-left flex items-center justify-between cursor-pointer group transition-colors duration-300 hover:bg-white/[0.03]"
+                      className="w-full px-4 sm:px-6 md:px-8 py-4.5 sm:py-5 text-left flex items-center justify-between cursor-pointer group transition-colors duration-300 hover:bg-white/3"
                     >
                       <div className="flex items-center gap-3 sm:gap-5 flex-1 min-w-0 pr-3 sm:pr-4">
                         {/* 2-Digit Index */}
@@ -459,7 +459,7 @@ export default function WhatIDo() {
                                     key={i}
                                     className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 text-xs sm:text-sm"
                                   >
-                                    <span className="font-medium text-white shrink-0 sm:min-w-[170px] font-syne">
+                                    <span className="font-medium text-white shrink-0 sm:min-w-42.5 font-syne">
                                       {h.metric}
                                     </span>
                                     <span className="text-zinc-400 font-light leading-relaxed text-xs sm:text-sm">
@@ -472,7 +472,7 @@ export default function WhatIDo() {
 
                             {/* Stack & Action Row */}
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pt-1">
-                              <div className="flex flex-col sm:flex-row sm:items-start sm:items-center gap-1.5 sm:gap-6">
+                              <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6">
                                 <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider shrink-0 sm:w-24">
                                   Stack
                                 </span>
@@ -480,7 +480,7 @@ export default function WhatIDo() {
                                   {item.tags.map((tag) => (
                                     <span
                                       key={tag}
-                                      className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider uppercase bg-white/[0.04] border border-white/10 text-zinc-300 select-none hover:border-white/20 transition-colors"
+                                      className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider uppercase bg-white/4 border border-white/10 text-zinc-300 select-none hover:border-white/20 transition-colors"
                                     >
                                       {tag}
                                     </span>

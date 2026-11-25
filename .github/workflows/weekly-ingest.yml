@@ -1,0 +1,46 @@
+name: Sync Portfolio & GitHub Knowledge Base
+
+on:
+  schedule:
+    # Weekly sync every Sunday at 03:00 UTC (08:30 IST) for fresh GitHub activity
+    - cron: "0 3 * * 0"
+  push:
+    branches: [main]
+    paths:
+      - "src/data/portfolio.ts"
+      - "public/resume.pdf"
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ingestion
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGODB_DB: ${{ secrets.MONGODB_DB }}
+          LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          EMBEDDING_MODEL: ${{ secrets.EMBEDDING_MODEL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            pnpm ingest --source=github
+          else
+            pnpm ingest
+          fi

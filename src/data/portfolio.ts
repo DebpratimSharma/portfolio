@@ -70,7 +70,7 @@ export const PORTFOLIO_DATA = {
      * and the chatbot sidebar stay invisible and disabled.
      * Set to true when ready to enable and test the AI chatbot.
      */
-    enableAceChatbot: false,
+    enableAceChatbot: true,
   },
   about: {
     description:

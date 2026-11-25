@@ -1,11 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import React, { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { X, Sparkles } from "lucide-react";
 import CrystalizedBall, { CrystalizedBallPreset } from "@/components/CrystalizedBall";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
+
+const LazyChatPanel = dynamic(() => import("@/components/chat/ChatPanel"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex-1 flex items-center justify-center p-6 text-xs font-mono text-neutral-500">
+      Loading assistant...
+    </div>
+  ),
+});
 
 export interface ChatbotSidebarProps {
   /**
@@ -46,13 +56,18 @@ export default function ChatbotSidebar({
   title = "ACE Assistant",
   className = "",
 }: ChatbotSidebarProps) {
-  const [isEnabled, setIsEnabled] = useState(enabled);
   const [isOpen, setIsOpen] = useState(false);
   const [isInFooter, setIsInFooter] = useState(false);
+  const launcherRef = useRef<HTMLButtonElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const isEnabled = enabled;
 
-  useEffect(() => {
-    setIsEnabled(enabled);
-  }, [enabled]);
+  const closeSidebar = () => {
+    setIsOpen(false);
+    requestAnimationFrame(() => {
+      launcherRef.current?.focus();
+    });
+  };
 
   // Monitor when the footer is reached so the floating trigger smoothly disappears
   useEffect(() => {
@@ -104,6 +119,9 @@ export default function ChatbotSidebar({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
         setIsOpen(false);
+        requestAnimationFrame(() => {
+          launcherRef.current?.focus();
+        });
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -128,8 +146,9 @@ export default function ChatbotSidebar({
         )}
       >
         <button
+          ref={launcherRef}
           type="button"
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={() => (isOpen ? closeSidebar() : setIsOpen(true))}
           className="relative group w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center p-1 bg-transparent hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
           aria-label={isOpen ? "Close chatbot" : "Open chatbot"}
           aria-expanded={isOpen}
@@ -165,7 +184,7 @@ export default function ChatbotSidebar({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              onClick={() => setIsOpen(false)}
+              onClick={closeSidebar}
               className="fixed inset-0 z-50 bg-black/80"
               aria-hidden="true"
             />
@@ -175,10 +194,14 @@ export default function ChatbotSidebar({
               role="dialog"
               aria-modal="true"
               aria-label={title}
-              initial={{ x: "100%" }}
+              initial={prefersReducedMotion ? false : { x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              exit={prefersReducedMotion ? { opacity: 0 } : { x: "100%" }}
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : { type: "spring", damping: 30, stiffness: 300 }
+              }
               className="fixed top-0 right-0 bottom-0 z-50 w-full sm:w-[440px] md:w-[480px] max-w-[95vw] bg-neutral-950 border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
             >
               {/* Header */}
@@ -201,7 +224,7 @@ export default function ChatbotSidebar({
                 {/* Close Button */}
                 <button
                   type="button"
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeSidebar}
                   className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
                   aria-label="Close sidebar"
                 >
@@ -209,17 +232,9 @@ export default function ChatbotSidebar({
                 </button>
               </div>
 
-              {/* Chatbot Interface Slot (Empty for now) */}
-              <div className="flex-1 overflow-y-auto p-4 flex flex-col">
-                {children ? (
-                  children
-                ) : (
-                  <div className="flex-1 flex flex-col items-center justify-center text-center p-6 border border-dashed border-white/10 rounded-2xl m-2">
-                    <p className="text-neutral-500 text-sm font-mono">
-                      Chatbot interface will appear here
-                    </p>
-                  </div>
-                )}
+              {/* Chatbot Interface Slot */}
+              <div className="flex-1 min-h-0 flex flex-col">
+                {children ? children : <LazyChatPanel />}
               </div>
             </motion.aside>
           </>
