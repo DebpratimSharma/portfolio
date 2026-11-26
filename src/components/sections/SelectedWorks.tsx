@@ -181,7 +181,7 @@ export default function SelectedWorks() {
                   </div>
 
                   {/* Right Column: Tech Stack Pills (Line 1) and Action Buttons (Line 2) in separate lines */}
-                  <div className="flex flex-col items-start lg:items-end justify-center gap-3.5 sm:gap-4 shrink-0 pl-8 lg:pl-0 pt-1 lg:pt-0">
+                  <div className="flex flex-col items-start lg:items-end justify-center gap-3.5 sm:gap-4 shrink-0 pl-6.5 lg:pl-0 pt-1 lg:pt-0">
                     {/* Line 1: Tech Stack Pills */}
                     <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 lg:justify-end">
                       {project.tech.map((tag) => (

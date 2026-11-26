@@ -163,7 +163,7 @@ export function MainButton({
           as="span"
           startOnView={false}
           className={cn(
-            "inline-block font-syne font-bold text-[inherit] tracking-[0.16em] uppercase transition-colors duration-300",
+            "inline-block whitespace-nowrap font-syne font-bold text-[inherit] tracking-[0.16em] uppercase transition-colors duration-300",
             textAnimateColor
           )}
           segmentClassName="tracking-[0.16em]"
@@ -173,7 +173,7 @@ export function MainButton({
       ) : (
         <span
           className={cn(
-            "inline-block font-syne font-bold text-[inherit] tracking-[0.16em] uppercase transition-colors duration-300",
+            "inline-block whitespace-nowrap font-syne font-bold text-[inherit] tracking-[0.16em] uppercase transition-colors duration-300",
             textAnimateColor
           )}
         >

@@ -135,10 +135,10 @@ export default function ChatbotSidebar({
 
   return (
     <>
-      {/* Floating CrystalizedBall Trigger in the Bottom Right Corner (hidden in footer) */}
+      {/* Floating CrystalizedBall Trigger in the Bottom Right Corner (hidden on mobile and in footer) */}
       <div
         className={cn(
-          "fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-5 sm:right-6 z-40 flex items-center justify-center select-none transition-all duration-300 ease-in-out",
+          "hidden sm:flex fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 z-40 items-center justify-center select-none transition-all duration-300 ease-in-out",
           isInFooter
             ? "opacity-0 scale-75 pointer-events-none translate-y-6"
             : "opacity-100 scale-100 pointer-events-auto translate-y-0",

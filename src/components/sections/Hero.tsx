@@ -33,7 +33,7 @@ export default function Hero() {
             <span className="font-syne italic text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white pl-1 select-none">
               Welcome to
             </span>
-            <h1 className="w-full font-syne font-extrabold text-5xl sm:text-7xl md:text-9xl leading-[0.88] tracking-normal text-white uppercase whitespace-nowrap select-none drop-shadow-[0_4px_32px_rgba(0,0,0,0.9)]">
+            <h1 className="w-full font-syne font-extrabold text-[clamp(2rem,11vw,3.5rem)] sm:text-7xl md:text-9xl leading-[0.88] tracking-normal text-white uppercase whitespace-nowrap select-none drop-shadow-[0_4px_32px_rgba(0,0,0,0.9)]">
               DEBPRIX
             </h1>
           </ScrollReveal>
@@ -46,9 +46,9 @@ export default function Hero() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" duration={0.8} delay={0.35}>
-              <div className="flex items-center gap-3 md:gap-4 pl-1 pointer-events-auto">
+              <div className="flex items-center gap-2 min-[375px]:gap-2.5 sm:gap-3 md:gap-4 pl-1 pointer-events-auto">
                 <h2
-                  className="font-syne font-semibold text-lg sm:text-xl md:text-4xl text-white tracking-wide select-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
+                  className="font-syne font-semibold text-sm min-[375px]:text-base sm:text-xl md:text-4xl text-white tracking-wide whitespace-nowrap select-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
                 >
                   Debpratim Sharma
                 </h2>
@@ -60,7 +60,8 @@ export default function Hero() {
                   download="Debpratim_Sharma_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  icon={<Download className="w-4 h-4" strokeWidth={2.4} />}
+                  icon={<Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2.4} />}
+                  className="shrink-0 whitespace-nowrap px-3.5 py-2 gap-1.5 text-[10px] tracking-[0.1em] min-[375px]:px-4 min-[375px]:py-2.5 min-[375px]:text-[11px] min-[375px]:tracking-[0.12em] sm:px-8 sm:py-3 sm:gap-3 sm:text-sm sm:tracking-[0.16em]"
                   aria-label="Resume"
                 >
                   RESUME
